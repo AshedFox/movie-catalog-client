@@ -20,18 +20,11 @@
     "incremental": true,
     "baseUrl": "src",
     "paths": {
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@app/*": [
-        "app/*"
-      ]
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@app/*": ["app/*"],
+      "@constants/*": ["constants/*"],
     },
     "plugins": [
       {

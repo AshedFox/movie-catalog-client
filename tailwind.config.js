@@ -8,13 +8,24 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '310px',
+        sm: '480px',
+        md: '728px',
+        lg: '960px',
+        xl: '1140px',
+        '2xl': '1280px',
+      },
+      container: {
+        center: true,
+      },
       height: {
         header: '70px',
         'without-header': 'calc(100vh - 70px)',
       },
       colors: {
-        gray: colors.stone,
-        primary: colors.red,
+        primary: colors.violet,
+        gray: colors.neutral,
         secondary: colors.rose,
       },
       keyframes: {
@@ -33,5 +44,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
