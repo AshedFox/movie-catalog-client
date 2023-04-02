@@ -1,7 +1,10 @@
-import React from "react";
+import { Metadata } from 'next';
 
-const Page = async () => {
+export const metadata: Metadata = {
+  title: 'MovieView',
+};
 
+const Page = () => {
   return (
     <div>Home Page</div>
   );
