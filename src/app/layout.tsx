@@ -1,5 +1,7 @@
-import "./globals.css";
-import React, { ReactNode } from "react";
+import './globals.css';
+import React, { ReactNode } from 'react';
+import { Header } from '@components/common';
+import Providers from './Providers';
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   return (
@@ -12,7 +14,13 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
           rel="stylesheet"
         />
       </head>
-      <body className="flex flex-col">{children}</body>
+      <body>
+        <Providers>
+          <div id="modal-root" />
+          <Header />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 };
