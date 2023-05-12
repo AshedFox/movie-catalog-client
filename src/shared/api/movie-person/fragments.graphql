@@ -1,0 +1,11 @@
+fragment MoviePersonCard_MoviePerson on MoviePerson {
+  id
+  type {
+    id
+    name
+  }
+  role
+  person {
+    ...Person
+  }
+}

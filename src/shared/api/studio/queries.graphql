@@ -1,0 +1,12 @@
+query GetStudios(
+  $limit: Int!
+  $offset: Int!
+  $filter: StudioFilter
+  $sort: StudioSort
+) {
+  getStudios(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
+    nodes {
+      ...BaseStudio
+    }
+  }
+}

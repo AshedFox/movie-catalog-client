@@ -1,0 +1,6 @@
+fragment MovieUser on MovieUser {
+  isBookmarked
+  isWatched
+  movieId
+  userId
+}

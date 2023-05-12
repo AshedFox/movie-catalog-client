@@ -1,0 +1,22 @@
+fragment BaseCollection on Collection {
+  id
+  name
+  isSystem
+  description
+  createdAt
+}
+
+fragment CollectionCard_Collection on Collection {
+  ...BaseCollection
+  cover {
+    url
+  }
+}
+
+fragment CollectionItem_Collection on Collection {
+  ...CollectionCard_Collection
+  movies {
+    ...SeriesCard_Series
+    ...FilmCard_Film
+  }
+}

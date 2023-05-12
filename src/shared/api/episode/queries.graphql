@@ -1,0 +1,5 @@
+query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {
+  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {
+    ...Episode
+  }
+}

@@ -1,0 +1,30 @@
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    accessToken
+    refreshToken
+    user {
+      ...User
+    }
+  }
+}
+
+mutation SignUp($input: RegisterInput!) {
+  register(input: $input) {
+    accessToken
+    refreshToken
+    user {
+      ...User
+    }
+  }
+}
+
+mutation Refresh {
+  refresh {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation Logout {
+  logout
+}

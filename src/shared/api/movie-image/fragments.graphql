@@ -1,0 +1,10 @@
+fragment MovieImageCard_MovieImage on MovieImage {
+  id
+  type {
+    id
+    name
+  }
+  image {
+    url
+  }
+}

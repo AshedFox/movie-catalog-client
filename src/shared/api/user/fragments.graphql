@@ -1,0 +1,19 @@
+fragment BaseUser on User {
+  id
+  name
+  avatar {
+    url
+  }
+}
+
+fragment User on User {
+  ...BaseUser
+  email
+  createdAt
+  country {
+    id
+    name
+  }
+  role
+  isEmailConfirmed
+}

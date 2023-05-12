@@ -18,13 +18,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"],
+      "@shared/*": ["shared/*"],
+      "@widgets/*": ["widgets/*"],
+      "@entities/*": ["entities/*"],
+      "@features/*": ["features/*"],
       "@app/*": ["app/*"],
-      "@constants/*": ["constants/*"],
     },
     "plugins": [
       {

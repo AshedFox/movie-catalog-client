@@ -1,22 +1,33 @@
 import './globals.css';
+import 'shaka-player/dist/controls.css';
 import React, { ReactNode } from 'react';
-import { Header } from '@components/common';
 import Providers from './Providers';
+import { Montserrat } from 'next/font/google';
+import { Header } from '@widgets/header';
+import { Metadata } from 'next';
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  viewport: 'width=device-width, initial-scale=1.0',
+  title: 'MovieView',
+};
+
+const RootLayout = ({
+  children,
+  modal,
+}: {
+  children: ReactNode;
+  modal: ReactNode;
+}) => {
   return (
-    <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html className={montserrat.className}>
       <body>
         <Providers>
-          <div id="modal-root" />
+          <div id="modal-root">{modal}</div>
           <Header />
           {children}
         </Providers>

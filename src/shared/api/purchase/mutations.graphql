@@ -1,0 +1,3 @@
+mutation CreatePurchaseSession($movieId: String!, $priceId: String!) {
+  createPurchaseSession(movieId: $movieId, priceId: $priceId)
+}

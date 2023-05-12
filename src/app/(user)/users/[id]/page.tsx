@@ -1,9 +1,13 @@
-import { graphql } from '@lib/graphql/__generated__';
-import { initializeApollo } from '@lib/graphql/apollo-client';
+import { GetUserDocument, initializeApollo } from '@shared/api/graphql';
 import Image from 'next/image';
-import blankProfile from '@assets/blank_profile.png';
-import { formatDate } from '@lib/helpers/format.helper';
-import React from 'react';
+import { formatDate } from '@shared/lib/helpers';
+import React, { Suspense } from 'react';
+import { notFound } from 'next/navigation';
+import { Loader } from '@shared/ui';
+import { UserMoviesReviewsBlock } from '@widgets/user-movies-reviews-block';
+import { UserMoviesBlock } from '@widgets/user-movies-block';
+import { UserCollectionsBlock } from '@widgets/user-collections-block';
+import { UserCollectionsReviewsBlock } from '@widgets/user-collections-reviews-block';
 
 export const generateMetadata = async ({ params }: Props) => {
   const client = initializeApollo();
@@ -17,26 +21,6 @@ export const generateMetadata = async ({ params }: Props) => {
   return { title: data.getUser.name };
 };
 
-const GetUserDocument = graphql(/* GraphQL */ `
-  query GetUser($id: String!) {
-    getUser(id: $id) {
-      id
-      createdAt
-      name
-      email
-      role
-      isEmailConfirmed
-      avatar {
-        url
-      }
-      country {
-        id
-        name
-      }
-    }
-  }
-`);
-
 type Props = {
   params: {
     id: string;
@@ -45,49 +29,128 @@ type Props = {
 
 const Page = async ({ params }: Props) => {
   const client = initializeApollo();
-  const { data } = await client.query({
+  const { data: userData } = await client.query({
     query: GetUserDocument,
     variables: {
       id: params.id,
     },
   });
 
-  if (!data) {
-    return;
+  if (!userData) {
+    notFound();
   }
 
-  const user = data.getUser;
+  const user = userData.getUser;
 
   return (
-    <main className="flex flex-col py-4 container flex-auto gap-2 md:gap-5">
+    <main className="flex flex-col py-4 container flex-auto gap-4 md:gap-8">
       <div className="flex flex-col md:flex-row gap-2 md:gap-5">
         <Image
-          src={user.avatar?.url ?? blankProfile}
+          src={user.avatar?.url ?? '/blank_profile.png'}
           alt="profile avatar"
+          width={512}
+          height={512}
           priority={true}
           className={
-            'rounded-full object-cover w-full md:w-32 md:h-32 xl:w-48 xl:h-48'
+            'rounded-full shrink-0 object-cover w-full md:w-32 md:h-32 xl:w-48 xl:h-48'
           }
         />
-        <div className="flex flex-col gap-1">
-          <h1 className="font-semibold text-3xl leading-tight">{user.name}</h1>
-          <div className="flex flex-col gap-1 px-4 py-1">
-            <div>
-              <span className="font-semibold">Email: </span>
-              <span className="text-sm px-4">{user.email}</span>
+        <div className="flex flex-col gap-1 flex-auto">
+          <h1 className="font-bold text-3xl leading-tight">{user.name}</h1>
+          <div className="flex flex-col gap-2 p-1">
+            <div className="text-sm">
+              <span>{user.email}</span>
             </div>
-            <div>
-              <span className="font-semibold">Registration date: </span>
-              <span>{formatDate(user.createdAt)}</span>
+            <div className="text-sm">
+              <span>Since {formatDate(user.createdAt)}</span>
             </div>
             {user.country && (
-              <div>
+              <div className="text-sm">
                 <span className="font-semibold">Country: </span>
-                <span>{user.country?.name}</span>
+                <span>{user.country.name}</span>
               </div>
             )}
           </div>
         </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 lg:gap-4 xl:gap-6">
+        <Suspense
+          fallback={
+            <div className="flex flex-auto items-center justify-center">
+              <Loader />
+            </div>
+          }
+        >
+          {/* @ts-expect-error Async Server Component */}
+          <UserMoviesBlock
+            title="Bookmarked movies"
+            userId={params.id}
+            moviesCount={10}
+            type="bookmark"
+            fullLink={`/users/${params.id}/bookmarked`}
+          />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="flex flex-auto items-center justify-center">
+              <Loader />
+            </div>
+          }
+        >
+          {/* @ts-expect-error Async Server Component */}
+          <UserMoviesBlock
+            title="Favorite movies"
+            userId={params.id}
+            moviesCount={10}
+            type="favorite"
+            fullLink={`/users/${params.id}/favorite`}
+          />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="flex flex-auto items-center justify-center">
+              <Loader />
+            </div>
+          }
+        >
+          {/* @ts-expect-error Async Server Component */}
+          <UserCollectionsBlock
+            title="User collections"
+            userId={params.id}
+            fullLink={`/users/${user.id}/collections`}
+            collectionsCount={10}
+          />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="flex flex-auto items-center justify-center">
+              <Loader />
+            </div>
+          }
+        >
+          {/* @ts-expect-error Async Server Component */}
+          <UserMoviesReviewsBlock
+            title="Movies reviews"
+            fullLink={`/users/${params.id}/movies-reviews`}
+            userId={params.id}
+            reviewsCount={10}
+          />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="flex flex-auto items-center justify-center">
+              <Loader />
+            </div>
+          }
+        >
+          {/* @ts-expect-error Async Server Component */}
+          <UserCollectionsReviewsBlock
+            title="Collections reviews"
+            fullLink={`/users/${params.id}/collections-reviews`}
+            userId={params.id}
+            reviewsCount={10}
+          />
+        </Suspense>
       </div>
     </main>
   );

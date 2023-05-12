@@ -1,0 +1,23 @@
+mutation CreateRoom($input: CreateRoomInput!) {
+  createRoom(input: $input) {
+    ...Room
+  }
+}
+
+mutation GenerateRoomInvite($id: String!) {
+  generateRoomInvite(id: $id)
+}
+
+mutation DeleteRoom($id: String!) {
+  deleteRoom(id: $id) {
+    ...BaseRoom
+  }
+}
+
+mutation StartRoomPlayback($id: String!) {
+  startRoomPlayback(id: $id)
+}
+
+mutation EndRoomPlayback($id: String!) {
+  endRoomPlayback(id: $id)
+}

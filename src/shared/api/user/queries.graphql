@@ -1,0 +1,22 @@
+query GetMe {
+  getMe {
+    ...User
+  }
+}
+
+query GetUser($id: String!) {
+  getUser(id: $id) {
+    ...User
+  }
+}
+
+query GetUsers {
+  getUsers {
+    nodes {
+      ...BaseUser
+    }
+    pageInfo {
+      totalCount
+    }
+  }
+}

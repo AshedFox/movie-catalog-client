@@ -1,0 +1,39 @@
+query GetRoom($id: String!) {
+  getRoom(id: $id) {
+    ...Room
+    currentMovie {
+      episodeNumber
+      showStart
+      movie {
+        id
+        title
+      }
+    }
+  }
+}
+
+query GetRooms(
+  $limit: Int!
+  $offset: Int!
+  $sort: RoomSort
+  $filter: RoomFilter
+) {
+  getRooms(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
+    nodes {
+      ...BaseRoom
+    }
+    pageInfo {
+      totalCount
+    }
+  }
+}
+
+query JoinRoom($inviteToken: String!) {
+  joinRoom(inviteToken: $inviteToken) {
+    ...Room
+  }
+}
+
+query GetRoomCurrentPlayback($id: String!) {
+  getRoomCurrentPlayback(id: $id)
+}

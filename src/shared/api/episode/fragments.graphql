@@ -1,0 +1,12 @@
+fragment Episode on Episode {
+  id
+  title
+  description
+  releaseDate
+  ageRestriction
+  numberInSeries
+  numberInSeason
+  video {
+    ...Video
+  }
+}

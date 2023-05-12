@@ -1,0 +1,14 @@
+fragment Video on Video {
+  dashManifestMedia {
+    url
+  }
+  hlsManifestMedia {
+    url
+  }
+  variants {
+    profile
+    media {
+      url
+    }
+  }
+}

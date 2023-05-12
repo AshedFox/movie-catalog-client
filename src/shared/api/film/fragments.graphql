@@ -1,0 +1,32 @@
+fragment FilmBase on Film {
+  id
+  title
+  description
+  releaseDate
+  ageRestriction
+  rating
+}
+
+fragment FilmCard_Film on Film {
+  ...FilmBase
+  studios {
+    name
+  }
+  countries {
+    name
+  }
+  genres {
+    name
+  }
+  cover {
+    url
+  }
+}
+
+fragment FilmItem_Film on Film {
+  ...FilmCard_Film
+  productId
+  video {
+    ...Video
+  }
+}

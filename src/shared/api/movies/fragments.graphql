@@ -1,0 +1,4 @@
+fragment Movie on Movie {
+  ...FilmCard_Film
+  ...SeriesCard_Series
+}

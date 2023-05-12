@@ -1,0 +1,15 @@
+fragment BasePrice on Price {
+  id
+  amount
+  currencyId
+}
+
+fragment Price on Price {
+  id
+  amount
+  currency {
+    id
+    name
+    symbol
+  }
+}

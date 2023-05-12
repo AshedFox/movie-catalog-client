@@ -1,6 +1,6 @@
 import React from 'react';
-import SignUpForm from './SignUpForm';
 import { Metadata } from 'next';
+import { SignUpForm } from '@features/sign-up';
 
 export const metadata: Metadata = {
   title: 'Sign-Up',
@@ -8,9 +8,10 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <main className="flex container flex-auto">
-      <div className="flex flex-auto items-center justify-center">
-        <SignUpForm />
+    <main className="flex container items-center justify-center flex-auto">
+      <div className="flex flex-col gap-3">
+        <h1 className="text-5xl font-bold">Sign Up</h1>
+        <SignUpForm redirect="/" />
       </div>
     </main>
   );

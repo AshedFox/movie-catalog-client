@@ -1,0 +1,17 @@
+fragment BaseCountry on Country {
+  id
+  name
+}
+
+fragment CountryFragment on Country {
+  ...BaseCountry
+  language {
+    id
+    name
+  }
+  currency {
+    id
+    name
+    symbol
+  }
+}

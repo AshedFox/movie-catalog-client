@@ -1,0 +1,10 @@
+fragment Person on Person {
+  id
+  name
+  image {
+    url
+  }
+  country {
+    ...BaseCountry
+  }
+}

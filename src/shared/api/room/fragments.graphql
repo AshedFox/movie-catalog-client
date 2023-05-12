@@ -1,0 +1,21 @@
+fragment BaseRoom on Room {
+  id
+  name
+  owner {
+    ...BaseUser
+  }
+}
+
+fragment Room on Room {
+  ...BaseRoom
+  participants {
+    ...BaseUser
+  }
+  movies {
+    order
+    movie {
+      ...FilmCard_Film
+      ...SeriesCard_Series
+    }
+  }
+}

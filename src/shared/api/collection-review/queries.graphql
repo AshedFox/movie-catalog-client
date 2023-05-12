@@ -1,0 +1,39 @@
+query GetCollectionReview($id: Int!) {
+  getCollectionReview(id: $id) {
+    ...CollectionReview
+  }
+}
+
+query HasCollectionReview($collectionId: Int!) {
+  hasCollectionReview(collectionId: $collectionId)
+}
+
+query GetCollectionsReviews(
+  $filter: CollectionReviewFilter
+  $sort: CollectionReviewSort
+  $before: String
+  $last: Int
+  $after: String
+  $first: Int
+) {
+  getCollectionsReviews(
+    filter: $filter
+    sort: $sort
+    before: $before
+    last: $last
+    first: $first
+    after: $after
+  ) {
+    edges {
+      node {
+        ...CollectionReview
+      }
+      cursor
+    }
+    pageInfo {
+      hasPreviousPage
+      startCursor
+      hasNextPage
+    }
+  }
+}

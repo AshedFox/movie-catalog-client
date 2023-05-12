@@ -1,0 +1,30 @@
+fragment BaseSeries on Series {
+  id
+  title
+  description
+  startReleaseDate
+  endReleaseDate
+  ageRestriction
+  rating
+}
+
+fragment SeriesCard_Series on Series {
+  ...BaseSeries
+  studios {
+    name
+  }
+  countries {
+    name
+  }
+  genres {
+    name
+  }
+  cover {
+    url
+  }
+}
+
+fragment SeriesItem_Series on Series {
+  ...SeriesCard_Series
+  productId
+}

@@ -12,14 +12,17 @@
     ],
     "rules": {
         "require-jsdoc": "off",
-        "no-html-link-for-pages": "off"
+        "no-html-link-for-pages": "off",
+        "new-cap": "off",
+        "camelcase": "warn"
     },
+    "ignorePatterns": ["src/**/__generated__"],
     "overrides": [
         {
             "files": ["*.ts"],
             "processor": "@graphql-eslint/graphql",
             "parserOptions": {
-                "schema": "./src/lib/graphql/schema.graphql"
+                "schema": "./src/shared/api/graphql/schema.graphql"
             }
         },
         {
@@ -30,7 +33,7 @@
                 "@graphql-eslint/known-type-names": "error"
             },
             "parserOptions": {
-                "schema": "./src/lib/graphql/schema.graphql"
+                "schema": "./src/shared/api/graphql/schema.graphql"
             }
         }
     ]

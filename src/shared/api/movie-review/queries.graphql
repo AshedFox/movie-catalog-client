@@ -1,0 +1,44 @@
+query GetMovieReview($id: Int!) {
+  getMovieReview(id: $id) {
+    ...MovieReview
+  }
+}
+
+query HasMovieReview($movieId: String!) {
+  hasMovieReview(movieId: $movieId)
+}
+
+query GetMoviesReviews(
+  $filter: MovieReviewFilter
+  $sort: MovieReviewSort
+  $before: String
+  $last: Int
+  $after: String
+  $first: Int
+  $withMovie: Boolean = false
+) {
+  getMoviesReviews(
+    filter: $filter
+    sort: $sort
+    before: $before
+    last: $last
+    first: $first
+    after: $after
+  ) {
+    edges {
+      node {
+        ...BaseMovieReview
+        movie @include(if: $withMovie) {
+          id
+          title
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasPreviousPage
+      startCursor
+      hasNextPage
+    }
+  }
+}

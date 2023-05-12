@@ -1,0 +1,11 @@
+fragment BaseStudio on Studio {
+  id
+  name
+}
+
+fragment Studio on Studio {
+  ...BaseStudio
+  countries {
+    ...BaseCountry
+  }
+}

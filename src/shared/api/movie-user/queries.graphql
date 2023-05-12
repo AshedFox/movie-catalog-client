@@ -1,0 +1,26 @@
+query GetMovieUser($userId: String!, $movieId: String!) {
+  getMovieUser(userId: $userId, movieId: $movieId) {
+    ...MovieUser
+  }
+}
+
+query GetMoviesUsers(
+  $limit: Int!
+  $offset: Int!
+  $sort: MovieUserSort
+  $filter: MovieUserFilter
+  $withMovie: Boolean = false
+) {
+  getMoviesUsers(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
+    nodes {
+      ...MovieUser
+      movie @include(if: $withMovie) {
+        ...FilmCard_Film
+        ...SeriesCard_Series
+      }
+    }
+    pageInfo {
+      totalCount
+    }
+  }
+}

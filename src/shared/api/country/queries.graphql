@@ -1,0 +1,12 @@
+query GetCountries(
+  $limit: Int!
+  $offset: Int!
+  $filter: CountryFilter
+  $sort: CountrySort
+) {
+  getCountries(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
+    nodes {
+      ...BaseCountry
+    }
+  }
+}

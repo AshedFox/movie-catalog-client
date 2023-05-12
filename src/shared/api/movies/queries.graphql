@@ -1,0 +1,67 @@
+query GetMovie($id: String!) {
+  getMovie(id: $id) {
+    ...FilmCard_Film
+    ...SeriesCard_Series
+  }
+}
+
+query GetRandomMovies($limit: Int!, $offset: Int!) {
+  getRandomMovies(limit: $limit, offset: $offset) {
+    ...FilmCard_Film
+    ...SeriesCard_Series
+  }
+}
+
+query GetMoviesOffset(
+  $limit: Int!
+  $offset: Int!
+  $sort: MovieSort
+  $filter: MovieFilter
+) {
+  getMoviesOffset(
+    limit: $limit
+    offset: $offset
+    sort: $sort
+    filter: $filter
+  ) {
+    nodes {
+      ...FilmCard_Film
+      ...SeriesCard_Series
+    }
+    pageInfo {
+      totalCount
+    }
+  }
+}
+
+query GetMoviesRelay(
+  $sort: MovieSort
+  $filter: MovieFilter
+  $before: String
+  $last: Int
+  $after: String
+  $first: Int
+) {
+  getMoviesRelay(
+    sort: $sort
+    filter: $filter
+    before: $before
+    last: $last
+    first: $first
+    after: $after
+  ) {
+    edges {
+      node {
+        ...FilmCard_Film
+        ...SeriesCard_Series
+      }
+      cursor
+    }
+    pageInfo {
+      hasPreviousPage
+      startCursor
+      hasNextPage
+      endCursor
+    }
+  }
+}
