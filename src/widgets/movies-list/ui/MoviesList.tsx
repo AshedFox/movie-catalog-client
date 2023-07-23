@@ -8,10 +8,6 @@ type Props = {
   movies: MovieFragment[];
 };
 const MoviesList = ({ movies }: Props) => {
-  if (movies.length === 0) {
-    return <div>List is empty...</div>;
-  }
-
   return (
     <List
       items={movies.map((item) => {

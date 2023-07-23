@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, ReactNode, useState } from 'react';
-import { useQuery } from '@apollo/client';
 import { GetMeDocument, UserFragment } from '@shared/api/graphql';
+import { useQuery } from '@apollo/client';
 
 type UserValueType = UserFragment | undefined | null;
 

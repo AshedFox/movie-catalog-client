@@ -1,5 +1,6 @@
 import React from 'react';
-import { ConfirmEmailDocument, initializeApollo } from '@shared/api/graphql';
+import { ConfirmEmailDocument } from '@shared/api/graphql';
+import { getClient } from '@shared/api/graphql/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +10,7 @@ type Props = {
   };
 };
 
-const client = initializeApollo();
+const client = getClient();
 
 const Page = async ({ params }: Props) => {
   const { data, errors } = await client.mutate({

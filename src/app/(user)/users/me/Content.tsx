@@ -16,10 +16,10 @@ type Props = {
 const Content = ({ user }: Props) => {
   return (
     <main className="flex flex-col pl-4 flex-auto gap-2 md:gap-5">
+      {!user.isEmailConfirmed && <EmailConfirmationMessage />}
       <div className="flex flex-col md:flex-row gap-2 md:gap-5">
         <UserAvatarInput avatarUrl={user.avatar?.url} />
         <div className="flex flex-col gap-1 flex-auto">
-          {!user.isEmailConfirmed && <EmailConfirmationMessage />}
           <h1 className="font-bold text-3xl leading-tight">{user.name}</h1>
           <div className="flex flex-col gap-2 p-1">
             <div className="text-sm">
@@ -45,7 +45,6 @@ const Content = ({ user }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesBlock
             title="Bookmarked movies"
             userId={user.id}
@@ -61,7 +60,6 @@ const Content = ({ user }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesBlock
             title="Favorite movies"
             userId={user.id}
@@ -77,7 +75,6 @@ const Content = ({ user }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserCollectionsBlock
             title="User collections"
             userId={user.id}
@@ -92,7 +89,6 @@ const Content = ({ user }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesReviewsBlock
             title="Movies reviews"
             fullLink={`/users/${user.id}/movies-reviews`}
@@ -107,7 +103,6 @@ const Content = ({ user }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserCollectionsReviewsBlock
             title="Collections reviews"
             fullLink={`/users/${user.id}/collections-reviews`}

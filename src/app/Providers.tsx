@@ -1,20 +1,17 @@
 'use client';
 
 import React, { PropsWithChildren } from 'react';
-import { ApolloProvider } from '@apollo/client';
 import GridVariantProvider from './GridVariantProvider';
-import { useApollo } from '@shared/api/graphql';
 import { UserProvider } from '@entities/user';
+import ThemeProvider from './ThemeProvider';
 
 const Providers = ({ children }: PropsWithChildren) => {
-  const client = useApollo();
-
   return (
-    <ApolloProvider client={client}>
-      <UserProvider>
+    <UserProvider>
+      <ThemeProvider>
         <GridVariantProvider>{children}</GridVariantProvider>
-      </UserProvider>
-    </ApolloProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 };
 

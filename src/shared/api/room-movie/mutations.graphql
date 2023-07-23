@@ -1,15 +1,11 @@
 mutation CreateRoomMovie($input: CreateRoomMovieInput!) {
   createRoomMovie(input: $input) {
-    roomId
-    movieId
-    order
+    ...RoomMovie
   }
 }
 
 mutation DeleteRoomMovie($roomId: String!, $movieId: String!) {
   deleteRoomMovie(roomId: $roomId, movieId: $movieId) {
-    roomId
-    movieId
-    order
+    ...BaseRoomMovie
   }
 }

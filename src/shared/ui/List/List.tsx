@@ -11,8 +11,12 @@ type Props = {
 };
 
 const List = ({ items, direction = 'vertical' }: Props) => {
+  if (items.length === 0) {
+    return <div className="m-auto">Nothing here...</div>;
+  }
+
   return (
-    <div
+    <ul
       className={clsx('flex gap-2 flex-auto', {
         'flex-col': direction === 'vertical',
         'items-start': direction === 'horizontal',
@@ -21,7 +25,7 @@ const List = ({ items, direction = 'vertical' }: Props) => {
       {items.map(({ key, content }, index) => (
         <ListItemWrapper key={key}>{content}</ListItemWrapper>
       ))}
-    </div>
+    </ul>
   );
 };
 

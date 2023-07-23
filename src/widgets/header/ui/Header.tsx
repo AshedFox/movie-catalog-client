@@ -4,6 +4,8 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@entities/user';
 import HeaderLink from './HeaderLink';
+import ThemeSwitch from '@features/switch-theme/ui/ThemeSwitch';
+import { SubscribeLinkButton } from '@features/subscribe';
 
 const DEFAULT_LINKS: Array<{
   pathname: string;
@@ -14,11 +16,6 @@ const DEFAULT_LINKS: Array<{
   { pathname: '/series', title: 'Series' },
   { pathname: '/collections', title: 'Collections' },
 ];
-
-/* const AUTHORIZED_LINKS: Array<{
-  pathname: string;
-  title: string;
-}> = [{ pathname: '/rooms', title: 'Rooms' }];*/
 
 const Header = () => {
   const activePathname = usePathname();
@@ -37,7 +34,7 @@ const Header = () => {
           </HeaderLink>
         ))}
         {user ? (
-          <div className="ml-auto">
+          <div className="flex gap-1 ml-auto">
             <HeaderLink
               pathname="/users/me"
               isActive={activePathname === '/users/me'}
@@ -46,7 +43,7 @@ const Header = () => {
             </HeaderLink>
           </div>
         ) : (
-          <div className="ml-auto">
+          <div className="flex gap-1 ml-auto">
             <HeaderLink
               pathname="/login"
               isActive={activePathname === '/login'}
@@ -55,6 +52,8 @@ const Header = () => {
             </HeaderLink>
           </div>
         )}
+        <ThemeSwitch />
+        <SubscribeLinkButton />
       </nav>
     </header>
   );

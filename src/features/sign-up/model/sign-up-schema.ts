@@ -13,7 +13,7 @@ export const signUpSchema: z.ZodSchema<RegisterInput> = z.object({
   name: z
     .string()
     .regex(
-      /^\w{2,255}$/i,
+      /^[\w\s\-]{2,255}$/i,
       'Name must contain from 2 to 255 alphanumeric characters',
     ),
 });

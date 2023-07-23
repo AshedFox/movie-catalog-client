@@ -42,7 +42,9 @@ const ReviewItem = ({ review, isOwn, fullLinkSlot }: Props) => {
         </div>
       </div>
       <div className="flex pl-3 py-2 gap-1 items-center">
-        <div className="flex-auto text-sm">{review.text}</div>
+        <div className="flex-auto text-sm whitespace-pre-line">
+          {review.text}
+        </div>
         <div className="shrink-0 rounded-full bg-primary-200 dark:bg-primary-700 w-8 h-8 text-center leading-[2rem]">
           {review.mark}
         </div>

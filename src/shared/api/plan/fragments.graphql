@@ -1,0 +1,7 @@
+fragment Plan on Plan {
+  id
+  name
+  prices {
+    ...PlanPrice
+  }
+}

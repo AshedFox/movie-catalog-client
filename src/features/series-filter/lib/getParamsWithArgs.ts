@@ -13,6 +13,8 @@ export const getParamsWithArgs = (
   params.delete('releaseTo');
   params.delete('ageRestriction');
   params.delete('genre');
+  params.delete('studio');
+  params.delete('country');
 
   if (values.title) {
     params.set('title', values.title);
@@ -31,6 +33,16 @@ export const getParamsWithArgs = (
   if (values.genres && values.genres.length > 0) {
     values.genres.forEach((genre) => {
       params.append('genre', genre.value);
+    });
+  }
+  if (values.studios && values.studios.length > 0) {
+    values.studios.forEach((genre) => {
+      params.append('studio', genre.value);
+    });
+  }
+  if (values.countries && values.countries.length > 0) {
+    values.countries.forEach((genre) => {
+      params.append('country', genre.value);
     });
   }
 

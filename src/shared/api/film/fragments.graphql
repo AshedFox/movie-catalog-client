@@ -24,7 +24,19 @@ fragment FilmCard_Film on Film {
 }
 
 fragment FilmItem_Film on Film {
-  ...FilmCard_Film
+  ...FilmBase
+  studios {
+    name
+  }
+  countries {
+    name
+  }
+  genres {
+    name
+  }
+  cover {
+    url
+  }
   productId
   video {
     ...Video

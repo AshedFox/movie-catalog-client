@@ -8,7 +8,7 @@ import MultilineField from '@shared/ui/MultilineField';
 import {
   CreateCollectionReviewDocument,
   CreateCollectionReviewInput,
-  GetCollectionsReviewsDocument,
+  GetCollectionsReviewsRelayDocument,
 } from '@shared/api/graphql';
 
 type Props = {
@@ -40,7 +40,7 @@ const CreateCollectionReviewForm = ({ collectionId }: Props) => {
       },
       update: (cache, { data }) => {
         const existing = cache.readQuery({
-          query: GetCollectionsReviewsDocument,
+          query: GetCollectionsReviewsRelayDocument,
           variables: {
             filter: {
               collectionId: {
@@ -51,14 +51,14 @@ const CreateCollectionReviewForm = ({ collectionId }: Props) => {
           },
         });
 
-        const existingEdges = existing?.getCollectionsReviews.edges ?? [];
-        const pageInfo = existing?.getCollectionsReviews.pageInfo ?? {
+        const existingEdges = existing?.getCollectionsReviewsRelay.edges ?? [];
+        const pageInfo = existing?.getCollectionsReviewsRelay.pageInfo ?? {
           hasPreviousPage: true,
           hasNextPage: true,
         };
 
         cache.writeQuery({
-          query: GetCollectionsReviewsDocument,
+          query: GetCollectionsReviewsRelayDocument,
           variables: {
             filter: {
               collectionId: {
@@ -68,7 +68,7 @@ const CreateCollectionReviewForm = ({ collectionId }: Props) => {
             last: 2,
           },
           data: {
-            getCollectionsReviews: {
+            getCollectionsReviewsRelay: {
               pageInfo,
               edges: [
                 {

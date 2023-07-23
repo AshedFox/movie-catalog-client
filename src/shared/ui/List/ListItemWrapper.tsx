@@ -9,14 +9,13 @@ type Props = {
 
 const ListItemWrapper = ({ children }: Props) => {
   return (
-    <motion.div
-      className=""
+    <motion.li
       initial={{ opacity: 0, y: '50%' }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ margin: '300px 0px 300px 0px ' }}
     >
       {children}
-    </motion.div>
+    </motion.li>
   );
 };
 

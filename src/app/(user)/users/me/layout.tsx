@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import ProfileNavLink from './ProfileNavLink';
+import { AuthChecker } from '@features/auth-checker';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -9,7 +10,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <ProfileNavLink segment={'settings'}>Settings</ProfileNavLink>
         <ProfileNavLink segment={'rooms'}>Rooms</ProfileNavLink>
       </div>
-      {children}
+      <AuthChecker shouldBeAuthorized={true} redirect={'/login'}>
+        {children}
+      </AuthChecker>
     </div>
   );
 };

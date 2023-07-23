@@ -1,0 +1,18 @@
+fragment BaseRoomMovie on RoomMovie {
+  roomId
+  movieId
+  episodeNumber
+  order
+  showStart
+}
+
+fragment RoomMovie on RoomMovie {
+  roomId
+  movie {
+    ...SeriesCard_Series
+    ...FilmCard_Film
+  }
+  episodeNumber
+  showStart
+  order
+}

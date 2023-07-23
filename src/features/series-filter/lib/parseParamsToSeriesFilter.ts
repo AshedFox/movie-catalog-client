@@ -6,12 +6,22 @@ type Params = {
   releaseTo?: string;
   ageRestriction?: string[];
   genre?: string[];
+  studio?: string[];
+  country?: string[];
 };
 
 export const parseParamsToSeriesFilter = (
   searchParams: Params,
 ): SeriesFilter => {
-  const { title, ageRestriction, genre, releaseTo, releaseFrom } = searchParams;
+  const {
+    title,
+    ageRestriction,
+    genre,
+    country,
+    studio,
+    releaseTo,
+    releaseFrom,
+  } = searchParams;
   const filter: SeriesFilter = {};
 
   if (title) {
@@ -59,6 +69,21 @@ export const parseParamsToSeriesFilter = (
     filter.genresConnection = {
       genreId: {
         in: genre,
+      },
+    };
+  }
+  if (studio && studio.length > 0) {
+    filter.studiosConnection = {
+      studioId: {
+        in: studio,
+      },
+    };
+  }
+
+  if (country && country.length > 0) {
+    filter.countriesConnection = {
+      countryId: {
+        in: country,
       },
     };
   }

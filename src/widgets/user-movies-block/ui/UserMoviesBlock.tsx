@@ -1,11 +1,12 @@
+'use client';
+
 import React from 'react';
-import { GetMoviesUsersDocument, initializeApollo } from '@shared/api/graphql';
+import { GetMoviesUsersDocument } from '@shared/api/graphql';
 import Link from 'next/link';
 import { FilmRow } from '@entities/film';
 import { SeriesRow } from '@entities/series';
 import { List } from '@shared/ui';
-
-const client = initializeApollo();
+import { useSuspenseQuery_experimental } from '@apollo/client';
 
 type Props = {
   title: string;
@@ -15,15 +16,14 @@ type Props = {
   fullLink: string;
 };
 
-const UserMoviesBlock = async ({
+const UserMoviesBlock = ({
   moviesCount,
   userId,
   type,
   title,
   fullLink,
 }: Props) => {
-  const { data } = await client.query({
-    query: GetMoviesUsersDocument,
+  const { data } = useSuspenseQuery_experimental(GetMoviesUsersDocument, {
     variables: {
       offset: 0,
       limit: moviesCount,
@@ -52,7 +52,7 @@ const UserMoviesBlock = async ({
   return (
     <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
       <h2 className="font-bold text-2xl leading-tight">{title}</h2>
-      <div className="p-2 max-h-[400px] flex-auto overflow-auto">
+      <div className="flex p-2 max-h-[400px] flex-auto overflow-auto">
         <List
           items={moviesUsers.map((movieUser) => {
             const item = movieUser.movie!;

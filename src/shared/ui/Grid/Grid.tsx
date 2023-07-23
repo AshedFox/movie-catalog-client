@@ -10,12 +10,12 @@ type Props = {
 
 const Grid = ({ items }: Props) => {
   if (items.length === 0) {
-    return <div className="m-auto">Nothing found...</div>;
+    return <div className="m-auto">Nothing here...</div>;
   }
 
   return (
     <div className="grid gap-2 lg:gap-3 xl:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {items.map(({ key, content }, index) => (
+      {items.map(({ key, content }) => (
         <GridItemWrapper key={key}>{content}</GridItemWrapper>
       ))}
     </div>

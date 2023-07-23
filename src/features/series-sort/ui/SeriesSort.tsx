@@ -30,8 +30,8 @@ const SeriesSort = ({ currentSort }: Props) => {
       <Button
         size="sm"
         variant="secondary"
-        disabled={!!currentSort.releaseDate}
-        onClick={() => handleSortChange('releaseDate')}
+        disabled={!!currentSort.startReleaseDate}
+        onClick={() => handleSortChange('startReleaseDate')}
       >
         By Release
       </Button>

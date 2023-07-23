@@ -1,4 +1,4 @@
-import { GetUserDocument, initializeApollo } from '@shared/api/graphql';
+import { GetUserDocument } from '@shared/api/graphql';
 import Image from 'next/image';
 import { formatDate } from '@shared/lib/helpers';
 import React, { Suspense } from 'react';
@@ -8,9 +8,11 @@ import { UserMoviesReviewsBlock } from '@widgets/user-movies-reviews-block';
 import { UserMoviesBlock } from '@widgets/user-movies-block';
 import { UserCollectionsBlock } from '@widgets/user-collections-block';
 import { UserCollectionsReviewsBlock } from '@widgets/user-collections-reviews-block';
+import { getClient } from '@shared/api/graphql/client';
+
+const client = getClient();
 
 export const generateMetadata = async ({ params }: Props) => {
-  const client = initializeApollo();
   const { data } = await client.query({
     query: GetUserDocument,
     variables: {
@@ -28,7 +30,6 @@ type Props = {
 };
 
 const Page = async ({ params }: Props) => {
-  const client = initializeApollo();
   const { data: userData } = await client.query({
     query: GetUserDocument,
     variables: {
@@ -81,7 +82,6 @@ const Page = async ({ params }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesBlock
             title="Bookmarked movies"
             userId={params.id}
@@ -97,7 +97,6 @@ const Page = async ({ params }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesBlock
             title="Favorite movies"
             userId={params.id}
@@ -113,7 +112,6 @@ const Page = async ({ params }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserCollectionsBlock
             title="User collections"
             userId={params.id}
@@ -128,7 +126,6 @@ const Page = async ({ params }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserMoviesReviewsBlock
             title="Movies reviews"
             fullLink={`/users/${params.id}/movies-reviews`}
@@ -143,7 +140,6 @@ const Page = async ({ params }: Props) => {
             </div>
           }
         >
-          {/* @ts-expect-error Async Server Component */}
           <UserCollectionsReviewsBlock
             title="Collections reviews"
             fullLink={`/users/${params.id}/collections-reviews`}

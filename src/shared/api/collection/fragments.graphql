@@ -2,19 +2,31 @@ fragment BaseCollection on Collection {
   id
   name
   isSystem
+  ownerId
   description
   createdAt
+  rating
 }
 
 fragment CollectionCard_Collection on Collection {
   ...BaseCollection
+  owner {
+    ...BaseUser
+  }
   cover {
     url
   }
 }
 
 fragment CollectionItem_Collection on Collection {
-  ...CollectionCard_Collection
+  ...BaseCollection
+  cover {
+    id
+    url
+  }
+  owner {
+    ...BaseUser
+  }
   movies {
     ...SeriesCard_Series
     ...FilmCard_Film

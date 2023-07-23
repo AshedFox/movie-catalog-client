@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import {
   CreateMovieReviewDocument,
   CreateMovieReviewInput,
-  GetMoviesReviewsDocument,
+  GetMoviesReviewsRelayDocument,
 } from '@shared/api/graphql';
 
 type Props = {
@@ -36,7 +36,7 @@ const CreateMovieReviewForm = ({ movieId }: Props) => {
       },
       update: (cache, { data }) => {
         const existing = cache.readQuery({
-          query: GetMoviesReviewsDocument,
+          query: GetMoviesReviewsRelayDocument,
           variables: {
             filter: {
               movieId: {
@@ -47,14 +47,14 @@ const CreateMovieReviewForm = ({ movieId }: Props) => {
           },
         });
 
-        const existingEdges = existing?.getMoviesReviews.edges ?? [];
-        const pageInfo = existing?.getMoviesReviews.pageInfo ?? {
+        const existingEdges = existing?.getMoviesReviewsRelay.edges ?? [];
+        const pageInfo = existing?.getMoviesReviewsRelay.pageInfo ?? {
           hasPreviousPage: true,
           hasNextPage: true,
         };
 
         cache.writeQuery({
-          query: GetMoviesReviewsDocument,
+          query: GetMoviesReviewsRelayDocument,
           variables: {
             filter: {
               movieId: {
@@ -64,7 +64,7 @@ const CreateMovieReviewForm = ({ movieId }: Props) => {
             last: 2,
           },
           data: {
-            getMoviesReviews: {
+            getMoviesReviewsRelay: {
               pageInfo,
               edges: [
                 {

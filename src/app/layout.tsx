@@ -5,6 +5,7 @@ import Providers from './Providers';
 import { Montserrat } from 'next/font/google';
 import { Header } from '@widgets/header';
 import { Metadata } from 'next';
+import { ApolloWrapper } from '@shared/api/graphql/apollo-wrapper';
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
@@ -16,21 +17,22 @@ export const metadata: Metadata = {
   title: 'MovieView',
 };
 
-const RootLayout = ({
-  children,
-  modal,
-}: {
+type Props = {
   children: ReactNode;
   modal: ReactNode;
-}) => {
+};
+
+const RootLayout = ({ children, modal }: Props) => {
   return (
     <html className={montserrat.className}>
-      <body>
-        <Providers>
-          <div id="modal-root">{modal}</div>
-          <Header />
-          {children}
-        </Providers>
+      <body className="dark:text-white">
+        <ApolloWrapper>
+          <Providers>
+            <div id="modal-root">{modal}</div>
+            <Header />
+            {children}
+          </Providers>
+        </ApolloWrapper>
       </body>
     </html>
   );

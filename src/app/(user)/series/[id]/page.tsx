@@ -1,19 +1,23 @@
 import React from 'react';
-import { GetOneSeriesDocument, initializeApollo } from '@shared/api/graphql';
-import { MovieBookmarkBlock } from 'features/movie-bookmark';
-import { SeriesItem } from '@entities/series';
-import PurchaseBlock from '@widgets/purchase-block/ui/PurchaseBlock';
-import { MovieReviewsBlock } from '@widgets/movie-reviews-block';
+import { GetOneSeriesDocument } from '@shared/api/graphql';
 import { notFound } from 'next/navigation';
+import { getClient } from '@shared/api/graphql/client';
+import ClientSide from './ClientSide';
+
+const client = getClient();
 
 export const generateMetadata = async ({ params }: Props) => {
-  const client = initializeApollo();
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetOneSeriesDocument,
     variables: {
       id: params.id,
     },
+    errorPolicy: 'ignore',
   });
+
+  if (!data || error) {
+    notFound();
+  }
 
   return { title: data.getOneSeries.title };
 };
@@ -25,38 +29,25 @@ type Props = {
 };
 
 const Page = async ({ params }: Props) => {
-  const client = initializeApollo();
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetOneSeriesDocument,
     variables: {
       id: params.id,
     },
+    errorPolicy: 'ignore',
   });
+
+  if (!data || error) {
+    notFound();
+  }
 
   if (!data) {
     notFound();
   }
 
-  const series = data.getOneSeries;
-
   return (
     <main className="flex flex-col py-4 container flex-auto gap-2 md:gap-5">
-      <SeriesItem
-        series={series}
-        bookmarkSlot={<MovieBookmarkBlock movieId={series.id} />}
-        purchaseSlot={
-          <>
-            {series.productId && (
-              <PurchaseBlock productId={series.productId} movieId={series.id} />
-            )}
-          </>
-        }
-        extraSlot={
-          <>
-            <MovieReviewsBlock movieId={series.id} />
-          </>
-        }
-      />
+      <ClientSide series={data.getOneSeries} />
     </main>
   );
 };

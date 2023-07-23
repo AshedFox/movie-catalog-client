@@ -34,7 +34,7 @@ const Card = ({
       {titleHref ? (
         <Link
           href={titleHref}
-          className="rounded-t w-full h-48 shrink-0 relative overflow-hidden border border-gray-200 dark:border-gray-800"
+          className="rounded-t w-full h-64 shrink-0 relative overflow-hidden border border-gray-200 dark:border-gray-800"
         >
           <Image
             src={coverUrl ?? '/blank_item.jpg'}
@@ -68,7 +68,9 @@ const Card = ({
           <div className="text-xl font-semibold truncate">{title}</div>
         )}
         <div className="flex gap-1 items-center flex-wrap">{tagsSlot}</div>
-        <div className="mx-4 line-clamp-4 text-xs flex-auto">{description}</div>
+        <div className="mx-4 text-xs flex-auto">
+          <div className="line-clamp-4">{description}</div>
+        </div>
         {extraSlot}
       </div>
     </div>

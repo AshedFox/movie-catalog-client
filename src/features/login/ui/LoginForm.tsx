@@ -3,14 +3,18 @@
 import React, { startTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Field } from 'shared/ui';
-import { useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Crypto from 'crypto';
 import Link from 'next/link';
 import { ROUTES } from '@shared/constants/routes';
 import { loginSchema } from '../model/login-schema';
 import { useUser } from '@entities/user';
-import { LoginDocument, LoginInput } from '@shared/api/graphql';
+import {
+  HasActiveSubscriptionDocument,
+  LoginDocument,
+  LoginInput,
+} from '@shared/api/graphql';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -29,38 +33,45 @@ const LoginForm = ({ redirect }: Props) => {
       password: '',
     },
   });
-  const [login, { loading, error }] = useMutation(LoginDocument);
+  const [login, { loading, error }] = useMutation(LoginDocument, {
+    refetchQueries: [HasActiveSubscriptionDocument],
+    update: (cache, { data }) => {
+      localStorage.setItem('access-token', data?.login.accessToken ?? '');
+    },
+  });
   const { setUser } = useUser();
   const router = useRouter();
+  const { cache } = useApolloClient();
 
   const onSubmit = async (input: LoginInput) => {
-    try {
-      const { errors, data } = await login({
-        variables: {
-          input: {
-            email: input.email,
-            password: Crypto.createHash('sha512')
-              .update(input.password)
-              .digest('hex'),
-          },
+    const { errors, data } = await login({
+      variables: {
+        input: {
+          email: input.email,
+          password: Crypto.createHash('sha512')
+            .update(input.password)
+            .digest('hex'),
         },
-      });
+      },
+      errorPolicy: 'ignore',
+    });
 
-      if (!errors && data) {
-        startTransition(() => {
-          localStorage.setItem('access-token', data.login.accessToken);
-          setUser(data.login.user);
-          if (redirect) {
-            if (redirect === 'back') {
-              router.back();
-            } else {
-              router.push(redirect);
-            }
+    if (!errors && data) {
+      await cache.reset();
+
+      startTransition(() => {
+        if (redirect) {
+          if (redirect === 'back') {
+            router.back();
+          } else {
+            router.push(redirect);
           }
-        });
-      }
-    } catch {
-      //
+        }
+        router.refresh();
+
+        localStorage.setItem('access-token', data.login.accessToken);
+        setUser(data.login.user);
+      });
     }
   };
 
@@ -73,13 +84,17 @@ const LoginForm = ({ redirect }: Props) => {
         <Field
           type="email"
           label="Email"
-          {...register('email')}
+          {...register('email', {
+            required: true,
+          })}
           error={errors.email?.message}
         />
         <Field
           type="password"
           label="Password"
-          {...register('password')}
+          {...register('password', {
+            required: true,
+          })}
           error={errors.password?.message}
         />
       </fieldset>

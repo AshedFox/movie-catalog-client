@@ -1,3 +1,10 @@
+query GetAllCountries($sort: CountrySort, $movieType: MovieTypeEnum) {
+  getAllCountries(sort: $sort) {
+    ...BaseCountry
+    moviesCount(type: $movieType)
+  }
+}
+
 query GetCountries(
   $limit: Int!
   $offset: Int!

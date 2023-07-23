@@ -1,19 +1,27 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { GetFilmDocument, initializeApollo } from '@shared/api/graphql';
+import { GetFilmDocument } from '@shared/api/graphql';
 import ClientSide from './ClientSide';
 import { notFound } from 'next/navigation';
+import { getClient } from '@shared/api/graphql/client';
+
+
+const client = getClient();
 
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const client = initializeApollo();
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetFilmDocument,
     variables: {
       id: params.id,
     },
+    errorPolicy: 'ignore',
   });
+
+  if (!data || error) {
+    notFound();
+  }
 
   return { title: data.getFilm.title };
 };
@@ -25,15 +33,15 @@ type Props = {
 };
 
 const Page = async ({ params }: Props) => {
-  const client = initializeApollo();
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetFilmDocument,
     variables: {
       id: params.id,
     },
+    errorPolicy: 'ignore',
   });
 
-  if (!data) {
+  if (!data || error) {
     notFound();
   }
 

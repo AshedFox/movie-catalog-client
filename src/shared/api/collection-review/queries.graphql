@@ -8,7 +8,34 @@ query HasCollectionReview($collectionId: Int!) {
   hasCollectionReview(collectionId: $collectionId)
 }
 
-query GetCollectionsReviews(
+query GetCollectionsReviewsOffset(
+  $filter: CollectionReviewFilter
+  $sort: CollectionReviewSort
+  $offset: Int!
+  $limit: Int!
+  $withCollection: Boolean = false
+) {
+  getCollectionsReviewsOffset(
+    filter: $filter
+    sort: $sort
+    offset: $offset
+    limit: $limit
+  ) {
+    nodes {
+      ...CollectionReview
+      collection @include(if: $withCollection) {
+        id
+        name
+      }
+    }
+
+    pageInfo {
+      totalCount
+    }
+  }
+}
+
+query GetCollectionsReviewsRelay(
   $filter: CollectionReviewFilter
   $sort: CollectionReviewSort
   $before: String
@@ -16,7 +43,7 @@ query GetCollectionsReviews(
   $after: String
   $first: Int
 ) {
-  getCollectionsReviews(
+  getCollectionsReviewsRelay(
     filter: $filter
     sort: $sort
     before: $before

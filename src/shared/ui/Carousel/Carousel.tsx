@@ -66,7 +66,7 @@ const Carousel = ({
   }, [autoMoveInterval, moveNext]);
 
   return (
-    <div className="relative flex gap-5 items-center">
+    <div className="relative flex gap-5 flex-auto">
       <button
         className="transition-colors duration-300 cursor-pointer text-gray-900 dark:text-gray-50 focus:outline-none hover:text-primary-500 dark:hover:text-primary-700"
         onClick={movePrev}

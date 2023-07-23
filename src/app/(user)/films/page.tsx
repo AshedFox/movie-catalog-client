@@ -3,15 +3,9 @@ import { Loader } from '@shared/ui';
 import { FilmsFilters, parseParamsToFilmFilter } from '@features/film-filter';
 import { FilmsSort, parseParamsToFilmSort } from '@features/film-sort';
 import { PageNavigation } from '@features/page-navigation';
-import {
-  GetCountriesDocument,
-  GetFilmsDocument,
-  GetGenresDocument,
-  GetStudiosDocument,
-  initializeApollo,
-  SortDirectionEnum,
-} from '@shared/api/graphql';
+import { GetFilmsDocument } from '@shared/api/graphql';
 import { FilmsGrid } from '@widgets/films-grid';
+import { getClient } from '@shared/api/graphql/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,7 +33,7 @@ type Props = {
 
 const amountPerPage = 4;
 
-const client = initializeApollo();
+const client = getClient();
 
 const Page = async ({ searchParams }: Props) => {
   const filter = parseParamsToFilmFilter({ ...searchParams });
@@ -56,59 +50,6 @@ const Page = async ({ searchParams }: Props) => {
     },
   });
 
-  const getGenresPromise = client.query({
-    query: GetGenresDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
-  });
-  const getStudiosPromise = client.query({
-    query: GetStudiosDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
-  });
-  const getCountriesPromise = client.query({
-    query: GetCountriesDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
-  });
-
-  const [{ data: genresData }, { data: studiosData }, { data: countriesData }] =
-    await Promise.all([
-      getGenresPromise,
-      getStudiosPromise,
-      getCountriesPromise,
-    ]);
-
   return (
     <main className="flex flex-col py-4 container flex-auto">
       <h1 className="font-semibold text-3xl leading-tight">Films</h1>
@@ -120,11 +61,7 @@ const Page = async ({ searchParams }: Props) => {
             </div>
           }
         >
-          <FilmsFilters
-            genresVariants={genresData.getGenres.nodes}
-            countriesVariants={countriesData.getCountries.nodes}
-            studiosVariants={studiosData.getStudios.nodes}
-          />
+          <FilmsFilters />
         </Suspense>
         <div className="flex items-center justify-between gap-2">
           <FilmsSort currentSort={sort} />

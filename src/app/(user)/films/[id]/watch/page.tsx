@@ -1,6 +1,8 @@
 import React from 'react';
-import VideoPlayer from './VideoPlayer';
-import { GetFilmDocument, initializeApollo } from '@shared/api/graphql';
+import { GetFilmDocument } from '@shared/api/graphql';
+import { getClient } from '@shared/api/graphql/client';
+import { notFound } from 'next/navigation';
+import ClientSide from './ClientSide';
 
 type Props = {
   params: {
@@ -8,8 +10,9 @@ type Props = {
   };
 };
 
+const client = getClient();
+
 const Page = async ({ params }: Props) => {
-  const client = initializeApollo();
   const { data } = await client.query({
     query: GetFilmDocument,
     variables: {
@@ -18,20 +21,10 @@ const Page = async ({ params }: Props) => {
   });
 
   if (!data) {
-    return;
+    notFound();
   }
 
-  const film = data.getFilm;
-
-  return (
-    <main className="relative flex container">
-      {film.video?.dashManifestMedia?.url ? (
-        <VideoPlayer videoUrl={film.video.dashManifestMedia.url} />
-      ) : (
-        <div>Unable to watch...</div>
-      )}
-    </main>
-  );
+  return <ClientSide film={data.getFilm} />;
 };
 
 export default Page;

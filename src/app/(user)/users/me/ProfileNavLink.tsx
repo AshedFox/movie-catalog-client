@@ -17,10 +17,10 @@ const ProfileNavLink = ({ segment, children }: Props) => {
     <Link
       href={`/users/me/${segment ?? ''}`}
       className={clsx(
-        'rounded text-sm px-3 py-1 duration-200 transition',
+        'rounded text-sm px-3 py-1 duration-200 transition-colors',
         isActive
-          ? 'font-bold bg-gray-700 text-gray-900 dark:text-gray-50'
-          : 'text-gray-600 dark:text-gray-400',
+          ? 'font-bold bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-50'
+          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800',
       )}
     >
       {children}

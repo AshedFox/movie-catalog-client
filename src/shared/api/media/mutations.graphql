@@ -1,0 +1,7 @@
+mutation UploadImage($file: Upload!) {
+  uploadImage(file: $file) {
+    id
+    url
+    type
+  }
+}

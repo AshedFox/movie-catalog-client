@@ -14,6 +14,7 @@ interface Movie {
   collections: [Collection!]!
   collectionsConnection: [CollectionMovie!]!
   countries: [Country!]!
+  countriesConnection: [MovieCountry!]!
   cover: Media
   coverId: String
   createdAt: DateTime!
@@ -28,6 +29,7 @@ interface Movie {
   rating: Float!
   reviews: [MovieReview!]!
   studios: [Studio!]!
+  studiosConnection: [MovieStudio!]!
   title: String!
   trailers: [Trailer!]!
   type: MovieTypeEnum!
@@ -58,6 +60,7 @@ type Collection {
   name: String!
   owner: User!
   ownerId: String!
+  rating: Float!
   reviews: [CollectionReview!]!
   updatedAt: DateTime!
 }
@@ -101,6 +104,7 @@ type Country {
   id: ID!
   language: Language!
   languageId: String!
+  moviesCount(type: MovieTypeEnum): Int!
   name: String!
 }
 
@@ -113,14 +117,16 @@ type Currency {
 type Episode {
   accessMode: AccessModeEnum!
   ageRestriction: AgeRestrictionEnum
+  cover: Media
+  coverId: String
   description: String
   id: ID!
-  numberInSeason: Int
+  numberInSeason: Int!
   numberInSeries: Int!
   publicationDate: DateTime!
   releaseDate: DateTime
-  season: Season
-  seasonId: String
+  season: Season!
+  seasonId: String!
   series: Series!
   seriesId: String!
   title: String
@@ -134,6 +140,7 @@ type Film implements Movie {
   collections: [Collection!]!
   collectionsConnection: [CollectionMovie!]!
   countries: [Country!]!
+  countriesConnection: [MovieCountry!]!
   cover: Media
   coverId: String
   createdAt: DateTime!
@@ -149,6 +156,7 @@ type Film implements Movie {
   releaseDate: DateTime
   reviews: [MovieReview!]!
   studios: [Studio!]!
+  studiosConnection: [MovieStudio!]!
   title: String!
   trailers: [Trailer!]!
   type: MovieTypeEnum!
@@ -159,6 +167,7 @@ type Film implements Movie {
 
 type Genre {
   id: ID!
+  moviesCount(type: MovieTypeEnum): Int!
   name: String!
 }
 
@@ -259,7 +268,7 @@ type MovieVisitStatsLastMonth {
 }
 
 type Mutation {
-  cancelSubscription(id: String!): ServiceSubscription!
+  cancelSubscription(id: String!): Boolean!
   confirmEmail(token: String!): Boolean!
   createCollection(input: CreateCollectionInput!): Collection!
   createCollectionMovie(collectionId: Int!, movieId: String!): CollectionMovie!
@@ -281,7 +290,11 @@ type Mutation {
   createMovieStudio(movieId: String!, studioId: Int!): MovieStudio!
   createMovieUser(input: CreateMovieUserInput!): MovieUser!
   createPerson(input: CreatePersonInput!): Person!
+  createPlan(input: CreatePlanInput!): Plan!
+  createPlanPrice(planId: String!, priceId: String!): PlanPrice!
+  createPrice(input: CreatePriceInput!): Price!
   createProduct(input: CreateProductInput!): Product!
+  createProductPrice(priceId: String!, productId: String!): ProductPrice!
   createPurchaseSession(movieId: String!, priceId: String!): String!
   createRoom(input: CreateRoomInput!): Room!
   createRoomMovie(input: CreateRoomMovieInput!): RoomMovie!
@@ -290,7 +303,7 @@ type Mutation {
   createSeries(input: CreateSeriesInput!): Series!
   createStudio(input: CreateStudioInput!): Studio!
   createStudioCountry(countryId: String!, studioId: Int!): StudioCountry!
-  createSubscription(planId: String!): ServiceSubscription!
+  createSubscriptionsManageLink: String!
   createSubtitles(input: CreateSubtitlesInput!): Subtitles!
   createTrailer(input: CreateTrailerInput!): Trailer!
   createVideo: Video!
@@ -334,6 +347,8 @@ type Mutation {
   generateVideoAudios(input: GenerateVideoAudiosInput!): Boolean!
   generateVideoVariants(input: GenerateVideoVariantsInput!): Boolean!
   increaseMovieVisits(movieId: String!): Boolean!
+  joinRoom(inviteToken: String!): Room!
+  leaveRoom(id: String!): Room!
   login(input: LoginInput!): AuthResult!
   logout: Boolean!
   moveRoomMovie(input: MoveRoomMovieInput!, roomId: String!): RoomMovie!
@@ -343,6 +358,7 @@ type Mutation {
   sendConfirmation: Boolean!
   startRoomMovie(roomId: String!): RoomMovie!
   startRoomPlayback(id: String!): Boolean!
+  subscribe(priceId: String!): String!
   updateAvatar(file: Upload!): User!
   updateCollection(id: Int!, input: UpdateCollectionInput!): Collection!
   updateCollectionReview(
@@ -361,6 +377,8 @@ type Mutation {
   updateGenre(id: String!, input: UpdateGenreInput!): Genre!
   updateLanguage(id: String!, input: UpdateLanguageInput!): Language!
   updateLastMonthView: Boolean!
+  updateMe(input: UpdateUserInput!): User!
+  updateMovie(id: String!, input: UpdateMovieInput!): Movie!
   updateMovieImage(id: Int!, input: UpdateMovieImageInput!): MovieImage!
   updateMovieImageType(
     id: Int!
@@ -377,6 +395,7 @@ type Mutation {
     movieId: String!
     userId: String!
   ): MovieUser!
+  updatePassword(newPassword: String!, oldPassword: String!): User!
   updatePerson(id: Int!, input: UpdatePersonInput!): Person!
   updateRoom(id: String!, input: UpdateRoomInput!): Room!
   updateSeason(id: String!, input: UpdateSeasonInput!): Season!
@@ -386,6 +405,7 @@ type Mutation {
   updateTrailer(id: Int!, input: UpdateTrailerInput!): Trailer!
   updateUser(id: String!, input: UpdateUserInput!): User!
   updateVideoVariant(id: Int!, input: UpdateVideoVariantInput!): VideoVariant!
+  uploadFile(file: Upload!): Media!
   uploadImage(file: Upload!): Media!
 }
 
@@ -395,19 +415,24 @@ type OffsetPageInfo {
   totalCount: Float!
 }
 
+type OffsetPaginatedCollectionsReviews {
+  nodes: [CollectionReview!]!
+  pageInfo: OffsetPageInfo!
+}
+
 type OffsetPaginatedMovies {
   nodes: [Movie!]!
+  pageInfo: OffsetPageInfo!
+}
+
+type OffsetPaginatedMoviesReviews {
+  nodes: [MovieReview!]!
   pageInfo: OffsetPageInfo!
 }
 
 type PaginatedCollections {
   nodes: [Collection!]!
   pageInfo: OffsetPageInfo!
-}
-
-type PaginatedCollectionsReviews {
-  edges: [CollectionReviewEdge!]!
-  pageInfo: RelayPageInfo!
 }
 
 type PaginatedCollectionsUsers {
@@ -468,11 +493,6 @@ type PaginatedMoviesImages {
 type PaginatedMoviesPersons {
   nodes: [MoviePerson!]!
   pageInfo: OffsetPageInfo!
-}
-
-type PaginatedMoviesReviews {
-  edges: [MovieReviewEdge!]!
-  pageInfo: RelayPageInfo!
 }
 
 type PaginatedMoviesUsers {
@@ -539,20 +559,39 @@ type Person {
   name: String!
 }
 
+type Plan {
+  id: ID!
+  name: String!
+  prices: [Price!]!
+}
+
+type PlanPrice {
+  plan: Plan!
+  planId: ID!
+  price: Price!
+  priceId: ID!
+}
+
 type Price {
   amount: Int!
   currency: Currency!
   currencyId: String!
   id: ID!
+  interval: PlanIntervalEnum
 }
 
 type Product {
-  defaultPrice: Price!
-  defaultPriceId: String!
   id: ID!
   movie: Movie!
   movieId: ID!
   prices: [Price!]!
+}
+
+type ProductPrice {
+  price: Price!
+  priceId: ID!
+  product: Product!
+  productId: ID!
 }
 
 type Purchase {
@@ -560,11 +599,16 @@ type Purchase {
   madeAt: DateTime!
   movie: Movie!
   movieId: String!
+  price: Price!
+  priceId: String!
   user: User!
   userId: String!
 }
 
 type Query {
+  getAllCountries(filter: CountryFilter, sort: CountrySort): [Country!]!
+  getAllGenres(filter: GenreFilter, sort: GenreSort): [Genre!]!
+  getAllStudios(filter: StudioFilter, sort: StudioSort): [Studio!]!
   getCollection(id: Int!): Collection!
   getCollectionReview(id: Int!): CollectionReview!
   getCollectionUser(collectionId: Int!, userId: String!): CollectionUser!
@@ -574,14 +618,20 @@ type Query {
     offset: Int! = 0
     sort: CollectionSort
   ): PaginatedCollections!
-  getCollectionsReviews(
+  getCollectionsReviewsOffset(
+    filter: CollectionReviewFilter
+    limit: Int! = 20
+    offset: Int! = 0
+    sort: CollectionReviewSort
+  ): OffsetPaginatedCollectionsReviews!
+  getCollectionsReviewsRelay(
     after: String
     before: String
     filter: CollectionReviewFilter
     first: Int
     last: Int
     sort: CollectionReviewSort
-  ): PaginatedCollectionsReviews!
+  ): RelayPaginatedCollectionsReviews!
   getCollectionsUsers(
     filter: CollectionUserFilter
     limit: Int! = 20
@@ -603,6 +653,7 @@ type Query {
   ): PaginatedCurrencies!
   getCurrency(id: String!): Currency!
   getEpisode(id: String!): Episode!
+  getEpisodeBySeasonAndNum(numInSeason: Int!, seasonId: String!): Episode!
   getEpisodeBySeriesAndNum(numInSeries: Int!, seriesId: String!): Episode!
   getEpisodes(
     filter: EpisodeFilter
@@ -669,7 +720,18 @@ type Query {
   ): PaginatedSeries!
   getManySubtitles: [Subtitles!]!
   getMe: User!
-  getMostViewedMovies(limit: Int! = 20, offset: Int! = 0): [Movie!]!
+  getMostReviewedMovies(
+    filter: MovieFilter
+    limit: Int! = 20
+    offset: Int! = 0
+    sort: MovieSort
+  ): [Movie!]!
+  getMostViewedMovies(
+    filter: MovieFilter
+    limit: Int! = 20
+    offset: Int! = 0
+    sort: MovieSort
+  ): [Movie!]!
   getMovie(id: String!): Movie!
   getMovieImage(id: Int!): MovieImage!
   getMovieImageType(id: Int!): MovieImageType!
@@ -729,14 +791,20 @@ type Query {
     last: Int
     sort: MovieSort
   ): RelayPaginatedMovies!
-  getMoviesReviews(
+  getMoviesReviewsOffset(
+    filter: MovieReviewFilter
+    limit: Int! = 20
+    offset: Int! = 0
+    sort: MovieReviewSort
+  ): OffsetPaginatedMoviesReviews!
+  getMoviesReviewsRelay(
     after: String
     before: String
     filter: MovieReviewFilter
     first: Int
     last: Int
     sort: MovieReviewSort
-  ): PaginatedMoviesReviews!
+  ): RelayPaginatedMoviesReviews!
   getMoviesUsers(
     filter: MovieUserFilter
     limit: Int! = 20
@@ -753,9 +821,18 @@ type Query {
     offset: Int! = 0
     sort: PersonSort
   ): PaginatedPersons!
+  getPlan(id: String!): Plan!
+  getPlanPrice(planId: String!, priceId: String!): PlanPrice!
+  getPlans: [Plan!]!
   getProduct(id: String!): Product!
+  getProductPrice(priceId: String!, productId: String!): ProductPrice!
   getPurchase(id: Float!): Purchase!
-  getRandomMovies(limit: Int! = 20, offset: Int! = 0): [Movie!]!
+  getRandomMovies(
+    filter: MovieFilter
+    limit: Int! = 20
+    offset: Int! = 0
+    sort: MovieSort
+  ): [Movie!]!
   getRoom(id: String!): Room!
   getRoomCurrentPlayback(id: String!): Int!
   getRoomMovie(movieId: String!, roomId: String!): RoomMovie!
@@ -814,10 +891,10 @@ type Query {
     sort: VideoSort
   ): PaginatedVideos!
   getVideosVariants: [VideoVariant!]!
+  hasActiveSubscription: Boolean!
   hasCollectionReview(collectionId: Int!): Boolean!
   hasMovieReview(movieId: String!): Boolean!
   hasPurchase(movieId: String!): Boolean!
-  joinRoom(inviteToken: String!): Room!
 }
 
 type RelayMovieEdge {
@@ -832,8 +909,18 @@ type RelayPageInfo {
   startCursor: String
 }
 
+type RelayPaginatedCollectionsReviews {
+  edges: [CollectionReviewEdge!]!
+  pageInfo: RelayPageInfo!
+}
+
 type RelayPaginatedMovies {
   edges: [RelayMovieEdge!]!
+  pageInfo: RelayPageInfo!
+}
+
+type RelayPaginatedMoviesReviews {
+  edges: [MovieReviewEdge!]!
   pageInfo: RelayPageInfo!
 }
 
@@ -845,6 +932,7 @@ type Room {
   owner: User!
   ownerId: String!
   participants: [User!]!
+  participantsConnection: [RoomParticipant!]!
 }
 
 type RoomMovie {
@@ -887,6 +975,7 @@ type Series implements Movie {
   collections: [Collection!]!
   collectionsConnection: [CollectionMovie!]!
   countries: [Country!]!
+  countriesConnection: [MovieCountry!]!
   cover: Media
   coverId: String
   createdAt: DateTime!
@@ -905,6 +994,7 @@ type Series implements Movie {
   seasons: [Season!]!
   startReleaseDate: DateTime
   studios: [Studio!]!
+  studiosConnection: [MovieStudio!]!
   title: String!
   trailers: [Trailer!]!
   type: MovieTypeEnum!
@@ -915,6 +1005,8 @@ type ServiceSubscription {
   id: ID!
   periodEnd: DateTime!
   periodStart: DateTime!
+  price: Price!
+  priceId: String!
   status: SubscriptionStatusEnum!
   user: User!
   userId: String!
@@ -923,6 +1015,7 @@ type ServiceSubscription {
 type Studio {
   countries: [Country!]!
   id: ID!
+  moviesCount(type: MovieTypeEnum): Int!
   name: String!
 }
 
@@ -934,15 +1027,16 @@ type StudioCountry {
 }
 
 type Subscription {
-  roomPlaybackEnded(id: Int!): RoomMovie!
-  roomPlaybackStarted(id: Int!): RoomMovie!
+  roomDeleted(id: String!): Room!
+  roomPlaybackEnded(id: String!): RoomMovie!
+  roomPlaybackStarted(id: String!): RoomMovie!
   videosGenerationCompleted(id: Int!): String!
 }
 
 type Subtitles {
   file: Media!
   fileId: String!
-  id: Float!
+  id: ID!
   language: Language!
   languageId: String!
   video: Video!
@@ -971,6 +1065,7 @@ type User {
   name: String!
   purchases: [Purchase!]!
   role: RoleEnum!
+  rooms: [Room!]!
   subscriptions: [ServiceSubscription!]!
   updatedAt: DateTime!
 }
@@ -1049,6 +1144,11 @@ enum MovieTypeEnum {
   Series
 }
 
+enum PlanIntervalEnum {
+  MONTH
+  YEAR
+}
+
 "User role in app"
 enum RoleEnum {
   Admin
@@ -1071,14 +1171,10 @@ enum SortNullsEnum {
 }
 
 enum SubscriptionStatusEnum {
-  active
-  canceled
-  incomplete
-  incomplete_expired
-  past_due
-  paused
-  trialing
-  unpaid
+  ACTIVE
+  CANCELED
+  IN_PROCESS
+  PAST_DUE
 }
 
 enum VideoProfileEnum {
@@ -1297,11 +1393,12 @@ input CreateCurrencyInput {
 input CreateEpisodeInput {
   accessMode: AccessModeEnum
   ageRestriction: AgeRestrictionEnum
+  coverId: String
   description: String
-  numberInSeason: Float
-  numberInSeries: Float!
+  numberInSeason: Int!
+  numberInSeries: Int!
   releaseDate: DateTime
-  seasonId: String
+  seasonId: String!
   seriesId: String!
   title: String
   videoId: Float
@@ -1314,6 +1411,7 @@ input CreateFilmInput {
   coverId: String
   description: String
   genresIds: [String!]
+  productId: String
   releaseDate: DateTime
   studiosIds: [Int!]
   title: String!
@@ -1368,8 +1466,25 @@ input CreatePersonInput {
   name: String!
 }
 
+input CreatePlanInput {
+  name: String!
+  prices: [CreatePlanInput_Price!]!
+}
+
+input CreatePlanInput_Price {
+  amount: Int!
+  currencyId: String!
+  interval: PlanIntervalEnum!
+}
+
+input CreatePriceInput {
+  amount: Int!
+  currencyId: String!
+  interval: PlanIntervalEnum
+  productId: String!
+}
+
 input CreateProductInput {
-  defaultPrice: CreateProductInput_Price!
   movieId: String!
   prices: [CreateProductInput_Price!]!
 }
@@ -1394,7 +1509,7 @@ input CreateSeasonInput {
   ageRestriction: AgeRestrictionEnum
   description: String
   endReleaseDate: DateTime
-  numberInSeries: Float!
+  numberInSeries: Int!
   seriesId: String!
   startReleaseDate: DateTime
   title: String
@@ -1408,6 +1523,7 @@ input CreateSeriesInput {
   description: String
   endReleaseDate: DateTime
   genresIds: [String!]
+  productId: String
   startReleaseDate: DateTime
   studiosIds: [Int!]
   title: String!
@@ -1486,6 +1602,8 @@ input EpisodeFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
   and: [EpisodeFilter!]
+  cover: MediaEntity_EpisodeFilter
+  coverId: StringFilter
   description: StringFilter
   id: IDFilter
   numberInSeason: IntFilter
@@ -1502,6 +1620,8 @@ input EpisodeFilter {
 input EpisodeSort {
   accessMode: SortOptions
   ageRestriction: SortOptions
+  cover: MediaEntity_EpisodeSort
+  coverId: SortOptions
   description: SortOptions
   id: SortOptions
   numberInSeason: SortOptions
@@ -1519,6 +1639,7 @@ input FilmFilter {
   ageRestriction: AgeRestrictionEnumFilter
   and: [FilmFilter!]
   collectionsConnection: CollectionMovieEntity_FilmFilter
+  countriesConnection: MovieCountryEntity_FilmFilter
   cover: MediaEntity_FilmFilter
   coverId: StringFilter
   createdAt: DateFilter
@@ -1527,6 +1648,7 @@ input FilmFilter {
   id: IDFilter
   or: [FilmFilter!]
   releaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_FilmFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -1536,6 +1658,7 @@ input FilmSort {
   accessMode: SortOptions
   ageRestriction: SortOptions
   collectionsConnection: CollectionMovieEntity_FilmSort
+  countriesConnection: MovieCountryEntity_FilmSort
   cover: MediaEntity_FilmSort
   coverId: SortOptions
   createdAt: SortOptions
@@ -1543,6 +1666,7 @@ input FilmSort {
   genresConnection: MovieGenreEntity_FilmSort
   id: SortOptions
   releaseDate: SortOptions
+  studiosConnection: MovieStudioEntity_FilmSort
   title: SortOptions
   updatedAt: SortOptions
   videoId: SortOptions
@@ -1644,6 +1768,20 @@ input LoginInput {
   password: String!
 }
 
+input MediaEntity_EpisodeFilter {
+  and: [MediaEntity_EpisodeFilter!]
+  id: IDFilter
+  or: [MediaEntity_EpisodeFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_EpisodeSort {
+  id: SortOptions
+  type: SortOptions
+  url: SortOptions
+}
+
 input MediaEntity_FilmFilter {
   and: [MediaEntity_FilmFilter!]
   id: IDFilter
@@ -1710,6 +1848,42 @@ input MediaTypeEnumFilter {
 input MoveRoomMovieInput {
   newOrder: Int!
   oldOrder: Int!
+}
+
+input MovieCountryEntity_FilmFilter {
+  and: [MovieCountryEntity_FilmFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_FilmFilter!]
+}
+
+input MovieCountryEntity_FilmSort {
+  countryId: SortOptions
+  movieId: SortOptions
+}
+
+input MovieCountryEntity_MovieFilter {
+  and: [MovieCountryEntity_MovieFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieFilter!]
+}
+
+input MovieCountryEntity_MovieSort {
+  countryId: SortOptions
+  movieId: SortOptions
+}
+
+input MovieCountryEntity_SeriesFilter {
+  and: [MovieCountryEntity_SeriesFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_SeriesFilter!]
+}
+
+input MovieCountryEntity_SeriesSort {
+  countryId: SortOptions
+  movieId: SortOptions
 }
 
 input MovieEntity_MovieImageFilter {
@@ -1845,6 +2019,7 @@ input MovieFilter {
   ageRestriction: AgeRestrictionEnumFilter
   and: [MovieFilter!]
   collectionsConnection: CollectionMovieEntity_MovieFilter
+  countriesConnection: MovieCountryEntity_MovieFilter
   cover: MediaEntity_MovieFilter
   coverId: StringFilter
   createdAt: DateFilter
@@ -1855,6 +2030,7 @@ input MovieFilter {
   or: [MovieFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -2014,6 +2190,7 @@ input MovieSort {
   accessMode: SortOptions
   ageRestriction: SortOptions
   collectionsConnection: CollectionMovieEntity_MovieSort
+  countriesConnection: MovieCountryEntity_MovieSort
   cover: MediaEntity_MovieSort
   coverId: SortOptions
   createdAt: SortOptions
@@ -2023,9 +2200,46 @@ input MovieSort {
   id: SortOptions
   releaseDate: SortOptions
   startReleaseDate: SortOptions
+  studiosConnection: MovieStudioEntity_MovieSort
   title: SortOptions
   updatedAt: SortOptions
   videoId: SortOptions
+}
+
+input MovieStudioEntity_FilmFilter {
+  and: [MovieStudioEntity_FilmFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_FilmFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_FilmSort {
+  movieId: SortOptions
+  studioId: SortOptions
+}
+
+input MovieStudioEntity_MovieFilter {
+  and: [MovieStudioEntity_MovieFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieSort {
+  movieId: SortOptions
+  studioId: SortOptions
+}
+
+input MovieStudioEntity_SeriesFilter {
+  and: [MovieStudioEntity_SeriesFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_SeriesFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_SeriesSort {
+  movieId: SortOptions
+  studioId: SortOptions
 }
 
 input MovieUserFilter {
@@ -2101,6 +2315,7 @@ input RoomFilter {
   name: StringFilter
   or: [RoomFilter!]
   ownerId: StringFilter
+  participantsConnection: RoomParticipantEntity_RoomFilter
 }
 
 input RoomMovieFilter {
@@ -2115,10 +2330,23 @@ input RoomMovieSort {
   roomId: SortOptions
 }
 
+input RoomParticipantEntity_RoomFilter {
+  and: [RoomParticipantEntity_RoomFilter!]
+  or: [RoomParticipantEntity_RoomFilter!]
+  roomId: IDFilter
+  userId: IDFilter
+}
+
+input RoomParticipantEntity_RoomSort {
+  roomId: SortOptions
+  userId: SortOptions
+}
+
 input RoomSort {
   id: SortOptions
   name: SortOptions
   ownerId: SortOptions
+  participantsConnection: RoomParticipantEntity_RoomSort
 }
 
 input SeasonFilter {
@@ -2190,6 +2418,7 @@ input SeriesFilter {
   ageRestriction: AgeRestrictionEnumFilter
   and: [SeriesFilter!]
   collectionsConnection: CollectionMovieEntity_SeriesFilter
+  countriesConnection: MovieCountryEntity_SeriesFilter
   cover: MediaEntity_SeriesFilter
   coverId: StringFilter
   createdAt: DateFilter
@@ -2200,6 +2429,7 @@ input SeriesFilter {
   or: [SeriesFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_SeriesFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -2209,6 +2439,7 @@ input SeriesSort {
   accessMode: SortOptions
   ageRestriction: SortOptions
   collectionsConnection: CollectionMovieEntity_SeriesSort
+  countriesConnection: MovieCountryEntity_SeriesSort
   cover: MediaEntity_SeriesSort
   coverId: SortOptions
   createdAt: SortOptions
@@ -2218,6 +2449,7 @@ input SeriesSort {
   id: SortOptions
   releaseDate: SortOptions
   startReleaseDate: SortOptions
+  studiosConnection: MovieStudioEntity_SeriesSort
   title: SortOptions
   updatedAt: SortOptions
   videoId: SortOptions
@@ -2304,9 +2536,10 @@ input UpdateCurrencyInput {
 input UpdateEpisodeInput {
   accessMode: AccessModeEnum
   ageRestriction: AgeRestrictionEnum
+  coverId: String
   description: String
-  numberInSeason: Float
-  numberInSeries: Float
+  numberInSeason: Int
+  numberInSeries: Int
   releaseDate: DateTime
   seasonId: String
   seriesId: String
@@ -2319,6 +2552,7 @@ input UpdateFilmInput {
   ageRestriction: AgeRestrictionEnum
   coverId: String
   description: String
+  productId: String
   releaseDate: DateTime
   title: String
   videoId: Int
@@ -2341,6 +2575,15 @@ input UpdateMovieImageInput {
 
 input UpdateMovieImageTypeInput {
   name: String
+}
+
+input UpdateMovieInput {
+  accessMode: AccessModeEnum
+  ageRestriction: AgeRestrictionEnum
+  coverId: String
+  description: String
+  productId: String
+  title: String
 }
 
 input UpdateMoviePersonInput {
@@ -2381,7 +2624,7 @@ input UpdateSeasonInput {
   ageRestriction: AgeRestrictionEnum
   description: String
   endReleaseDate: DateTime
-  numberInSeries: Float
+  numberInSeries: Int
   seriesId: String
   startReleaseDate: DateTime
   title: String
@@ -2393,6 +2636,7 @@ input UpdateSeriesInput {
   coverId: String
   description: String
   endReleaseDate: DateTime
+  productId: String
   startReleaseDate: DateTime
   title: String
 }

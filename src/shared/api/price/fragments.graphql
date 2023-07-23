@@ -4,6 +4,17 @@ fragment BasePrice on Price {
   currencyId
 }
 
+fragment PlanPrice on Price {
+  id
+  amount
+  interval
+  currency {
+    id
+    name
+    symbol
+  }
+}
+
 fragment Price on Price {
   id
   amount

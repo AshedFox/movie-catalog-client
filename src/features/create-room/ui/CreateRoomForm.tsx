@@ -3,12 +3,9 @@
 import React from 'react';
 import { Button, Field } from '@shared/ui';
 import { useForm } from 'react-hook-form';
-import {
-  CreateRoomDocument,
-  CreateRoomInput,
-  GetRoomsDocument,
-} from '@shared/api/graphql';
+import { CreateRoomDocument, CreateRoomInput } from '@shared/api/graphql';
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   userId: string;
@@ -18,15 +15,16 @@ const CreateRoomForm = ({ userId }: Props) => {
   const {
     register,
     handleSubmit,
-    reset,
+    // reset,
     formState: { errors },
   } = useForm<CreateRoomInput>({
     defaultValues: {
       name: '',
     },
   });
+  const router = useRouter();
   const [createRoom, { loading, error }] = useMutation(CreateRoomDocument, {
-    onCompleted: () => {
+    /* onCompleted: () => {
       reset();
     },
     update: (cache, { data }) => {
@@ -66,15 +64,21 @@ const CreateRoomForm = ({ userId }: Props) => {
           },
         },
       });
-    },
+    },*/
   });
 
   const onSubmit = async (input: CreateRoomInput) => {
-    await createRoom({
+    const { data } = await createRoom({
       variables: {
         input,
       },
     });
+    if (data) {
+      await fetch(
+        `http://localhost:3001/api/revalidate?tag=rooms_${data.createRoom.owner.id}`,
+      );
+      router.push(`/rooms/${data.createRoom.id}`);
+    }
   };
 
   return (

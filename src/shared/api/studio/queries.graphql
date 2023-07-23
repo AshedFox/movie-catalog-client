@@ -1,3 +1,10 @@
+query GetAllStudios($sort: StudioSort, $movieType: MovieTypeEnum) {
+  getAllStudios(sort: $sort) {
+    ...BaseStudio
+    moviesCount(type: $movieType)
+  }
+}
+
 query GetStudios(
   $limit: Int!
   $offset: Int!

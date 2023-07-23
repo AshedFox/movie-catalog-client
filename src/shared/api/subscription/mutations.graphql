@@ -1,0 +1,11 @@
+mutation Subscribe($priceId: String!) {
+  subscribe(priceId: $priceId)
+}
+
+mutation CancelSubscription($id: String!) {
+  cancelSubscription(id: $id)
+}
+
+mutation CreateSubscriptionsManageLink {
+  createSubscriptionsManageLink
+}

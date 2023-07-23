@@ -3,7 +3,7 @@
 import React, { startTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Field } from 'shared/ui';
-import { useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Crypto from 'crypto';
 import Link from 'next/link';
@@ -34,38 +34,39 @@ const SignUpForm = ({ redirect }: Props) => {
   const [signUp, { loading, error }] = useMutation(SignUpDocument);
   const { setUser } = useUser();
   const router = useRouter();
+  const { cache } = useApolloClient();
 
   const onSubmit = async (input: RegisterInput) => {
-    try {
-      const { errors, data } = await signUp({
-        variables: {
-          input: {
-            ...input,
-            password: Crypto.createHash('sha512')
-              .update(input.password)
-              .digest('hex'),
-            passwordRepeat: Crypto.createHash('sha512')
-              .update(input.passwordRepeat)
-              .digest('hex'),
-          },
+    const { errors, data } = await signUp({
+      variables: {
+        input: {
+          ...input,
+          password: Crypto.createHash('sha512')
+            .update(input.password)
+            .digest('hex'),
+          passwordRepeat: Crypto.createHash('sha512')
+            .update(input.passwordRepeat)
+            .digest('hex'),
         },
-      });
+      },
+      errorPolicy: 'ignore',
+    });
 
-      if (!errors && data) {
-        startTransition(() => {
-          localStorage.setItem('access-token', data.register.accessToken);
-          setUser(data.register.user);
-          if (redirect) {
-            if (redirect === 'back') {
-              router.back();
-            } else {
-              router.push(redirect);
-            }
+    if (!errors && data) {
+      await cache.reset();
+      startTransition(() => {
+        if (redirect) {
+          if (redirect === 'back') {
+            router.back();
+          } else {
+            router.push(redirect);
           }
-        });
-      }
-    } catch {
-      //
+        }
+        router.refresh();
+
+        localStorage.setItem('access-token', data.register.accessToken);
+        setUser(data.register.user);
+      });
     }
   };
 

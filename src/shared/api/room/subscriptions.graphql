@@ -1,0 +1,17 @@
+subscription RoomPlaybackStarted($id: String!) {
+  roomPlaybackStarted(id: $id) {
+    ...RoomMovie
+  }
+}
+
+subscription RoomPlaybackEnded($id: String!) {
+  roomPlaybackEnded(id: $id) {
+    ...BaseRoomMovie
+  }
+}
+
+subscription RoomDeleted($id: String!) {
+  roomDeleted(id: $id) {
+    ...BaseRoom
+  }
+}

@@ -25,6 +25,18 @@ fragment SeriesCard_Series on Series {
 }
 
 fragment SeriesItem_Series on Series {
-  ...SeriesCard_Series
+  ...BaseSeries
+  studios {
+    name
+  }
+  countries {
+    name
+  }
+  genres {
+    name
+  }
+  cover {
+    url
+  }
   productId
 }

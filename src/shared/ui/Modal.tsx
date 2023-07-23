@@ -48,7 +48,7 @@ const Modal = ({
       onClick={onClose}
     >
       <div
-        className="relative m-auto overflow-hidden max-w-[95%] max-h-[95%] gap-4 bg-white rounded text-black flex flex-col min-w-[50%] dark:bg-black dark:text-white p-4"
+        className="relative m-auto overflow-hidden max-w-[95%] max-h-[95%] gap-4 bg-white rounded text-black flex flex-col min-w-[30%] dark:bg-black dark:text-white p-4"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex gap-2 items-start">

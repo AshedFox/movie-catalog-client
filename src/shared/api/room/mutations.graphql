@@ -4,6 +4,18 @@ mutation CreateRoom($input: CreateRoomInput!) {
   }
 }
 
+mutation JoinRoom($inviteToken: String!) {
+  joinRoom(inviteToken: $inviteToken) {
+    ...Room
+  }
+}
+
+mutation LeaveRoom($id: String!) {
+  leaveRoom(id: $id) {
+    ...Room
+  }
+}
+
 mutation GenerateRoomInvite($id: String!) {
   generateRoomInvite(id: $id)
 }

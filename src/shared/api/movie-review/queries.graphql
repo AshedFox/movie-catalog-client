@@ -8,7 +8,34 @@ query HasMovieReview($movieId: String!) {
   hasMovieReview(movieId: $movieId)
 }
 
-query GetMoviesReviews(
+query GetMoviesReviewsOffset(
+  $filter: MovieReviewFilter
+  $sort: MovieReviewSort
+  $offset: Int!
+  $limit: Int!
+  $withMovie: Boolean = false
+) {
+  getMoviesReviewsOffset(
+    filter: $filter
+    sort: $sort
+    offset: $offset
+    limit: $limit
+  ) {
+    nodes {
+      ...BaseMovieReview
+      movie @include(if: $withMovie) {
+        id
+        title
+      }
+    }
+
+    pageInfo {
+      totalCount
+    }
+  }
+}
+
+query GetMoviesReviewsRelay(
   $filter: MovieReviewFilter
   $sort: MovieReviewSort
   $before: String
@@ -17,7 +44,7 @@ query GetMoviesReviews(
   $first: Int
   $withMovie: Boolean = false
 ) {
-  getMoviesReviews(
+  getMoviesReviewsRelay(
     filter: $filter
     sort: $sort
     before: $before

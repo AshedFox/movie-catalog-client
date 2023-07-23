@@ -6,11 +6,20 @@ type Params = {
   releaseDateLTE?: string;
   ageRestriction?: string[];
   genre?: string[];
+  country?: string[];
+  studio?: string[];
 };
 
 export const parseParamsToFilmFilter = (searchParams: Params): FilmFilter => {
-  const { title, ageRestriction, genre, releaseDateLTE, releaseDateGTE } =
-    searchParams;
+  const {
+    title,
+    ageRestriction,
+    genre,
+    country,
+    studio,
+    releaseDateLTE,
+    releaseDateGTE,
+  } = searchParams;
   const filter: FilmFilter = {};
 
   if (title) {
@@ -46,6 +55,22 @@ export const parseParamsToFilmFilter = (searchParams: Params): FilmFilter => {
     filter.genresConnection = {
       genreId: {
         in: genre,
+      },
+    };
+  }
+
+  if (studio && studio.length > 0) {
+    filter.studiosConnection = {
+      studioId: {
+        in: studio,
+      },
+    };
+  }
+
+  if (country && country.length > 0) {
+    filter.countriesConnection = {
+      countryId: {
+        in: country,
       },
     };
   }

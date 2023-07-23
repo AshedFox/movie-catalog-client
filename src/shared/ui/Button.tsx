@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
 type Size = 'sm' | 'md' | 'lg';
 type Variant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
 type ButtonProps = PropsWithChildren<{
-  onClick?: () => void;
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   variant?: Variant;
   size?: Size;

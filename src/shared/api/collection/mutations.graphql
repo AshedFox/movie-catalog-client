@@ -1,0 +1,17 @@
+mutation CreateCollection($input: CreateCollectionInput!) {
+  createCollection(input: $input) {
+    ...CollectionCard_Collection
+  }
+}
+
+mutation UpdateCollection($id: Int!, $input: UpdateCollectionInput!) {
+  updateCollection(id: $id, input: $input) {
+    ...CollectionItem_Collection
+  }
+}
+
+mutation DeleteCollection($id: Int!) {
+  deleteCollection(id: $id) {
+    id
+  }
+}

@@ -66,7 +66,9 @@ const Row = ({
           <div className="text-xl font-semibold truncate">{title}</div>
         )}
         <div className="flex gap-1 items-center flex-wrap">{tagsSlot}</div>
-        <div className="mx-4 line-clamp-4 text-xs flex-auto">{description}</div>
+        <div className="mx-4 text-xs flex-auto">
+          <div className="line-clamp-4">{description}</div>
+        </div>
         {extraSlot}
       </div>
     </div>

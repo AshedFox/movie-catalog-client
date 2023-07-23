@@ -2,24 +2,21 @@
 
 import React, { useCallback, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Field } from '@shared/ui';
+import { Button, Field, Select } from '@shared/ui';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ReactSelect from 'react-select';
 import {
   AgeRestrictionEnum,
-  BaseCountryFragment,
-  BaseStudioFragment,
-  Genre,
+  GetAllCountriesDocument,
+  GetAllGenresDocument,
+  GetAllStudiosDocument,
+  MovieTypeEnum,
+  SortDirectionEnum,
 } from '@shared/api/graphql';
 import { AgeRestrictionArg, FilterArgs, GenreArg } from '../model/types';
 import { getDefaultValues } from '../lib/getDefaultValues';
 import { getParamsWithArgs } from '../lib/getParamsWithArgs';
-
-type Props = {
-  genresVariants: Genre[];
-  countriesVariants: BaseCountryFragment[];
-  studiosVariants: BaseStudioFragment[];
-};
+import { useSuspenseQuery_experimental } from '@apollo/client';
+import { CountryArg, StudioArg } from '../../series-filter/model/types';
 
 export const ageRestrictionSelectOpts: AgeRestrictionArg[] = [
   { value: AgeRestrictionEnum.G, label: 'G' },
@@ -29,11 +26,41 @@ export const ageRestrictionSelectOpts: AgeRestrictionArg[] = [
   { value: AgeRestrictionEnum.R, label: 'R' },
 ];
 
-const FilmsFilters = ({
-  genresVariants,
-  countriesVariants,
-  studiosVariants,
-}: Props) => {
+const FilmsFilters = () => {
+  const { data: genresData } = useSuspenseQuery_experimental(
+    GetAllGenresDocument,
+    {
+      variables: {
+        sort: {
+          name: { direction: SortDirectionEnum.ASC },
+        },
+        movieType: MovieTypeEnum.Film,
+      },
+    },
+  );
+  const { data: studiosData } = useSuspenseQuery_experimental(
+    GetAllStudiosDocument,
+    {
+      variables: {
+        sort: {
+          name: { direction: SortDirectionEnum.ASC },
+        },
+        movieType: MovieTypeEnum.Film,
+      },
+    },
+  );
+  const { data: countriesData } = useSuspenseQuery_experimental(
+    GetAllCountriesDocument,
+    {
+      variables: {
+        sort: {
+          name: { direction: SortDirectionEnum.ASC },
+        },
+        movieType: MovieTypeEnum.Film,
+      },
+    },
+  );
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -46,38 +73,50 @@ const FilmsFilters = ({
     getValues,
     formState: { errors },
   } = useForm<FilterArgs>({
-    defaultValues: getDefaultValues(
-      searchParams,
-      genresVariants,
-      countriesVariants,
-      studiosVariants,
-    ),
+    defaultValues: {
+      ...getDefaultValues(searchParams),
+      genres: genresData?.getAllGenres
+        .filter((g) => {
+          return searchParams.getAll('genre').includes(g.id);
+        })
+        .map((g) => ({ value: g.id, label: `${g.name}(${g.moviesCount})` })),
+      countries: countriesData?.getAllCountries
+        .filter((c) => {
+          return searchParams.getAll('country').includes(c.id);
+        })
+        .map((c) => ({ value: c.id, label: `${c.name}(${c.moviesCount})` })),
+      studios: studiosData?.getAllStudios
+        .filter((s) => {
+          return searchParams.getAll('studio').includes(s.id);
+        })
+        .map((s) => ({ value: s.id, label: `${s.name}(${s.moviesCount})` })),
+    },
   });
 
   const genresSelectOptions: GenreArg[] = useMemo(
     () =>
-      genresVariants.map((g) => ({
+      genresData?.getAllGenres.map((g) => ({
         value: g.id,
-        label: g.name,
+        label: `${g.name}(${g.moviesCount})`,
       })),
-    [genresVariants],
+    [genresData?.getAllGenres],
   );
-  /* const countriesSelectOptions: CountryArg[] = useMemo(
+  const countriesSelectOptions: CountryArg[] = useMemo(
     () =>
-      allCountries.map((g) => ({
-        value: g.id,
-        label: g.name,
+      countriesData?.getAllCountries.map((c) => ({
+        value: c.id,
+        label: `${c.name}(${c.moviesCount})`,
       })),
-    [allCountries],
+    [countriesData?.getAllCountries],
   );
   const studiosSelectOptions: StudioArg[] = useMemo(
     () =>
-      allStudios.map((g) => ({
-        value: g.id,
-        label: g.name,
+      studiosData?.getAllStudios.map((s) => ({
+        value: s.id,
+        label: `${s.name}(${s.moviesCount})`,
       })),
-    [allStudios],
-  ); */
+    [studiosData?.getAllStudios],
+  );
 
   const hasAnyFilter = () => {
     const values = getValues();
@@ -85,6 +124,8 @@ const FilmsFilters = ({
     return (
       (!!values.ageRestrictions && values.ageRestrictions.length > 0) ||
       (!!values.genres && values.genres.length > 0) ||
+      (!!values.studios && values.studios.length > 0) ||
+      (!!values.countries && values.countries.length > 0) ||
       !!values.title ||
       !!values.releaseDateStart ||
       !!values.releaseDateEnd
@@ -144,7 +185,7 @@ const FilmsFilters = ({
                 >
                   Age restrictions
                 </label>
-                <ReactSelect
+                <Select
                   instanceId="age-restrictions-select"
                   isMulti={true}
                   {...field}
@@ -161,7 +202,7 @@ const FilmsFilters = ({
                 <label className="text-sm font-medium mb-2" htmlFor="genres">
                   Genres
                 </label>
-                <ReactSelect
+                <Select
                   instanceId="genres-select"
                   isMulti={true}
                   {...field}
@@ -170,7 +211,7 @@ const FilmsFilters = ({
               </div>
             )}
           />
-          {/* <Controller
+          <Controller
             name="studios"
             control={control}
             render={({ field }) => (
@@ -178,7 +219,7 @@ const FilmsFilters = ({
                 <label className="text-sm font-medium mb-2" htmlFor="studios">
                   Studios
                 </label>
-                <ReactSelect
+                <Select
                   instanceId="studios-select"
                   isMulti={true}
                   {...field}
@@ -195,7 +236,7 @@ const FilmsFilters = ({
                 <label className="text-sm font-medium mb-2" htmlFor="countries">
                   Countries
                 </label>
-                <ReactSelect
+                <Select
                   instanceId="countries-select"
                   isMulti={true}
                   {...field}
@@ -203,7 +244,7 @@ const FilmsFilters = ({
                 />
               </div>
             )}
-          /> */}
+          />
         </fieldset>
       </details>
       <div className="flex flex-col gap-1.5 lg:gap-4 lg:flex-row lg:items-center">

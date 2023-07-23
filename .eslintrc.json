@@ -14,7 +14,7 @@
         "require-jsdoc": "off",
         "no-html-link-for-pages": "off",
         "new-cap": "off",
-        "camelcase": "warn"
+        "camelcase": "off"
     },
     "ignorePatterns": ["src/**/__generated__"],
     "overrides": [

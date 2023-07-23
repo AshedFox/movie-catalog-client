@@ -6,183 +6,222 @@ import {
   GetFilmDocument,
   GetRoomCurrentPlaybackDocument,
   GetRoomDocument,
+  LeaveRoomDocument,
+  RoomDeletedDocument,
+  RoomPlaybackEndedDocument,
+  RoomPlaybackStartedDocument,
 } from '@shared/api/graphql';
-import VideoPlayer from '../../films/[id]/watch/VideoPlayer';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import {
+  useLazyQuery,
+  useMutation,
+  useSubscription,
+  useSuspenseQuery_experimental,
+} from '@apollo/client';
 import { useUser } from '@entities/user';
 import { Button } from '@shared/ui';
 import Link from 'next/link';
+import { RoomVideoPlayer } from '@widgets/video-player';
+import { redirect, useRouter } from 'next/navigation';
 
 type Props = {
   roomId: string;
 };
 
 const ClientSide = ({ roomId }: Props) => {
-  const { data: roomData } = useQuery(GetRoomDocument, {
+  const router = useRouter();
+  const { data: roomData } = useSuspenseQuery_experimental(GetRoomDocument, {
     variables: {
       id: roomId,
     },
+    errorPolicy: 'ignore',
   });
-  const [getFilm, { data: getFilmData }] = useLazyQuery(GetFilmDocument);
+  const [getFilm, { data: getFilmData }] = useLazyQuery(GetFilmDocument, {
+    fetchPolicy: 'network-only',
+  });
   const [getEpisode, { data: getEpisodeData }] = useLazyQuery(
     GetEpisodeBySeriesAndNumDocument,
   );
-  const [getCurrentPlayback, { data: playbackData }] = useLazyQuery(
-    GetRoomCurrentPlaybackDocument,
-  );
-  const { user } = useUser();
+  const [getCurrentPlayback] = useLazyQuery(GetRoomCurrentPlaybackDocument, {
+    fetchPolicy: 'network-only',
+  });
+  const [leaveRoom] = useMutation(LeaveRoomDocument);
+  useSubscription(RoomPlaybackStartedDocument, {
+    variables: {
+      id: roomId,
+    },
+    async onData({ data: { data }, client: { cache } }) {
+      if (roomData && data) {
+        const existing = cache.readQuery({
+          query: GetRoomDocument,
+          variables: {
+            id: roomId,
+          },
+        });
 
-  useEffect(() => {
-    if (roomData) {
-      const currentMovie = roomData.getRoom.currentMovie;
-
-      getCurrentPlayback({
-        variables: {
-          id: roomData.getRoom.id,
-        },
-      });
-
-      if (currentMovie) {
-        if (currentMovie.movie.__typename === 'Film') {
-          getFilm({
-            variables: {
-              id: currentMovie.movie.id,
+        cache.writeQuery({
+          query: GetRoomDocument,
+          variables: {
+            id: roomId,
+          },
+          data: {
+            ...existing,
+            getRoom: {
+              ...existing?.getRoom!,
+              currentMovie: data.roomPlaybackStarted,
             },
-          });
-        } else if (currentMovie.movie.__typename === 'Series') {
-          getEpisode({
+          },
+        });
+
+        if (data.roomPlaybackStarted.movie.__typename === 'Film') {
+          await getFilm({
             variables: {
-              seriesId: currentMovie.movie.id,
-              numberInSeries: currentMovie.episodeNumber!,
+              id: data.roomPlaybackStarted.movie.id,
             },
           });
         }
       }
+    },
+  });
+  useSubscription(RoomPlaybackEndedDocument, {
+    variables: {
+      id: roomId,
+    },
+    onData({ data: { data }, client: { cache } }) {
+      if (roomData && data) {
+        const existing = cache.readQuery({
+          query: GetRoomDocument,
+          variables: {
+            id: roomId,
+          },
+        });
+
+        cache.writeQuery({
+          query: GetRoomDocument,
+          variables: {
+            id: roomId,
+          },
+          data: {
+            ...existing,
+            getRoom: {
+              ...existing?.getRoom!,
+              currentMovie: null,
+            },
+          },
+        });
+      }
+    },
+  });
+  useSubscription(RoomDeletedDocument, {
+    variables: {
+      id: roomId,
+    },
+    onData({ data: { data }, client: { cache } }) {
+      if (roomData && data) {
+        cache.writeQuery({
+          query: GetRoomDocument,
+          variables: {
+            id: roomId,
+          },
+          data: null,
+        });
+        router.push('/users/me/rooms');
+      }
+    },
+  });
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (roomData && roomData.getRoom.currentMovie) {
+      if (roomData.getRoom.currentMovie.movie.__typename === 'Film') {
+        getFilm({
+          variables: {
+            id: roomData.getRoom.currentMovie.movie.id,
+          },
+        });
+      } else if (roomData.getRoom.currentMovie.movie.__typename === 'Series') {
+        getEpisode({
+          variables: {
+            seriesId: roomData.getRoom.currentMovie.movie.id,
+            numberInSeries: roomData.getRoom.currentMovie.episodeNumber!,
+          },
+        });
+      }
     }
-  }, [getCurrentPlayback, getEpisode, getFilm, roomData]);
+  }, [getEpisode, getFilm, roomData]);
 
   if (!roomData) {
-    return <></>;
+    redirect('/users/me/rooms');
   }
 
   const room = roomData.getRoom;
-  const watchable =
-    room.currentMovie?.movie.__typename === 'Film'
+  const watchable = room.currentMovie
+    ? room.currentMovie.movie.__typename === 'Film'
       ? getFilmData?.getFilm
-      : getEpisodeData?.getEpisodeBySeriesAndNum;
-
-  console.log(watchable);
-  console.log(room.currentMovie);
+      : getEpisodeData?.getEpisodeBySeriesAndNum
+    : undefined;
 
   return (
     <main className="container h-without-header flex flex-col gap-2 md:gap-5">
-      <h1 className="text-2xl font-bold">{room.name}</h1>
+      <h1 className="text-2xl font-bold">{`Room "${room.name}"`}</h1>
       <div className="flex flex-auto items-center justify-center">
-        {watchable?.video?.dashManifestMedia &&
-        playbackData?.getRoomCurrentPlayback ? (
-          <VideoPlayer
+        {watchable?.video?.dashManifestMedia ? (
+          <RoomVideoPlayer
+            onLoadedData={async (e) => {
+              const { data } = await getCurrentPlayback({
+                variables: {
+                  id: roomData.getRoom.id,
+                },
+              });
+
+              if (data) {
+                // @ts-ignore
+                e.target.currentTime = data.getRoomCurrentPlayback / 1000;
+              } else {
+                // @ts-ignore
+                e.target.pause();
+              }
+            }}
+            onPlay={async (e) => {
+              const { data } = await getCurrentPlayback({
+                variables: {
+                  id: roomData.getRoom.id,
+                },
+              });
+
+              if (data) {
+                // @ts-ignore
+                e.target.currentTime = data.getRoomCurrentPlayback / 1000;
+              } else {
+                // @ts-ignore
+                e.target.pause();
+              }
+            }}
             videoUrl={watchable.video.dashManifestMedia.url}
-            seek={playbackData.getRoomCurrentPlayback}
           />
         ) : (
           <>No current video</>
         )}
       </div>
-      {user?.id === room.owner.id && (
-        <Link href={`/rooms/${roomId}/manage`}>
-          <Button stretch>Manage room videos</Button>
+      {user?.id === room.owner.id ? (
+        <Link className="w-fit" href={`/rooms/${roomId}/manage`}>
+          <Button stretch>Manage room</Button>
         </Link>
+      ) : (
+        <div>
+          <Button
+            onClick={async () => {
+              const { data } = await leaveRoom({ variables: { id: roomId } });
+              if (data) {
+                router.replace('/users/me/rooms');
+              }
+            }}
+          >
+            Leave room
+          </Button>
+        </div>
       )}
     </main>
   );
 };
 
 export default ClientSide;
-
-/*
-<Modal
-  title={<div className="text-xl font-semibold">Manage</div>}
-  showModal={showModal}
-  closable
-  rootId={'modal-root'}
-  onClose={() => setShowModal(false)}
->
-  <div className="flex flex-col flex-auto gap-3 w-96">
-    <div className="flex flex-col">
-      <h2 className="text-xl font-semibold">Current movies</h2>
-      {room.movies.length > 0 ? (
-        <div className="flex p-2 flex-auto max-h-[150px] overflow-auto">
-          <List
-            items={room.movies.map((roomMovie) => {
-              const item = roomMovie.movie;
-              return {
-                key: item.id,
-                content:
-                  item.__typename === 'Film' ? (
-                    <FilmRow key={item.id} film={item} />
-                  ) : item.__typename === 'Series' ? (
-                    <SeriesRow key={item.id} series={item} />
-                  ) : (
-                    <></>
-                  ),
-              };
-            })}
-          />
-        </div>
-      ) : (
-        <div className="p-4">No movies yet...</div>
-      )}
-    </div>
-    <form
-      className="flex-auto flex gap-2"
-      onSubmit={(e) => {
-        e.preventDefault();
-        getMovies({
-          variables: {
-            limit: 20,
-            offset: 0,
-            filter: {
-              title: {
-                ilike: search,
-              },
-            },
-          },
-        });
-      }}
-    >
-      <fieldset className="flex-auto">
-        <Field
-          name={'search'}
-          onChange={(e) => setSearch(e.currentTarget.value)}
-        />
-      </fieldset>
-      <Button size="sm" type="submit">
-        Search
-      </Button>
-    </form>
-    <div className="flex flex-col">
-      <h2 className="text-xl font-semibold">Found movies</h2>
-      {searchMovies.length > 0 ? (
-        <div className="flex p-2 flex-auto max-h-[150px] overflow-auto">
-          <List
-            items={searchMovies.map((item) => {
-              return {
-                key: item.id,
-                content:
-                  item.__typename === 'Film' ? (
-                    <FilmRow key={item.id} film={item} />
-                  ) : item.__typename === 'Series' ? (
-                    <SeriesRow key={item.id} series={item} />
-                  ) : (
-                    <></>
-                  ),
-              };
-            })}
-          />
-        </div>
-      ) : (
-        <div className="p-4">No movies found...</div>
-      )}
-    </div>
-  </div>
-</Modal> */

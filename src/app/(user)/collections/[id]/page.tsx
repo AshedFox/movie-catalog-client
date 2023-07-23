@@ -1,20 +1,30 @@
 import React from 'react';
-import { GetCollectionDocument, initializeApollo } from '@shared/api/graphql';
+import { GetCollectionDocument } from '@shared/api/graphql';
 import { CollectionItem } from '@entities/collection';
 import { Metadata } from 'next';
 import { CollectionReviewsBlock } from '@widgets/collection-reviews-block';
 import { CollectionMoviesBlock } from '@widgets/collection-movies-block';
+import { getClient } from '@shared/api/graphql/client';
+import EditCollectionButton from './EditCollectionButton';
+import RemoveCollectionButton from './RemoveCollectionButton';
+import { notFound } from 'next/navigation';
+
+const client = getClient();
 
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const client = initializeApollo();
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetCollectionDocument,
     variables: {
       id: Number(params.id),
     },
+    errorPolicy: 'ignore',
   });
+
+  if (!data || error) {
+    notFound();
+  }
 
   return { title: data.getCollection.name };
 };
@@ -28,21 +38,35 @@ type Props = {
   };
 };
 
-const client = initializeApollo();
-
 const Page = async ({ params }: Props) => {
-  const { data } = await client.query({
+  const { data, error } = await client.query({
     query: GetCollectionDocument,
     variables: {
       id: Number(params.id),
     },
+    errorPolicy: 'ignore',
   });
+
+  if (!data || error) {
+    notFound();
+  }
 
   return (
     <main className="py-4 container">
       <CollectionItem
         collection={data.getCollection}
-        bookmarkSlot={<></>}
+        bookmarkSlot={
+          <div className="flex gap-1">
+            <EditCollectionButton
+              collectionId={data.getCollection.id}
+              collectionOwnerId={data.getCollection.ownerId}
+            />
+            <RemoveCollectionButton
+              collectionId={data.getCollection.id}
+              collectionOwnerId={data.getCollection.ownerId}
+            />
+          </div>
+        }
         extraSlot={
           <>
             <CollectionReviewsBlock

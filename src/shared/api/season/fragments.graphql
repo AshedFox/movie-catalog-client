@@ -1,0 +1,14 @@
+fragment BaseSeason on Season {
+  id
+  title
+  startReleaseDate
+  endReleaseDate
+  numberInSeries
+}
+
+fragment SeasonItem_Season on Season {
+  ...BaseSeason
+  episodes {
+    ...Episode
+  }
+}

@@ -51,7 +51,9 @@ const SeriesItem = ({
                     <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
                   </svg>
                   <span>
-                    {series.rating === 0 ? 'no reviews' : series.rating}
+                    {series.rating === 0
+                      ? 'no reviews'
+                      : parseFloat(series.rating.toFixed(2))}
                   </span>
                 </div>
               </div>
@@ -119,7 +121,9 @@ const SeriesItem = ({
       {series.description && (
         <div className="flex flex-col">
           <span className="font-semibold text-xl">Description</span>
-          <span className="text-sm px-4 py-2">{series.description}</span>
+          <span className="text-sm px-4 py-2 whitespace-pre-line">
+            {series.description}
+          </span>
         </div>
       )}
       {extraSlot}

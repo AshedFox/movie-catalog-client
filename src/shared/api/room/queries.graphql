@@ -1,14 +1,6 @@
 query GetRoom($id: String!) {
   getRoom(id: $id) {
     ...Room
-    currentMovie {
-      episodeNumber
-      showStart
-      movie {
-        id
-        title
-      }
-    }
   }
 }
 
@@ -25,12 +17,6 @@ query GetRooms(
     pageInfo {
       totalCount
     }
-  }
-}
-
-query JoinRoom($inviteToken: String!) {
-  joinRoom(inviteToken: $inviteToken) {
-    ...Room
   }
 }
 

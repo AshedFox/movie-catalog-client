@@ -5,16 +5,10 @@ import {
   SeriesFilters,
 } from '@features/series-filter';
 import { parseParamsToSeriesSort, SeriesSort } from '@features/series-sort';
-import {
-  GetCountriesDocument,
-  GetGenresDocument,
-  GetManySeriesDocument,
-  GetStudiosDocument,
-  initializeApollo,
-  SortDirectionEnum,
-} from '@shared/api/graphql';
+import { GetManySeriesDocument } from '@shared/api/graphql';
 import { PageNavigation } from '@features/page-navigation';
 import { SeriesGrid } from '@widgets/series-grid';
+import { getClient } from '@shared/api/graphql/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,7 +35,7 @@ type Props = {
 };
 
 const amountPerPage = 4;
-const client = initializeApollo();
+const client = getClient();
 
 const Page = async ({ searchParams }: Props) => {
   const filter = parseParamsToSeriesFilter(searchParams ?? {});
@@ -58,56 +52,6 @@ const Page = async ({ searchParams }: Props) => {
       sort,
       filter,
     },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 60 },
-      },
-    },
-  });
-  const { data: genresData } = await client.query({
-    query: GetGenresDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
-  });
-  const { data: studiosData } = await client.query({
-    query: GetStudiosDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
-  });
-  const { data: countriesData } = await client.query({
-    query: GetCountriesDocument,
-    variables: {
-      limit: 9999,
-      offset: 0,
-      sort: {
-        name: { direction: SortDirectionEnum.ASC },
-      },
-    },
-    context: {
-      fetchOptions: {
-        next: { revalidate: 1800 },
-      },
-    },
   });
 
   return (
@@ -121,11 +65,7 @@ const Page = async ({ searchParams }: Props) => {
             </div>
           }
         >
-          <SeriesFilters
-            genresVariants={genresData.getGenres.nodes}
-            countriesVariants={countriesData.getCountries.nodes}
-            studiosVariants={studiosData.getStudios.nodes}
-          />
+          <SeriesFilters />
         </Suspense>
         <div className="flex items-center justify-between gap-2">
           <SeriesSort currentSort={sort} />

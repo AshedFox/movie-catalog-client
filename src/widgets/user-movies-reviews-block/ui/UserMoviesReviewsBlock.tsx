@@ -1,15 +1,15 @@
+'use client';
+
 import React from 'react';
 import { List } from '@shared/ui';
 import { ReviewItem } from '@entities/review';
 import Link from 'next/link';
 import { ROUTES } from '@shared/constants/routes';
 import {
-  GetMoviesReviewsDocument,
-  initializeApollo,
+  GetMoviesReviewsRelayDocument,
   SortDirectionEnum,
 } from '@shared/api/graphql';
-
-const client = initializeApollo();
+import { useSuspenseQuery_experimental } from '@apollo/client';
 
 type Props = {
   title: string;
@@ -18,36 +18,38 @@ type Props = {
   fullLink?: string;
 };
 
-const UserMoviesReviewsBlock = async ({
+const UserMoviesReviewsBlock = ({
   userId,
   reviewsCount,
   title,
   fullLink,
 }: Props) => {
-  const { data } = await client.query({
-    query: GetMoviesReviewsDocument,
-    variables: {
-      withMovie: true,
-      first: reviewsCount,
-      filter: {
-        userId: {
-          eq: userId,
+  const { data } = useSuspenseQuery_experimental(
+    GetMoviesReviewsRelayDocument,
+    {
+      variables: {
+        withMovie: true,
+        first: reviewsCount,
+        filter: {
+          userId: {
+            eq: userId,
+          },
         },
-      },
-      sort: {
-        createdAt: {
-          direction: SortDirectionEnum.DESC,
+        sort: {
+          createdAt: {
+            direction: SortDirectionEnum.DESC,
+          },
         },
       },
     },
-  });
+  );
 
-  const moviesReviewsEdges = data.getMoviesReviews.edges;
+  const moviesReviewsEdges = data.getMoviesReviewsRelay.edges;
 
   return (
     <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
       <h2 className="font-bold text-2xl leading-tight">{title}</h2>
-      <div className="p-2 max-h-[400px] flex-auto overflow-auto">
+      <div className="flex p-2 max-h-[400px] flex-auto overflow-auto">
         <List
           items={moviesReviewsEdges.map((edge) => {
             const node = edge.node;
@@ -61,7 +63,7 @@ const UserMoviesReviewsBlock = async ({
               content: (
                 <ReviewItem
                   review={node}
-                  isOwn={true}
+                  isOwn={false}
                   fullLinkSlot={
                     <Link
                       className="text-sm text-gray-600 dark:text-gray-400 truncate"

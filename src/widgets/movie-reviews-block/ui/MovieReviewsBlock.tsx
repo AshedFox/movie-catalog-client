@@ -1,14 +1,15 @@
 'use client';
 
-import { useQuery } from '@apollo/client';
-import { Button, Loader } from '@shared/ui';
+import { useSuspenseQuery_experimental } from '@apollo/client';
+import { Button } from '@shared/ui';
 import {
-  GetMoviesReviewsDocument,
+  GetMoviesReviewsRelayDocument,
   HasMovieReviewDocument,
 } from '@shared/api/graphql';
 import { useUser } from '@entities/user';
 import { ReviewItem } from '@entities/review';
 import { CreateMovieReviewForm } from '@features/create-movie-review';
+import React from 'react';
 
 type Props = {
   movieId: string;
@@ -16,89 +17,35 @@ type Props = {
 };
 
 const MovieReviewsBlock = ({ movieId, reviewsCount = 2 }: Props) => {
-  const {
-    data: reviewsData,
-    loading: reviewsLoading,
-    error: reviewsError,
-    refetch,
-    fetchMore,
-  } = useQuery(GetMoviesReviewsDocument, {
-    variables: {
-      filter: {
-        movieId: {
-          eq: movieId,
+  const { data: reviewsData, fetchMore } = useSuspenseQuery_experimental(
+    GetMoviesReviewsRelayDocument,
+    {
+      variables: {
+        filter: {
+          movieId: {
+            eq: movieId,
+          },
         },
+        last: reviewsCount,
       },
-      last: reviewsCount,
     },
-  });
+  );
   const { user } = useUser();
-  const {
-    data: hasReviewData,
-    loading: hasReviewLoading,
-    error: hasReviewError,
-  } = useQuery(HasMovieReviewDocument, {
-    variables: {
-      movieId,
+  const { data: hasReviewData } = useSuspenseQuery_experimental(
+    HasMovieReviewDocument,
+    {
+      errorPolicy: 'ignore',
+      variables: {
+        movieId,
+      },
     },
-  });
-
-  const renderReviewsContent = () => {
-    if (reviewsLoading) {
-      return (
-        <div className="flex-auto m-auto p-4">
-          <Loader />
-        </div>
-      );
-    } else if (!reviewsData || reviewsError) {
-      return (
-        <div className="flex-auto m-auto p-4">
-          <Button onClick={() => refetch()}>Reload reviews</Button>
-        </div>
-      );
-    } else {
-      return (
-        <>
-          <div className="flex flex-col gap-1 py-2 px-5">
-            {reviewsData.getMoviesReviews.edges.length === 0 ? (
-              <div className="text-gray-500">No reviews...</div>
-            ) : (
-              reviewsData.getMoviesReviews.edges
-                .slice()
-                .reverse()
-                .map((edge) => (
-                  <ReviewItem
-                    key={edge.node.id}
-                    review={edge.node}
-                    isOwn={edge.node.user.id === user?.id}
-                  />
-                ))
-            )}
-          </div>
-          {reviewsData.getMoviesReviews.pageInfo.hasPreviousPage && (
-            <Button
-              onClick={() =>
-                fetchMore({
-                  variables: {
-                    before: reviewsData?.getMoviesReviews.pageInfo.startCursor,
-                  },
-                })
-              }
-            >
-              Load More
-            </Button>
-          )}
-        </>
-      );
-    }
-  };
+  );
 
   const shouldShowCreation = () => {
     return (
-      !hasReviewLoading &&
+      hasReviewData &&
       !hasReviewData?.hasMovieReview &&
-      !hasReviewError &&
-      !reviewsData?.getMoviesReviews.edges.some(
+      !reviewsData?.getMoviesReviewsRelay.edges.some(
         (edge) => edge.node.user.id === user?.id,
       )
     );
@@ -107,7 +54,37 @@ const MovieReviewsBlock = ({ movieId, reviewsCount = 2 }: Props) => {
   return (
     <div className="flex flex-col flex-auto gap-2">
       <h2 className="font-semibold text-xl leading-tight">Reviews</h2>
-      {renderReviewsContent()}
+      <div className="flex flex-col gap-1 py-2 px-5">
+        {reviewsData.getMoviesReviewsRelay.edges.length === 0 ? (
+          <div className="flex text-gray-500 italic w-full h-full items-center justify-center">
+            Nothing here...
+          </div>
+        ) : (
+          reviewsData.getMoviesReviewsRelay.edges
+            .slice()
+            .reverse()
+            .map((edge) => (
+              <ReviewItem
+                key={edge.node.id}
+                review={edge.node}
+                isOwn={edge.node.user.id === user?.id}
+              />
+            ))
+        )}
+      </div>
+      {reviewsData.getMoviesReviewsRelay.pageInfo.hasPreviousPage && (
+        <Button
+          onClick={() =>
+            fetchMore({
+              variables: {
+                before: reviewsData?.getMoviesReviewsRelay.pageInfo.startCursor,
+              },
+            })
+          }
+        >
+          Load More
+        </Button>
+      )}
       {shouldShowCreation() && <CreateMovieReviewForm movieId={movieId} />}
     </div>
   );

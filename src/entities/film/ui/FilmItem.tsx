@@ -24,8 +24,8 @@ const FilmItem = ({
         <div className="flex flex-col gap-2">
           <Image
             src={film.cover?.url ?? '/blank_item.jpg'}
-            width={1920}
-            height={1080}
+            width={1080}
+            height={1920}
             alt="film cover"
             priority={true}
             className={'shrink-0 rounded object-cover w-full h-96 md:w-72'}
@@ -52,7 +52,11 @@ const FilmItem = ({
                   >
                     <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
                   </svg>
-                  <span>{film.rating === 0 ? 'no reviews' : film.rating}</span>
+                  <span>
+                    {film.rating === 0
+                      ? 'no reviews'
+                      : parseFloat(film.rating.toFixed(2))}
+                  </span>
                 </div>
               </div>
             )}
@@ -115,7 +119,9 @@ const FilmItem = ({
       {film.description && (
         <div className="flex flex-col">
           <span className="font-semibold text-xl">Description</span>
-          <span className="text-sm px-4 py-2">{film.description}</span>
+          <span className="text-sm px-4 py-2 whitespace-pre-line">
+            {film.description}
+          </span>
         </div>
       )}
       {extraSlot}

@@ -6,6 +6,9 @@ fragment Episode on Episode {
   ageRestriction
   numberInSeries
   numberInSeason
+  cover {
+    url
+  }
   video {
     ...Video
   }

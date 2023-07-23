@@ -5,9 +5,9 @@ fragment Video on Video {
   hlsManifestMedia {
     url
   }
-  variants {
-    profile
-    media {
+  subtitles {
+    languageId
+    file {
       url
     }
   }

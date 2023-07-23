@@ -12,14 +12,16 @@
     "codegen-compile": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.10",
+    "@apollo/client": "^3.8.0-alpha.15",
+    "@apollo/experimental-nextjs-app-support": "^0.1.0",
     "@hookform/resolvers": "^3.0.0",
     "apollo-upload-client": "^17.0.0",
     "clsx": "^1.2.1",
     "deepmerge": "^4.3.1",
     "framer-motion": "^10.8.4",
     "graphql": "^16.6.0",
-    "next": "^13.4.1",
+    "graphql-ws": "^5.13.1",
+    "next": "^13.4.4",
     "rc-select": "^14.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -27,6 +29,7 @@
     "react-select": "^5.7.2",
     "rxjs": "^7.8.0",
     "shaka-player": "^4.3.6",
+    "sharp": "^0.32.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -43,11 +46,11 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.37.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-config-next": "^13.4.1",
+    "eslint-config-next": "^13.4.4",
     "eslint-config-prettier": "^8.8.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.6",
-    "tailwindcss": "^3.2.7",
+    "tailwindcss": "^ 3.2.7",
     "typescript": "^4.9.5"
   }
 }

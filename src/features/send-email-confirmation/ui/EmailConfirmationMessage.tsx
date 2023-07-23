@@ -11,7 +11,7 @@ const EmailConfirmationMessage = () => {
   );
 
   return (
-    <div className="flex flex-col gap-2 overflow-hidden items-start py-2 px-4 bg-amber-400 dark:bg-amber-600 rounded">
+    <div className="flex flex-col gap-2 overflow-hidden items-start py-2 px-4 bg-amber-400 dark:bg-amber-600 rounded shrink-0">
       Your email not confirmed yet! Please press the button downside - and we
       will send you email with confirmation link!
       <Button
@@ -26,7 +26,7 @@ const EmailConfirmationMessage = () => {
           }
         }}
       >
-        Send confirmation
+        Get confirmation
       </Button>
     </div>
   );

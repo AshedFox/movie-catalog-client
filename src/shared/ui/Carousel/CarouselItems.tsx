@@ -19,7 +19,7 @@ const CarouselItems = ({
 }: Props) => {
   return (
     <ul
-      className="relative flex w-full items-center overflow-hidden shrink-0"
+      className="relative flex w-full flex-auto items-center shrink-0"
       style={{
         height,
       }}
@@ -31,7 +31,7 @@ const CarouselItems = ({
             <li
               key={key}
               className={clsx(
-                'flex flex-col shrink-0 overflow-hidden transition-all duration-500',
+                'flex flex-col shrink-0 transition-all duration-500',
                 {
                   'w-full mx-1': isVisible,
                   'opacity-75 scale-90': isVisible && index !== currentIndex,

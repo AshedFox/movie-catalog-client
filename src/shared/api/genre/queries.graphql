@@ -1,3 +1,11 @@
+query GetAllGenres($sort: GenreSort, $movieType: MovieTypeEnum) {
+  getAllGenres(sort: $sort) {
+    id
+    name
+    moviesCount(type: $movieType)
+  }
+}
+
 query GetGenres(
   $limit: Int!
   $offset: Int!
