@@ -46,7 +46,6 @@ const Page = async ({ searchParams, params }: Props) => {
       <h1 className="font-semibold text-3xl leading-tight">User collections</h1>
       <CollectionsGrid items={data.getCollections.nodes} />
       <QueryPageNavigation
-        currentPage={page}
         amountPerPage={amountPerPage}
         totalCount={data.getCollections.pageInfo.totalCount}
       />

@@ -1,7 +1,6 @@
-import React from 'react';
-import { Grid } from '@shared/ui';
 import { FilmCard } from '@entities/film';
 import { FilmCard_FilmFragment } from '@shared/api/graphql';
+import { Grid } from '@shared/ui';
 
 type Props = {
   items: FilmCard_FilmFragment[];
@@ -10,10 +9,9 @@ type Props = {
 const FilmsGrid = ({ items }: Props) => {
   return (
     <Grid
-      items={items.map((item) => ({
-        key: item.id,
-        content: <FilmCard film={item} />,
-      }))}
+      items={items.map((item) => (
+        <FilmCard key={item.id} film={item} />
+      ))}
     />
   );
 };

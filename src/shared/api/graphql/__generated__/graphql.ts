@@ -6942,6 +6942,7 @@ export type EpisodeFragment = {
   cover?: { __typename?: 'Media'; url: string } | null;
   video?: {
     __typename?: 'Video';
+    id: string;
     dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
     hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
     subtitles: Array<{
@@ -6971,6 +6972,7 @@ export type GetEpisodeBySeriesAndNumQuery = {
     cover?: { __typename?: 'Media'; url: string } | null;
     video?: {
       __typename?: 'Video';
+      id: string;
       dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
       hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
       subtitles: Array<{
@@ -7005,6 +7007,7 @@ export type GetEpisodesQuery = {
       cover?: { __typename?: 'Media'; url: string } | null;
       video?: {
         __typename?: 'Video';
+        id: string;
         dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
         hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
         subtitles: Array<{
@@ -7057,6 +7060,7 @@ export type FilmItem_FilmFragment = {
   cover?: { __typename?: 'Media'; url: string } | null;
   video?: {
     __typename?: 'Video';
+    id: string;
     dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
     hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
     subtitles: Array<{
@@ -7116,6 +7120,7 @@ export type GetFilmQuery = {
     cover?: { __typename?: 'Media'; url: string } | null;
     video?: {
       __typename?: 'Video';
+      id: string;
       dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
       hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
       subtitles: Array<{
@@ -8710,6 +8715,7 @@ export type SeasonItem_SeasonFragment = {
     cover?: { __typename?: 'Media'; url: string } | null;
     video?: {
       __typename?: 'Video';
+      id: string;
       dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
       hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
       subtitles: Array<{
@@ -8751,6 +8757,7 @@ export type GetSeasonsQuery = {
         cover?: { __typename?: 'Media'; url: string } | null;
         video?: {
           __typename?: 'Video';
+          id: string;
           dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
           hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
           subtitles: Array<{
@@ -9047,6 +9054,7 @@ export type GetUsersQuery = {
 
 export type VideoFragment = {
   __typename?: 'Video';
+  id: string;
   dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
   hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
   subtitles: Array<{
@@ -9064,6 +9072,7 @@ export type GetVideoQuery = {
   __typename?: 'Query';
   getVideo: {
     __typename?: 'Video';
+    id: string;
     dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
     hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
     subtitles: Array<{
@@ -9709,6 +9718,7 @@ export const VideoFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -9826,6 +9836,7 @@ export const FilmItem_FilmFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -10974,6 +10985,7 @@ export const EpisodeFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -11042,6 +11054,7 @@ export const SeasonItem_SeasonFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -13680,6 +13693,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -13849,6 +13863,7 @@ export const GetEpisodesDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -14138,6 +14153,7 @@ export const GetFilmDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -19554,6 +19570,7 @@ export const GetSeasonsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },
@@ -20707,6 +20724,7 @@ export const GetVideoDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'dashManifestMedia' },

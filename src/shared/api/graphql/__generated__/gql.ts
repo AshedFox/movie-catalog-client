@@ -127,7 +127,7 @@ const documents = {
     types.UpdatePasswordDocument,
   'query GetMe {\n  getMe {\n    ...User\n  }\n}\n\nquery GetUser($id: String!) {\n  getUser(id: $id) {\n    ...User\n  }\n}\n\nquery GetUsers {\n  getUsers {\n    nodes {\n      ...BaseUser\n    }\n    pageInfo {\n      totalCount\n    }\n  }\n}':
     types.GetMeDocument,
-  'fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}':
+  'fragment Video on Video {\n  id\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}':
     types.VideoFragmentDoc,
   'query GetVideo($id: Int!) {\n  getVideo(id: $id) {\n    ...Video\n  }\n}':
     types.GetVideoDocument,
@@ -499,8 +499,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}',
-): (typeof documents)['fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}'];
+  source: 'fragment Video on Video {\n  id\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}',
+): (typeof documents)['fragment Video on Video {\n  id\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

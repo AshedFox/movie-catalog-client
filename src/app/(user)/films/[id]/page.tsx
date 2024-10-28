@@ -7,12 +7,11 @@ import { MovieImagesBlock } from '@widgets/movie-images-block';
 import { MoviePersonsBlock } from '@widgets/movie-persons-block';
 import { MovieReviewsBlock } from '@widgets/movie-reviews-block';
 import { PurchaseBlock } from '@widgets/purchase-block';
-import { Loader, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import WatchLink from './WatchLink';
-import { Suspense } from 'react';
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { data } = await getClient().query({
@@ -130,14 +129,14 @@ const Page = async ({ params }: Props) => {
                 </div>
               )}
             </div>
-            {film.videoId && (
+            {film.video?.id && (
               <PurchaseBlock
                 movieTitle={film.title}
                 productId={film.productId ?? undefined}
                 movieId={film.id}
               />
             )}
-            <WatchLink filmId={film.id} videoId={film?.videoId ?? undefined} />
+            <WatchLink filmId={film.id} videoId={Number(film.video?.id) ?? undefined} />
           </div>
         </div>
         <MovieListsBlock className="hidden md:block" movieId={film.id} />

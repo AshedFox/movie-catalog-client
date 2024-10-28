@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AddCollectionMovieDocument,
   CollectionItem_CollectionFragment,
@@ -11,7 +11,7 @@ import {
   UpdateCollectionDocument,
   UploadImageDocument,
 } from '@shared/api/graphql';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useToast } from '@shared/hooks/use-toast';
 import {
   Button,
   Form,
@@ -23,11 +23,10 @@ import {
   Input,
   Textarea,
 } from '@shared/ui';
+import { useForm } from 'react-hook-form';
+import ReactAsyncSelect from 'react-select/async';
 import { z } from 'zod';
 import { schema } from './schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import ReactAsyncSelect from 'react-select/async';
-import { useToast } from '@shared/hooks/use-toast';
 
 type Props = {
   collection: CollectionItem_CollectionFragment;

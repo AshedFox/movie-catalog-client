@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { SignUpInput } from '@shared/api/graphql';
+import { z } from 'zod';
 
 const passwordSchema = z
   .string()
@@ -10,18 +10,13 @@ const passwordSchema = z
     'Password must contain only latin letters, arabic numbers and special symbols!',
   );
 
-export const signUpSchema: z.ZodSchema<SignUpInput> = z
-  .object({
-    email: z.string().email(),
-    password: passwordSchema,
-    passwordRepeat: passwordSchema,
-    name: z
-      .string()
-      .min(2)
-      .max(255)
-      .regex(/^[\w\s\-]+$/i, 'Name must contain only alphanumeric characters'),
-  })
-  .refine(({ password, passwordRepeat }) => password === passwordRepeat, {
-    path: 'passwordRepeat',
-    message: 'Passwords should be equal!',
-  });
+export const signUpSchema: z.ZodSchema<SignUpInput> = z.object({
+  email: z.string().email(),
+  password: passwordSchema,
+  passwordRepeat: passwordSchema,
+  name: z
+    .string()
+    .min(2)
+    .max(255)
+    .regex(/^[\w\s\-]+$/i, 'Name must contain only alphanumeric characters'),
+});

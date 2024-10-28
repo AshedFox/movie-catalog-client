@@ -47,6 +47,7 @@ const Page = async ({ searchParams }: Props) => {
     <main className="flex flex-col py-4 container flex-auto gap-2">
       <div className="flex gap-2 items-center justify-between">
         <h1 className="font-semibold text-3xl leading-tight">Collections</h1>
+        {/* @ts-expect-error Async Server Component */}
         <CreateSystemCollectionLink />
       </div>
       <div className="flex-auto">

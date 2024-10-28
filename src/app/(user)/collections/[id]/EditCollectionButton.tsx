@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import { useSession } from '@features/auth/session';
+import { buttonVariants } from '@shared/ui';
 import Link from 'next/link';
-import { Button, buttonVariants } from '@shared/ui';
-import { getServerSession, useSession } from '@features/auth/session';
 
 type Props = {
   collectionId: string;

@@ -1,11 +1,14 @@
 import { AuthChecker } from '@features/auth-checker';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <AuthChecker redirectPath="/login" shouldBeAuthorized>
-      {children}
-    </AuthChecker>
+    <>
+      {/* @ts-expect-error Async Server Component */}
+      <AuthChecker redirectPath="/login" shouldBeAuthorized>
+        {children}
+      </AuthChecker>
+    </>
   );
 };
 

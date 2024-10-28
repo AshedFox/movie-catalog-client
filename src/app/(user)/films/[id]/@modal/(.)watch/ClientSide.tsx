@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useSuspenseQuery } from '@apollo/client';
 import {
   FilmItem_FilmFragment,
@@ -28,9 +27,9 @@ const ClientSide = ({ film }: Props) => {
   });
   const { data: videoData } = useSuspenseQuery(GetVideoDocument, {
     variables: {
-      id: film.videoId!,
+      id: Number(film.video?.id!),
     },
-    skip: !film.videoId,
+    skip: !film.video?.id,
   });
 
   if (

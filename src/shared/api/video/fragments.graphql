@@ -1,4 +1,5 @@
 fragment Video on Video {
+  id
   dashManifestMedia {
     url
   }

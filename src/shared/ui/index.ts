@@ -7,7 +7,6 @@ export { default as Field } from './Field';
 export * from './Form';
 export { default as Grid } from './Grid';
 export * from './Icons';
-export { default as ImageInput } from './ImageInput';
 export * from './Input';
 export * from './Label';
 export { default as List } from './List';

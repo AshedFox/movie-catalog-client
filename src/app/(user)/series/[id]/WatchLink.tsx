@@ -3,7 +3,7 @@
 import { useSuspenseQuery } from '@apollo/client';
 import { HasActiveSubscriptionDocument, HasPurchaseDocument } from '@shared/api/graphql';
 import { cn } from '@shared/lib/utils';
-import { Button, buttonVariants } from '@shared/ui';
+import { buttonVariants } from '@shared/ui';
 import Link from 'next/link';
 
 type Props = {

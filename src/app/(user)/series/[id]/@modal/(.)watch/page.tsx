@@ -1,14 +1,8 @@
-import React from 'react';
-import {
-  GetEpisodeBySeriesAndNumDocument,
-  GetOneSeriesDocument,
-  GetSeasonsDocument,
-  SortDirectionEnum,
-} from '@shared/api/graphql';
+import { GetOneSeriesDocument, GetSeasonsDocument, SortDirectionEnum } from '@shared/api/graphql';
 import { getClient } from '@shared/api/graphql/client';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ClientSide from './ClientSide';
-import { Metadata } from 'next';
 
 type Props = {
   params: {

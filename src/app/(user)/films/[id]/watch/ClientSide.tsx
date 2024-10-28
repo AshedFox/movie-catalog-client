@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useSuspenseQuery } from '@apollo/client';
 import {
   FilmItem_FilmFragment,
@@ -8,8 +7,8 @@ import {
   HasActiveSubscriptionDocument,
   HasPurchaseDocument,
 } from '@shared/api/graphql';
+import { buttonVariants } from '@shared/ui';
 import { VideoPlayer } from '@widgets/video-player';
-import { Button, buttonVariants } from '@shared/ui';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -31,9 +30,9 @@ const ClientSide = ({ film }: Props) => {
   });
   const { data: videoData } = useSuspenseQuery(GetVideoDocument, {
     variables: {
-      id: film.videoId!,
+      id: Number(film.video?.id!),
     },
-    skip: !film.videoId,
+    skip: !film.video?.id,
   });
 
   if (

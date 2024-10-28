@@ -43,7 +43,6 @@ const Page = async ({ searchParams, params }: Props) => {
       <h1 className="font-semibold text-3xl leading-tight">Bookmarked movies</h1>
       <MoviesList movies={data.getMoviesUsers.nodes.map((item) => item.movie!)} />
       <QueryPageNavigation
-        currentPage={page}
         amountPerPage={amountPerPage}
         totalCount={data.getMoviesUsers.pageInfo.totalCount}
       />
