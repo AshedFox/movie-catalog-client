@@ -1,58 +1,58 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import {
   FilmItem_FilmFragment,
+  GetVideoDocument,
   HasActiveSubscriptionDocument,
   HasPurchaseDocument,
 } from '@shared/api/graphql';
-import { WatchModal } from '@widgets/watch-modal';
+import { FilmWatchModal } from '@widgets/watch-modal';
 
 type Props = {
   film: FilmItem_FilmFragment;
 };
 
 const ClientSide = ({ film }: Props) => {
-  const { data: hasPurchaseData } = useSuspenseQuery_experimental(
-    HasPurchaseDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-      variables: {
-        movieId: film.id,
-      },
+  const { data: hasPurchaseData } = useSuspenseQuery(HasPurchaseDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+    variables: {
+      movieId: film.id,
     },
-  );
-  const { data: hasSubscriptionData } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
+  });
+  const { data: hasSubscriptionData } = useSuspenseQuery(HasActiveSubscriptionDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
+  const { data: videoData } = useSuspenseQuery(GetVideoDocument, {
+    variables: {
+      id: film.videoId!,
     },
-  );
+    skip: !film.videoId,
+  });
 
-  const canWatch =
-    !!film.video &&
-    !!(
-      (hasPurchaseData && hasPurchaseData.hasPurchase) ||
-      (hasSubscriptionData && hasSubscriptionData.hasActiveSubscription)
+  if (
+    (!hasSubscriptionData || !hasSubscriptionData.hasActiveSubscription) &&
+    (!hasPurchaseData || !hasPurchaseData.hasPurchase)
+  ) {
+    return (
+      <div className="container text-3xl flex-1 flex items-center justify-center">
+        No access to watch this film!
+      </div>
     );
-
-  if (!canWatch) {
-    return <></>;
   }
 
-  return (
-    <WatchModal
-      title={`Watch ${film.title}`}
-      url={film.video?.dashManifestMedia?.url}
-      subtitles={film.video?.subtitles.map((value) => ({
-        url: value.file.url,
-        language: value.languageId,
-      }))}
-    />
-  );
+  if (!videoData) {
+    return (
+      <div className="container text-3xl flex-1 flex items-center justify-center">
+        Will be soon...
+      </div>
+    );
+  }
+
+  return <FilmWatchModal film={film} video={videoData.getVideo} />;
 };
 
 export default ClientSide;

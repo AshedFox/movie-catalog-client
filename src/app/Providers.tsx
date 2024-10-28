@@ -1,17 +1,14 @@
-'use client';
-
 import React, { PropsWithChildren } from 'react';
-import GridVariantProvider from './GridVariantProvider';
-import { UserProvider } from '@entities/user';
 import ThemeProvider from './ThemeProvider';
+import { SessionProvider, getServerSession } from '@features/auth/session';
 
-const Providers = ({ children }: PropsWithChildren) => {
+const Providers = async ({ children }: PropsWithChildren) => {
+  const session = await getServerSession();
+
   return (
-    <UserProvider>
-      <ThemeProvider>
-        <GridVariantProvider>{children}</GridVariantProvider>
-      </ThemeProvider>
-    </UserProvider>
+    <SessionProvider session={session}>
+      <ThemeProvider>{children}</ThemeProvider>
+    </SessionProvider>
   );
 };
 

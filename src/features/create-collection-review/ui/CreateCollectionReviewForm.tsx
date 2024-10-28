@@ -1,137 +1,152 @@
 'use client';
 
-import React from 'react';
-import { Button, Field } from '@shared/ui';
-import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import MultilineField from '@shared/ui/MultilineField';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CreateCollectionReviewDocument,
-  CreateCollectionReviewInput,
+  GetCollectionsReviewsOffsetDocument,
   GetCollectionsReviewsRelayDocument,
+  HasCollectionReviewDocument,
 } from '@shared/api/graphql';
+import {
+  Button,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Slider,
+  Textarea,
+} from '@shared/ui';
+import { Form, useForm } from 'react-hook-form';
+import { CreateReviewInput, createReviewSchema } from '../model/schema';
 
 type Props = {
   collectionId: number;
 };
 
-export type CreateReviewFormInput = Omit<
-  CreateCollectionReviewInput,
-  'collectionId'
->;
-
 const CreateCollectionReviewForm = ({ collectionId }: Props) => {
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm<CreateReviewFormInput>({
+  const form = useForm<CreateReviewInput>({
+    resolver: zodResolver(createReviewSchema),
     defaultValues: {
-      mark: 0,
+      mark: 1,
       text: '',
     },
   });
-  const [createReview, { loading, error }] = useMutation(
-    CreateCollectionReviewDocument,
-    {
-      onCompleted: () => {
-        reset();
-      },
-      update: (cache, { data }) => {
-        const existing = cache.readQuery({
-          query: GetCollectionsReviewsRelayDocument,
-          variables: {
-            filter: {
-              collectionId: {
-                eq: collectionId,
-              },
-            },
-            last: 2,
-          },
-        });
+  const [createReview] = useMutation(CreateCollectionReviewDocument, {
+    refetchQueries: [
+      HasCollectionReviewDocument,
+      GetCollectionsReviewsRelayDocument,
+      GetCollectionsReviewsOffsetDocument,
+    ],
+    //   update: (cache, { data }) => {
+    //     const existing = cache.readQuery({
+    //       query: GetCollectionsReviewsRelayDocument,
+    //       variables: {
+    //         filter: {
+    //           collectionId: {
+    //             eq: collectionId,
+    //           },
+    //         },
+    //         last: 2,
+    //       },
+    //     });
 
-        const existingEdges = existing?.getCollectionsReviewsRelay.edges ?? [];
-        const pageInfo = existing?.getCollectionsReviewsRelay.pageInfo ?? {
-          hasPreviousPage: true,
-          hasNextPage: true,
-        };
+    //     const existingEdges = existing?.getCollectionsReviewsRelay.edges ?? [];
+    //     const pageInfo = existing?.getCollectionsReviewsRelay.pageInfo ?? {
+    //       hasPreviousPage: true,
+    //       hasNextPage: true,
+    //     };
 
-        cache.writeQuery({
-          query: GetCollectionsReviewsRelayDocument,
-          variables: {
-            filter: {
-              collectionId: {
-                eq: collectionId,
-              },
-            },
-            last: 2,
-          },
-          data: {
-            getCollectionsReviewsRelay: {
-              pageInfo,
-              edges: [
-                {
-                  node: data?.createCollectionReview!,
-                  cursor: data?.createCollectionReview.id!,
-                },
-                ...existingEdges,
-              ],
-            },
-          },
-        });
-      },
-    },
-  );
+    //     cache.writeQuery({
+    //       query: GetCollectionsReviewsRelayDocument,
+    //       variables: {
+    //         filter: {
+    //           collectionId: {
+    //             eq: collectionId,
+    //           },
+    //         },
+    //         last: 2,
+    //       },
+    //       data: {
+    //         getCollectionsReviewsRelay: {
+    //           pageInfo,
+    //           edges: [
+    //             {
+    //               node: data?.createCollectionReview!,
+    //               cursor: data?.createCollectionReview.id!,
+    //             },
+    //             ...existingEdges,
+    //           ],
+    //         },
+    //       },
+    //     });
+    //   },
+  });
 
-  const onSubmit = async (values: CreateReviewFormInput) => {
+  const onSubmit = async (input: CreateReviewInput) => {
     await createReview({
       variables: {
         input: {
-          ...values,
+          ...input,
           collectionId,
         },
       },
     });
+    form.reset();
   };
 
   return (
-    <form
-      autoComplete="off"
-      className="flex flex-col"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h2 className="text-lg font-semibold">Create Review</h2>
-      <fieldset className="flex flex-col gap-1 px-5 py-2" disabled={loading}>
-        <Field
-          label="Mark"
-          type="number"
-          min={0}
-          max={10}
-          step={1}
-          {...register('mark', {
-            valueAsNumber: true,
-            min: 0,
-            max: 10,
-            required: true,
-          })}
-          error={errors.mark?.message}
+    <Form {...form}>
+      <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Mark</FormLabel>
+              <FormControl>
+                <div className="flex gap-2 items-center justify-between">
+                  <Slider
+                    step={1}
+                    min={1}
+                    max={10}
+                    onBlur={field.onBlur}
+                    ref={field.ref}
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(values) => field.onChange(values[0])}
+                  />
+                  <div className="text-lg font-semibold w-[2ch] text-right">{field.value}</div>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="mark"
         />
-        <MultilineField
-          label="Review text"
-          {...register('text', {
-            minLength: 3,
-            maxLength: 4096,
-            required: true,
-          })}
-          error={errors.text?.message}
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Text</FormLabel>
+              <FormControl>
+                <Textarea
+                  rows={3}
+                  className="resize-y"
+                  placeholder="Your review text..."
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="text"
         />
-      </fieldset>
-      <span className="text-xs text-red-500">{error?.message}</span>
-      <Button type="submit" disabled={loading}>
-        Create
-      </Button>
-    </form>
+        <Button type="submit" disabled={form.formState.isLoading}>
+          Create
+        </Button>
+      </form>
+    </Form>
   );
 };
 

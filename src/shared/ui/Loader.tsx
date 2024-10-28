@@ -21,11 +21,7 @@ const variantMap: Record<Variant, string> = {
   secondary: 'fill-gray-300 dark:text-gray-600 dark:fill-gray-600',
 };
 
-const Loader = ({
-  size = 'md',
-  variant = 'primary',
-  stretch = false,
-}: Props) => {
+const Loader = ({ size = 'md', variant = 'primary', stretch = false }: Props) => {
   return (
     <svg
       className={clsx(

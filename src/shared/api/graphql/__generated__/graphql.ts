@@ -2,15 +2,9 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -166,27 +160,22 @@ export type CollectionMovieEntity_MovieEntity_MovieImageFilter = {
 };
 
 export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  and?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+  collectionId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+};
+
+export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
   and?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
   >;
   collectionId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
   >;
 };
-
-export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    collectionId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-  };
 
 export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -284,29 +273,27 @@ export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_Movi
     >;
   };
 
-export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    collectionId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-  };
+export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  collectionId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+};
 
-export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    collectionId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-  };
+export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  collectionId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+};
 
 export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -321,37 +308,28 @@ export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_Movi
   };
 
 export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
+  and?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
+  collectionId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
+};
+
+export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
   and?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
   >;
   collectionId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
   >;
 };
 
-export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    collectionId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-  };
-
 export type CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
-  and?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  and?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   collectionId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
 };
 
 export type CollectionMovieEntity_MovieEntity_MoviePersonFilter = {
@@ -369,14 +347,10 @@ export type CollectionMovieEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   collectionId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
 };
 
 export type CollectionMovieEntity_MovieFilter = {
@@ -517,35 +491,28 @@ export type CountryEntity_MovieCountryEntity_FilmFilter = {
 };
 
 export type CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter = {
-  and?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-  >;
+  and?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>>;
   currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>;
   currencyId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>;
   languageId?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-  >;
+  or?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>>;
 };
 
-export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter =
-  {
-    and?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    currencyId?: InputMaybe<StringFilter>;
-    id?: InputMaybe<IdFilter>;
-    language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    languageId?: InputMaybe<StringFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-  };
+export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  and?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+  >;
+  currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  currencyId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  languageId?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+};
 
 export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
   {
@@ -653,21 +620,20 @@ export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_Movie
     >;
   };
 
-export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter =
-  {
-    and?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    currencyId?: InputMaybe<StringFilter>;
-    id?: InputMaybe<IdFilter>;
-    language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    languageId?: InputMaybe<StringFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-  };
+export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
+  and?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+  currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  currencyId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  languageId?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+};
 
 export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
   {
@@ -685,67 +651,57 @@ export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_Serie
     >;
   };
 
-export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter =
-  {
-    and?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    currencyId?: InputMaybe<StringFilter>;
-    id?: InputMaybe<IdFilter>;
-    language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    languageId?: InputMaybe<StringFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-  };
+export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+  currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  currencyId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  languageId?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+};
 
 export type CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter = {
-  and?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-  >;
+  and?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>>;
   currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>;
   currencyId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>;
   languageId?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-  >;
+  or?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>>;
 };
 
 export type CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter = {
-  and?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-  >;
+  and?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>>;
   currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>;
   currencyId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>;
   languageId?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-  >;
+  or?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>>;
 };
 
-export type CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
-  {
-    and?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    currencyId?: InputMaybe<StringFilter>;
-    id?: InputMaybe<IdFilter>;
-    language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    languageId?: InputMaybe<StringFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-  };
+export type CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
+  and?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+  currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  currencyId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IdFilter>;
+  language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  languageId?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+};
 
 export type CountryEntity_MovieCountryEntity_MovieFilter = {
   and?: InputMaybe<Array<CountryEntity_MovieCountryEntity_MovieFilter>>;
@@ -759,18 +715,14 @@ export type CountryEntity_MovieCountryEntity_MovieFilter = {
 };
 
 export type CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter = {
-  and?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-  >;
+  and?: InputMaybe<Array<CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>>;
   currency?: InputMaybe<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>;
   currencyId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   language?: InputMaybe<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>;
   languageId?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-  >;
+  or?: InputMaybe<Array<CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>>;
 };
 
 export type CountryEntity_MovieCountryEntity_SeriesFilter = {
@@ -877,7 +829,7 @@ export type CreateLanguageInput = {
 export type CreateMovieImageInput = {
   imageId: Scalars['String'];
   movieId: Scalars['String'];
-  typeId: Scalars['Float'];
+  typeId: Scalars['Int'];
 };
 
 export type CreateMovieImageTypeInput = {
@@ -903,6 +855,7 @@ export type CreateMovieReviewInput = {
 
 export type CreateMovieUserInput = {
   isBookmarked?: InputMaybe<Scalars['Boolean']>;
+  isFavorite?: InputMaybe<Scalars['Boolean']>;
   isWatched?: InputMaybe<Scalars['Boolean']>;
   movieId: Scalars['String'];
 };
@@ -993,6 +946,12 @@ export type CreateTrailerInput = {
   videoId: Scalars['Float'];
 };
 
+export type CreateUploadResult = {
+  __typename?: 'CreateUploadResult';
+  mediaId: Scalars['ID'];
+  uploadUrl: Scalars['String'];
+};
+
 export type CreateVideoVariantInput = {
   mediaId: Scalars['String'];
   profile: VideoProfileEnum;
@@ -1007,29 +966,24 @@ export type Currency = {
 };
 
 export type CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter = {
+  and?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter>>;
+  symbol?: InputMaybe<StringFilter>;
+};
+
+export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter = {
   and?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter>
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
   >;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
   or?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter>
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
   >;
   symbol?: InputMaybe<StringFilter>;
 };
-
-export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-    >;
-    symbol?: InputMaybe<StringFilter>;
-  };
 
 export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -1135,31 +1089,29 @@ export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePer
     symbol?: InputMaybe<StringFilter>;
   };
 
-export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-    >;
-    symbol?: InputMaybe<StringFilter>;
-  };
+export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
+  >;
+  symbol?: InputMaybe<StringFilter>;
+};
 
-export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-    >;
-    symbol?: InputMaybe<StringFilter>;
-  };
+export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
+  >;
+  symbol?: InputMaybe<StringFilter>;
+};
 
 export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -1175,39 +1127,28 @@ export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVis
   };
 
 export type CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter>>;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter>>;
   symbol?: InputMaybe<StringFilter>;
 };
 
-export type CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-    >;
-    symbol?: InputMaybe<StringFilter>;
-  };
-
-export type CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter = {
+export type CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter = {
   and?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter>
+    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
   >;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>>;
+  symbol?: InputMaybe<StringFilter>;
+};
+
+export type CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter = {
+  and?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter>>;
   symbol?: InputMaybe<StringFilter>;
 };
 
@@ -1476,27 +1417,22 @@ export type Language = {
 };
 
 export type LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter = {
+  and?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter>>;
+};
+
+export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter = {
   and?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter>
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
   >;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
   or?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter>
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
   >;
 };
-
-export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter>
-    >;
-  };
 
 export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -1594,29 +1530,27 @@ export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePer
     >;
   };
 
-export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
-    >;
-  };
+export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter>
+  >;
+};
 
-export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
-    >;
-  };
+export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter>
+  >;
+};
 
 export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -1631,37 +1565,26 @@ export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVis
   };
 
 export type LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter>>;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter>>;
 };
 
-export type LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
-    >;
-  };
-
-export type LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter = {
+export type LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter = {
   and?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter>
+    Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>
   >;
   id?: InputMaybe<IdFilter>;
   name?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter>>;
+};
+
+export type LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter = {
+  and?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter>>;
 };
 
 export type LanguageEntity_CountryFilter = {
@@ -1744,31 +1667,25 @@ export type MediaEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
   url?: InputMaybe<StringFilter>;
 };
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  and?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+  >;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
 export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
   {
@@ -1822,18 +1739,17 @@ export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEnt
     url?: InputMaybe<StringFilter>;
   };
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
+  and?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
 export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
   {
@@ -1848,89 +1764,66 @@ export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEnt
     url?: InputMaybe<StringFilter>;
   };
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
+  and?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
 export type MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   id?: InputMaybe<IdFilter>;
   or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   type?: InputMaybe<MediaTypeEnumFilter>;
   url?: InputMaybe<StringFilter>;
 };
 
-export type MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    type?: InputMaybe<MediaTypeEnumFilter>;
-    url?: InputMaybe<StringFilter>;
-  };
+export type MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+  id?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+  type?: InputMaybe<MediaTypeEnumFilter>;
+  url?: InputMaybe<StringFilter>;
+};
 
 export type MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
-  and?: InputMaybe<
-    Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   id?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   type?: InputMaybe<MediaTypeEnumFilter>;
   url?: InputMaybe<StringFilter>;
 };
@@ -1952,13 +1845,9 @@ export type MediaEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   id?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   type?: InputMaybe<MediaTypeEnumFilter>;
   url?: InputMaybe<StringFilter>;
 };
@@ -2089,29 +1978,24 @@ export type MovieCountryEntity_MovieEntity_MovieImageFilter = {
 };
 
 export type MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
-  and?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  and?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
   country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
   countryId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  or?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
 };
 
-export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
-    countryId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-  };
+export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
+  and?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
+  countryId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+};
 
 export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -2212,31 +2096,29 @@ export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePe
     >;
   };
 
-export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
-    countryId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-  };
+export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
+  countryId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+};
 
-export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
-    countryId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-  };
+export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
+  countryId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+};
 
 export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -2252,40 +2134,31 @@ export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVi
   };
 
 export type MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
   countryId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
 };
 
-export type MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
-    countryId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-  };
-
-export type MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+export type MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
   and?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
   >;
-  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
   countryId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+    Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
   >;
+};
+
+export type MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
+  country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  countryId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
 };
 
 export type MovieCountryEntity_MovieEntity_MoviePersonFilter = {
@@ -2305,15 +2178,11 @@ export type MovieCountryEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   country?: InputMaybe<CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
   countryId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
 };
 
 export type MovieCountryEntity_MovieFilter = {
@@ -2412,9 +2281,7 @@ export type MovieEntity_MoviePersonEntity_FilmFilter = {
 export type MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
   accessMode?: InputMaybe<AccessModeEnumFilter>;
   ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-  and?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-  >;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
   collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
   countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
   cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
@@ -2425,9 +2292,7 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
   genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
   id?: InputMaybe<IdFilter>;
   moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
-  or?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-  >;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
   releaseDate?: InputMaybe<DateFilter>;
   startReleaseDate?: InputMaybe<DateFilter>;
   studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
@@ -2436,31 +2301,26 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
   videoId?: InputMaybe<NumberFilter>;
 };
 
-export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
-  {
-    accessMode?: InputMaybe<AccessModeEnumFilter>;
-    ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-    and?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    coverId?: InputMaybe<StringFilter>;
-    createdAt?: InputMaybe<DateFilter>;
-    description?: InputMaybe<StringFilter>;
-    genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    id?: InputMaybe<IdFilter>;
-    moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    or?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    releaseDate?: InputMaybe<DateFilter>;
-    studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
-    title?: InputMaybe<StringFilter>;
-    updatedAt?: InputMaybe<DateFilter>;
-    videoId?: InputMaybe<NumberFilter>;
-  };
+export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  accessMode?: InputMaybe<AccessModeEnumFilter>;
+  ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+  collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  coverId?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateFilter>;
+  description?: InputMaybe<StringFilter>;
+  genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  id?: InputMaybe<IdFilter>;
+  moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+  releaseDate?: InputMaybe<DateFilter>;
+  studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateFilter>;
+  videoId?: InputMaybe<NumberFilter>;
+};
 
 export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
   {
@@ -2638,33 +2498,28 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEnt
     videoId?: InputMaybe<NumberFilter>;
   };
 
-export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter =
-  {
-    accessMode?: InputMaybe<AccessModeEnumFilter>;
-    ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-    and?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    coverId?: InputMaybe<StringFilter>;
-    createdAt?: InputMaybe<DateFilter>;
-    description?: InputMaybe<StringFilter>;
-    endReleaseDate?: InputMaybe<DateFilter>;
-    genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    id?: InputMaybe<IdFilter>;
-    moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    or?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    releaseDate?: InputMaybe<DateFilter>;
-    startReleaseDate?: InputMaybe<DateFilter>;
-    studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
-    title?: InputMaybe<StringFilter>;
-    updatedAt?: InputMaybe<DateFilter>;
-    videoId?: InputMaybe<NumberFilter>;
-  };
+export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
+  accessMode?: InputMaybe<AccessModeEnumFilter>;
+  ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
+  collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  coverId?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateFilter>;
+  description?: InputMaybe<StringFilter>;
+  endReleaseDate?: InputMaybe<DateFilter>;
+  genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  id?: InputMaybe<IdFilter>;
+  moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
+  releaseDate?: InputMaybe<DateFilter>;
+  startReleaseDate?: InputMaybe<DateFilter>;
+  studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateFilter>;
+  videoId?: InputMaybe<NumberFilter>;
+};
 
 export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
   {
@@ -2694,40 +2549,33 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEn
     videoId?: InputMaybe<NumberFilter>;
   };
 
-export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter =
-  {
-    accessMode?: InputMaybe<AccessModeEnumFilter>;
-    ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-    and?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    coverId?: InputMaybe<StringFilter>;
-    createdAt?: InputMaybe<DateFilter>;
-    description?: InputMaybe<StringFilter>;
-    endReleaseDate?: InputMaybe<DateFilter>;
-    genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    id?: InputMaybe<IdFilter>;
-    moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    or?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    releaseDate?: InputMaybe<DateFilter>;
-    startReleaseDate?: InputMaybe<DateFilter>;
-    studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
-    title?: InputMaybe<StringFilter>;
-    updatedAt?: InputMaybe<DateFilter>;
-    videoId?: InputMaybe<NumberFilter>;
-  };
+export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  accessMode?: InputMaybe<AccessModeEnumFilter>;
+  ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
+  collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  coverId?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateFilter>;
+  description?: InputMaybe<StringFilter>;
+  endReleaseDate?: InputMaybe<DateFilter>;
+  genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  id?: InputMaybe<IdFilter>;
+  moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
+  releaseDate?: InputMaybe<DateFilter>;
+  startReleaseDate?: InputMaybe<DateFilter>;
+  studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateFilter>;
+  videoId?: InputMaybe<NumberFilter>;
+};
 
 export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
   accessMode?: InputMaybe<AccessModeEnumFilter>;
   ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-  and?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-  >;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
   collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
   countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
   cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
@@ -2738,9 +2586,7 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
   genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
   id?: InputMaybe<IdFilter>;
   moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
-  or?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-  >;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
   releaseDate?: InputMaybe<DateFilter>;
   startReleaseDate?: InputMaybe<DateFilter>;
   studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
@@ -2752,9 +2598,7 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
 export type MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
   accessMode?: InputMaybe<AccessModeEnumFilter>;
   ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-  and?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-  >;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
   collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
   countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
   cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
@@ -2765,9 +2609,7 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
   genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
   id?: InputMaybe<IdFilter>;
   moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
-  or?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-  >;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
   releaseDate?: InputMaybe<DateFilter>;
   startReleaseDate?: InputMaybe<DateFilter>;
   studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
@@ -2776,33 +2618,28 @@ export type MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
   videoId?: InputMaybe<NumberFilter>;
 };
 
-export type MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
-  {
-    accessMode?: InputMaybe<AccessModeEnumFilter>;
-    ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-    and?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    coverId?: InputMaybe<StringFilter>;
-    createdAt?: InputMaybe<DateFilter>;
-    description?: InputMaybe<StringFilter>;
-    endReleaseDate?: InputMaybe<DateFilter>;
-    genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    id?: InputMaybe<IdFilter>;
-    moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    or?: InputMaybe<
-      Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    releaseDate?: InputMaybe<DateFilter>;
-    startReleaseDate?: InputMaybe<DateFilter>;
-    studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
-    title?: InputMaybe<StringFilter>;
-    updatedAt?: InputMaybe<DateFilter>;
-    videoId?: InputMaybe<NumberFilter>;
-  };
+export type MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
+  accessMode?: InputMaybe<AccessModeEnumFilter>;
+  ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
+  collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  coverId?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateFilter>;
+  description?: InputMaybe<StringFilter>;
+  endReleaseDate?: InputMaybe<DateFilter>;
+  genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  id?: InputMaybe<IdFilter>;
+  moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
+  releaseDate?: InputMaybe<DateFilter>;
+  startReleaseDate?: InputMaybe<DateFilter>;
+  studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateFilter>;
+  videoId?: InputMaybe<NumberFilter>;
+};
 
 export type MovieEntity_MoviePersonEntity_MovieFilter = {
   accessMode?: InputMaybe<AccessModeEnumFilter>;
@@ -2830,9 +2667,7 @@ export type MovieEntity_MoviePersonEntity_MovieFilter = {
 export type MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
   accessMode?: InputMaybe<AccessModeEnumFilter>;
   ageRestriction?: InputMaybe<AgeRestrictionEnumFilter>;
-  and?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-  >;
+  and?: InputMaybe<Array<MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
   collectionsConnection?: InputMaybe<CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
   countriesConnection?: InputMaybe<MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
   cover?: InputMaybe<MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
@@ -2843,9 +2678,7 @@ export type MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
   genresConnection?: InputMaybe<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
   id?: InputMaybe<IdFilter>;
   moviePersons?: InputMaybe<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
-  or?: InputMaybe<
-    Array<MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-  >;
+  or?: InputMaybe<Array<MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
   releaseDate?: InputMaybe<DateFilter>;
   startReleaseDate?: InputMaybe<DateFilter>;
   studiosConnection?: InputMaybe<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
@@ -3042,27 +2875,22 @@ export type MovieGenreEntity_MovieEntity_MovieImageFilter = {
 };
 
 export type MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  and?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+  genreId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
+};
+
+export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
   and?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
   >;
   genreId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
   >;
 };
-
-export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    genreId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-  };
 
 export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -3160,29 +2988,27 @@ export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePers
     >;
   };
 
-export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    genreId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-  };
+export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  genreId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+};
 
-export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    genreId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-  };
+export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  genreId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+};
 
 export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -3197,37 +3023,24 @@ export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisi
   };
 
 export type MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   genreId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
 };
 
-export type MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    genreId?: InputMaybe<IdFilter>;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-  };
-
-export type MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
-  and?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+export type MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
+  and?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
   genreId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+};
+
+export type MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
+  genreId?: InputMaybe<IdFilter>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
 };
 
 export type MovieGenreEntity_MovieEntity_MoviePersonFilter = {
@@ -3245,14 +3058,10 @@ export type MovieGenreEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   genreId?: InputMaybe<IdFilter>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
 };
 
 export type MovieGenreEntity_MovieFilter = {
@@ -3294,7 +3103,7 @@ export type MovieImage = {
   movie: Movie;
   movieId: Scalars['ID'];
   type?: Maybe<MovieImageType>;
-  typeId?: Maybe<Scalars['Float']>;
+  typeId?: Maybe<Scalars['Int']>;
 };
 
 export type MovieImageFilter = {
@@ -3305,7 +3114,7 @@ export type MovieImageFilter = {
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<Array<MovieImageFilter>>;
   type?: InputMaybe<MovieImageTypeEntity_MovieImageFilter>;
-  typeId?: InputMaybe<NumberFilter>;
+  typeId?: InputMaybe<IntFilter>;
 };
 
 export type MovieImageSort = {
@@ -3392,37 +3201,32 @@ export type MoviePersonEntity_MovieEntity_MovieImageFilter = {
 };
 
 export type MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
-  and?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  and?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
   id?: InputMaybe<IdFilter>;
   movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
   movieId?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  or?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
   personId?: InputMaybe<NumberFilter>;
   role?: InputMaybe<StringFilter>;
   type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>;
   typeId?: InputMaybe<NumberFilter>;
 };
 
-export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
-    movieId?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    personId?: InputMaybe<NumberFilter>;
-    role?: InputMaybe<StringFilter>;
-    type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
-    typeId?: InputMaybe<NumberFilter>;
-  };
+export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
+  movieId?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+  personId?: InputMaybe<NumberFilter>;
+  role?: InputMaybe<StringFilter>;
+  type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>;
+  typeId?: InputMaybe<NumberFilter>;
+};
 
 export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -3550,39 +3354,37 @@ export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePer
     typeId?: InputMaybe<NumberFilter>;
   };
 
-export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
-    movieId?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    personId?: InputMaybe<NumberFilter>;
-    role?: InputMaybe<StringFilter>;
-    type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
-    typeId?: InputMaybe<NumberFilter>;
-  };
+export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
+  movieId?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  personId?: InputMaybe<NumberFilter>;
+  role?: InputMaybe<StringFilter>;
+  type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>;
+  typeId?: InputMaybe<NumberFilter>;
+};
 
-export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
-    movieId?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    personId?: InputMaybe<NumberFilter>;
-    role?: InputMaybe<StringFilter>;
-    type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
-    typeId?: InputMaybe<NumberFilter>;
-  };
+export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
+  movieId?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  personId?: InputMaybe<NumberFilter>;
+  role?: InputMaybe<StringFilter>;
+  type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>;
+  typeId?: InputMaybe<NumberFilter>;
+};
 
 export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -3602,48 +3404,37 @@ export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVis
   };
 
 export type MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   id?: InputMaybe<IdFilter>;
   movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
   movieId?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   personId?: InputMaybe<NumberFilter>;
   role?: InputMaybe<StringFilter>;
   type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>;
   typeId?: InputMaybe<NumberFilter>;
 };
 
-export type MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
-    movieId?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    personId?: InputMaybe<NumberFilter>;
-    role?: InputMaybe<StringFilter>;
-    type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
-    typeId?: InputMaybe<NumberFilter>;
-  };
+export type MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
+  movieId?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+  personId?: InputMaybe<NumberFilter>;
+  role?: InputMaybe<StringFilter>;
+  type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>;
+  typeId?: InputMaybe<NumberFilter>;
+};
 
 export type MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
-  and?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  and?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   id?: InputMaybe<IdFilter>;
   movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
   movieId?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   personId?: InputMaybe<NumberFilter>;
   role?: InputMaybe<StringFilter>;
   type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>;
@@ -3675,15 +3466,11 @@ export type MoviePersonEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   id?: InputMaybe<IdFilter>;
   movie?: InputMaybe<MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
   movieId?: InputMaybe<StringFilter>;
-  or?: InputMaybe<
-    Array<MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   personId?: InputMaybe<NumberFilter>;
   role?: InputMaybe<StringFilter>;
   type?: InputMaybe<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>;
@@ -3777,29 +3564,23 @@ export type MoviePersonTypeEntity_MoviePersonEntity_FilmFilter = {
   or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_FilmFilter>>;
 };
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
+  and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>>;
+};
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter>
+  >;
+};
 
 export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
   {
@@ -3885,17 +3666,16 @@ export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntit
     >;
   };
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter>
+  >;
+};
 
 export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
   {
@@ -3909,53 +3689,41 @@ export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntit
     >;
   };
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+  >;
+};
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>>;
+};
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>>;
+};
 
-export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
+  and?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<
+    Array<MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
+  >;
+};
 
 export type MoviePersonTypeEntity_MoviePersonEntity_MovieFilter = {
   and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieFilter>>;
@@ -3964,17 +3732,12 @@ export type MoviePersonTypeEntity_MoviePersonEntity_MovieFilter = {
   or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_MovieFilter>>;
 };
 
-export type MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    id?: InputMaybe<IdFilter>;
-    name?: InputMaybe<StringFilter>;
-    or?: InputMaybe<
-      Array<MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-  };
+export type MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
+  and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+  id?: InputMaybe<IdFilter>;
+  name?: InputMaybe<StringFilter>;
+  or?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+};
 
 export type MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter = {
   and?: InputMaybe<Array<MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter>>;
@@ -4099,27 +3862,22 @@ export type MovieStudioEntity_MovieEntity_MovieImageFilter = {
 };
 
 export type MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter = {
-  and?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  and?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter>
-  >;
+  or?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter>>;
   studioId?: InputMaybe<IdFilter>;
 };
 
-export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
-    >;
-    studioId?: InputMaybe<IdFilter>;
-  };
+export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter = {
+  and?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter>
+  >;
+  studioId?: InputMaybe<IdFilter>;
+};
 
 export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter =
   {
@@ -4217,29 +3975,27 @@ export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePer
     studioId?: InputMaybe<IdFilter>;
   };
 
-export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
-    >;
-    studioId?: InputMaybe<IdFilter>;
-  };
+export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter = {
+  and?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter>
+  >;
+  studioId?: InputMaybe<IdFilter>;
+};
 
-export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
-    >;
-    studioId?: InputMaybe<IdFilter>;
-  };
+export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter = {
+  and?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter>
+  >;
+  studioId?: InputMaybe<IdFilter>;
+};
 
 export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter =
   {
@@ -4254,36 +4010,25 @@ export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVis
   };
 
 export type MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter = {
-  and?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  and?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter>
-  >;
+  or?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter>>;
   studioId?: InputMaybe<IdFilter>;
 };
 
-export type MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter =
-  {
-    and?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    movieId?: InputMaybe<IdFilter>;
-    or?: InputMaybe<
-      Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
-    >;
-    studioId?: InputMaybe<IdFilter>;
-  };
-
-export type MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+export type MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter = {
   and?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
+    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>
   >;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter>
-  >;
+  or?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter>>;
+  studioId?: InputMaybe<IdFilter>;
+};
+
+export type MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter = {
+  and?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
+  movieId?: InputMaybe<IdFilter>;
+  or?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter>>;
   studioId?: InputMaybe<IdFilter>;
 };
 
@@ -4302,13 +4047,9 @@ export type MovieStudioEntity_MovieEntity_MovieReviewFilter = {
 };
 
 export type MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter = {
-  and?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  and?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   movieId?: InputMaybe<IdFilter>;
-  or?: InputMaybe<
-    Array<MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter>
-  >;
+  or?: InputMaybe<Array<MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter>>;
   studioId?: InputMaybe<IdFilter>;
 };
 
@@ -4351,6 +4092,7 @@ export enum MovieTypeEnum {
 export type MovieUser = {
   __typename?: 'MovieUser';
   isBookmarked: Scalars['Boolean'];
+  isFavorite: Scalars['Boolean'];
   isWatched: Scalars['Boolean'];
   movie: Movie;
   movieId: Scalars['ID'];
@@ -4361,6 +4103,7 @@ export type MovieUser = {
 export type MovieUserFilter = {
   and?: InputMaybe<Array<MovieUserFilter>>;
   isBookmarked?: InputMaybe<BooleanFilter>;
+  isFavorite?: InputMaybe<BooleanFilter>;
   isWatched?: InputMaybe<BooleanFilter>;
   movieId?: InputMaybe<IdFilter>;
   or?: InputMaybe<Array<MovieUserFilter>>;
@@ -4369,6 +4112,7 @@ export type MovieUserFilter = {
 
 export type MovieUserSort = {
   isBookmarked?: InputMaybe<SortOptions>;
+  isFavorite?: InputMaybe<SortOptions>;
   isWatched?: InputMaybe<SortOptions>;
   movieId?: InputMaybe<SortOptions>;
   userId?: InputMaybe<SortOptions>;
@@ -4436,6 +4180,7 @@ export type Mutation = {
   createSubscriptionsManageLink: Scalars['String'];
   createSubtitles: Subtitles;
   createTrailer: Trailer;
+  createUpload: CreateUploadResult;
   createVideo: Video;
   createVideoVariant: VideoVariant;
   deleteCollection: Collection;
@@ -4483,9 +4228,9 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   moveRoomMovie: RoomMovie;
   refresh: AuthResult;
-  register: AuthResult;
   removeVideo: Video;
   sendConfirmation: Scalars['Boolean'];
+  signUp: AuthResult;
   startRoomMovie: RoomMovie;
   startRoomPlayback: Scalars['Boolean'];
   subscribe: Scalars['String'];
@@ -4679,6 +4424,10 @@ export type MutationCreateTrailerArgs = {
   input: CreateTrailerInput;
 };
 
+export type MutationCreateUploadArgs = {
+  type: MediaTypeEnum;
+};
+
 export type MutationCreateVideoVariantArgs = {
   input: CreateVideoVariantInput;
 };
@@ -4865,12 +4614,12 @@ export type MutationMoveRoomMovieArgs = {
   roomId: Scalars['String'];
 };
 
-export type MutationRegisterArgs = {
-  input: RegisterInput;
-};
-
 export type MutationRemoveVideoArgs = {
   id: Scalars['Int'];
+};
+
+export type MutationSignUpArgs = {
+  input: SignUpInput;
 };
 
 export type MutationStartRoomMovieArgs = {
@@ -5295,7 +5044,9 @@ export type Purchase = {
 export type Query = {
   __typename?: 'Query';
   getAllCountries: Array<Country>;
+  getAllEpisodes: Array<Episode>;
   getAllGenres: Array<Genre>;
+  getAllSeasons: Array<Season>;
   getAllStudios: Array<Studio>;
   getCollection: Collection;
   getCollectionReview: CollectionReview;
@@ -5387,9 +5138,19 @@ export type QueryGetAllCountriesArgs = {
   sort?: InputMaybe<CountrySort>;
 };
 
+export type QueryGetAllEpisodesArgs = {
+  filter?: InputMaybe<EpisodeFilter>;
+  sort?: InputMaybe<EpisodeSort>;
+};
+
 export type QueryGetAllGenresArgs = {
   filter?: InputMaybe<GenreFilter>;
   sort?: InputMaybe<GenreSort>;
+};
+
+export type QueryGetAllSeasonsArgs = {
+  filter?: InputMaybe<SeasonFilter>;
+  sort?: InputMaybe<SeasonSort>;
 };
 
 export type QueryGetAllStudiosArgs = {
@@ -5841,13 +5602,6 @@ export type QueryHasPurchaseArgs = {
   movieId: Scalars['String'];
 };
 
-export type RegisterInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
-  passwordRepeat: Scalars['String'];
-};
-
 export type RelayMovieEdge = {
   __typename?: 'RelayMovieEdge';
   cursor: Scalars['String'];
@@ -6142,6 +5896,13 @@ export type ServiceSubscription = {
   userId: Scalars['String'];
 };
 
+export type SignUpInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  passwordRepeat: Scalars['String'];
+};
+
 export enum SortDirectionEnum {
   ASC = 'ASC',
   DESC = 'DESC',
@@ -6206,10 +5967,16 @@ export type StudioSort = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  audioVariantsProgress: Scalars['String'];
   roomDeleted: Room;
   roomPlaybackEnded: RoomMovie;
   roomPlaybackStarted: RoomMovie;
-  videosGenerationCompleted: Scalars['String'];
+  streamingGenerationProgress: Scalars['String'];
+  videoVariantsProgress: Scalars['String'];
+};
+
+export type SubscriptionAudioVariantsProgressArgs = {
+  id: Scalars['Int'];
 };
 
 export type SubscriptionRoomDeletedArgs = {
@@ -6224,7 +5991,11 @@ export type SubscriptionRoomPlaybackStartedArgs = {
   id: Scalars['String'];
 };
 
-export type SubscriptionVideosGenerationCompletedArgs = {
+export type SubscriptionStreamingGenerationProgressArgs = {
+  id: Scalars['Int'];
+};
+
+export type SubscriptionVideoVariantsProgressArgs = {
   id: Scalars['Int'];
 };
 
@@ -6344,7 +6115,7 @@ export type UpdateLanguageInput = {
 export type UpdateMovieImageInput = {
   imageId?: InputMaybe<Scalars['String']>;
   movieId?: InputMaybe<Scalars['String']>;
-  typeId?: InputMaybe<Scalars['Float']>;
+  typeId?: InputMaybe<Scalars['Int']>;
 };
 
 export type UpdateMovieImageTypeInput = {
@@ -6379,6 +6150,7 @@ export type UpdateMovieReviewInput = {
 
 export type UpdateMovieUserInput = {
   isBookmarked?: InputMaybe<Scalars['Boolean']>;
+  isFavorite?: InputMaybe<Scalars['Boolean']>;
   isWatched?: InputMaybe<Scalars['Boolean']>;
   movieId?: InputMaybe<Scalars['String']>;
 };
@@ -6570,12 +6342,12 @@ export type LoginMutation = {
 };
 
 export type SignUpMutationVariables = Exact<{
-  input: RegisterInput;
+  input: SignUpInput;
 }>;
 
 export type SignUpMutation = {
   __typename?: 'Mutation';
-  register: {
+  signUp: {
     __typename?: 'AuthResult';
     accessToken: string;
     refreshToken: string;
@@ -6601,6 +6373,17 @@ export type RefreshMutation = {
     __typename?: 'AuthResult';
     accessToken: string;
     refreshToken: string;
+    user: {
+      __typename?: 'User';
+      email: string;
+      createdAt: string;
+      role: RoleEnum;
+      isEmailConfirmed: boolean;
+      id: string;
+      name: string;
+      country?: { __typename?: 'Country'; id: string; name: string } | null;
+      avatar?: { __typename?: 'Media'; url: string } | null;
+    };
   };
 };
 
@@ -6656,11 +6439,7 @@ export type RemoveCollectionMovieMutationVariables = Exact<{
 
 export type RemoveCollectionMovieMutation = {
   __typename?: 'Mutation';
-  deleteCollectionMovie: {
-    __typename?: 'CollectionMovie';
-    collectionId: string;
-    movieId: string;
-  };
+  deleteCollectionMovie: { __typename?: 'CollectionMovie'; collectionId: string; movieId: string };
 };
 
 export type CollectionReviewFragment = {
@@ -6726,10 +6505,7 @@ export type HasCollectionReviewQueryVariables = Exact<{
   collectionId: Scalars['Int'];
 }>;
 
-export type HasCollectionReviewQuery = {
-  __typename?: 'Query';
-  hasCollectionReview: boolean;
-};
+export type HasCollectionReviewQuery = { __typename?: 'Query'; hasCollectionReview: boolean };
 
 export type GetCollectionsReviewsOffsetQueryVariables = Exact<{
   filter?: InputMaybe<CollectionReviewFilter>;
@@ -7109,23 +6885,14 @@ export type GetCollectionQuery = {
   };
 };
 
-export type BaseCountryFragment = {
-  __typename?: 'Country';
-  id: string;
-  name: string;
-};
+export type BaseCountryFragment = { __typename?: 'Country'; id: string; name: string };
 
 export type CountryFragmentFragment = {
   __typename?: 'Country';
   id: string;
   name: string;
   language: { __typename?: 'Language'; id: string; name: string };
-  currency: {
-    __typename?: 'Currency';
-    id: string;
-    name: string;
-    symbol: string;
-  };
+  currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
 };
 
 export type GetAllCountriesQueryVariables = Exact<{
@@ -7135,12 +6902,7 @@ export type GetAllCountriesQueryVariables = Exact<{
 
 export type GetAllCountriesQuery = {
   __typename?: 'Query';
-  getAllCountries: Array<{
-    __typename?: 'Country';
-    moviesCount: number;
-    id: string;
-    name: string;
-  }>;
+  getAllCountries: Array<{ __typename?: 'Country'; moviesCount: number; id: string; name: string }>;
 };
 
 export type GetCountriesQueryVariables = Exact<{
@@ -7162,19 +6924,11 @@ export type ConfirmEmailMutationVariables = Exact<{
   token: Scalars['String'];
 }>;
 
-export type ConfirmEmailMutation = {
-  __typename?: 'Mutation';
-  confirmEmail: boolean;
-};
+export type ConfirmEmailMutation = { __typename?: 'Mutation'; confirmEmail: boolean };
 
-export type SendEmailConfirmationMutationVariables = Exact<{
-  [key: string]: never;
-}>;
+export type SendEmailConfirmationMutationVariables = Exact<{ [key: string]: never }>;
 
-export type SendEmailConfirmationMutation = {
-  __typename?: 'Mutation';
-  sendConfirmation: boolean;
-};
+export type SendEmailConfirmationMutation = { __typename?: 'Mutation'; sendConfirmation: boolean };
 
 export type EpisodeFragment = {
   __typename?: 'Episode';
@@ -7225,6 +6979,42 @@ export type GetEpisodeBySeriesAndNumQuery = {
         file: { __typename?: 'Media'; url: string };
       }>;
     } | null;
+  };
+};
+
+export type GetEpisodesQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+  sort?: InputMaybe<EpisodeSort>;
+  filter?: InputMaybe<EpisodeFilter>;
+}>;
+
+export type GetEpisodesQuery = {
+  __typename?: 'Query';
+  getEpisodes: {
+    __typename?: 'PaginatedEpisodes';
+    nodes: Array<{
+      __typename?: 'Episode';
+      id: string;
+      title?: string | null;
+      description?: string | null;
+      releaseDate?: string | null;
+      ageRestriction?: AgeRestrictionEnum | null;
+      numberInSeries: number;
+      numberInSeason: number;
+      cover?: { __typename?: 'Media'; url: string } | null;
+      video?: {
+        __typename?: 'Video';
+        dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
+        hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
+        subtitles: Array<{
+          __typename?: 'Subtitles';
+          languageId: string;
+          file: { __typename?: 'Media'; url: string };
+        }>;
+      } | null;
+    }>;
+    pageInfo: { __typename?: 'OffsetPageInfo'; totalCount: number };
   };
 };
 
@@ -7301,11 +7091,7 @@ export type GetFilmsQuery = {
       genres: Array<{ __typename?: 'Genre'; name: string }>;
       cover?: { __typename?: 'Media'; url: string } | null;
     }>;
-    pageInfo: {
-      __typename?: 'OffsetPageInfo';
-      totalCount: number;
-      hasNextPage: boolean;
-    };
+    pageInfo: { __typename?: 'OffsetPageInfo'; totalCount: number; hasNextPage: boolean };
   };
 };
 
@@ -7348,12 +7134,7 @@ export type GetAllGenresQueryVariables = Exact<{
 
 export type GetAllGenresQuery = {
   __typename?: 'Query';
-  getAllGenres: Array<{
-    __typename?: 'Genre';
-    id: string;
-    name: string;
-    moviesCount: number;
-  }>;
+  getAllGenres: Array<{ __typename?: 'Genre'; id: string; name: string; moviesCount: number }>;
 };
 
 export type GetGenresQueryVariables = Exact<{
@@ -7377,12 +7158,16 @@ export type UploadImageMutationVariables = Exact<{
 
 export type UploadImageMutation = {
   __typename?: 'Mutation';
-  uploadImage: {
-    __typename?: 'Media';
-    id: string;
-    url: string;
-    type: MediaTypeEnum;
-  };
+  uploadImage: { __typename?: 'Media'; id: string; url: string; type: MediaTypeEnum };
+};
+
+export type CreateUploadMutationVariables = Exact<{
+  type: MediaTypeEnum;
+}>;
+
+export type CreateUploadMutation = {
+  __typename?: 'Mutation';
+  createUpload: { __typename?: 'CreateUploadResult'; mediaId: string; uploadUrl: string };
 };
 
 export type MovieImageCard_MovieImageFragment = {
@@ -7538,10 +7323,7 @@ export type HasMovieReviewQueryVariables = Exact<{
   movieId: Scalars['String'];
 }>;
 
-export type HasMovieReviewQuery = {
-  __typename?: 'Query';
-  hasMovieReview: boolean;
-};
+export type HasMovieReviewQuery = { __typename?: 'Query'; hasMovieReview: boolean };
 
 export type GetMoviesReviewsOffsetQueryVariables = Exact<{
   filter?: InputMaybe<MovieReviewFilter>;
@@ -7622,6 +7404,7 @@ export type MovieUserFragment = {
   __typename?: 'MovieUser';
   isBookmarked: boolean;
   isWatched: boolean;
+  isFavorite: boolean;
   movieId: string;
   userId: string;
 };
@@ -7636,6 +7419,7 @@ export type CreateMovieUserMutation = {
     __typename?: 'MovieUser';
     isBookmarked: boolean;
     isWatched: boolean;
+    isFavorite: boolean;
     movieId: string;
     userId: string;
   };
@@ -7653,6 +7437,7 @@ export type UpdateMovieUserMutation = {
     __typename?: 'MovieUser';
     isBookmarked: boolean;
     isWatched: boolean;
+    isFavorite: boolean;
     movieId: string;
     userId: string;
   };
@@ -7669,6 +7454,7 @@ export type GetMovieUserQuery = {
     __typename?: 'MovieUser';
     isBookmarked: boolean;
     isWatched: boolean;
+    isFavorite: boolean;
     movieId: string;
     userId: string;
   };
@@ -7690,6 +7476,7 @@ export type GetMoviesUsersQuery = {
       __typename?: 'MovieUser';
       isBookmarked: boolean;
       isWatched: boolean;
+      isFavorite: boolean;
       movieId: string;
       userId: string;
       movie?:
@@ -7729,10 +7516,7 @@ export type IncreaseMovieVisitsMutationVariables = Exact<{
   movieId: Scalars['String'];
 }>;
 
-export type IncreaseMovieVisitsMutation = {
-  __typename?: 'Mutation';
-  increaseMovieVisits: boolean;
-};
+export type IncreaseMovieVisitsMutation = { __typename?: 'Mutation'; increaseMovieVisits: boolean };
 
 type Movie_Film_Fragment = {
   __typename?: 'Film';
@@ -8075,12 +7859,7 @@ export type PlanFragment = {
     id: string;
     amount: number;
     interval?: PlanIntervalEnum | null;
-    currency: {
-      __typename?: 'Currency';
-      id: string;
-      name: string;
-      symbol: string;
-    };
+    currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
   }>;
 };
 
@@ -8097,12 +7876,7 @@ export type GetPlansQuery = {
       id: string;
       amount: number;
       interval?: PlanIntervalEnum | null;
-      currency: {
-        __typename?: 'Currency';
-        id: string;
-        name: string;
-        symbol: string;
-      };
+      currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
     }>;
   }>;
 };
@@ -8119,24 +7893,14 @@ export type PlanPriceFragment = {
   id: string;
   amount: number;
   interval?: PlanIntervalEnum | null;
-  currency: {
-    __typename?: 'Currency';
-    id: string;
-    name: string;
-    symbol: string;
-  };
+  currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
 };
 
 export type PriceFragment = {
   __typename?: 'Price';
   id: string;
   amount: number;
-  currency: {
-    __typename?: 'Currency';
-    id: string;
-    name: string;
-    symbol: string;
-  };
+  currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
 };
 
 export type ProductFragment = {
@@ -8147,12 +7911,7 @@ export type ProductFragment = {
     __typename?: 'Price';
     id: string;
     amount: number;
-    currency: {
-      __typename?: 'Currency';
-      id: string;
-      name: string;
-      symbol: string;
-    };
+    currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
   }>;
 };
 
@@ -8170,12 +7929,7 @@ export type GetProductQuery = {
       __typename?: 'Price';
       id: string;
       amount: number;
-      currency: {
-        __typename?: 'Currency';
-        id: string;
-        name: string;
-        symbol: string;
-      };
+      currency: { __typename?: 'Currency'; id: string; name: string; symbol: string };
     }>;
   };
 };
@@ -8690,10 +8444,7 @@ export type GenerateRoomInviteMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type GenerateRoomInviteMutation = {
-  __typename?: 'Mutation';
-  generateRoomInvite: string;
-};
+export type GenerateRoomInviteMutation = { __typename?: 'Mutation'; generateRoomInvite: string };
 
 export type DeleteRoomMutationVariables = Exact<{
   id: Scalars['String'];
@@ -8718,19 +8469,13 @@ export type StartRoomPlaybackMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type StartRoomPlaybackMutation = {
-  __typename?: 'Mutation';
-  startRoomPlayback: boolean;
-};
+export type StartRoomPlaybackMutation = { __typename?: 'Mutation'; startRoomPlayback: boolean };
 
 export type EndRoomPlaybackMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type EndRoomPlaybackMutation = {
-  __typename?: 'Mutation';
-  endRoomPlayback: boolean;
-};
+export type EndRoomPlaybackMutation = { __typename?: 'Mutation'; endRoomPlayback: boolean };
 
 export type GetRoomQueryVariables = Exact<{
   id: Scalars['String'];
@@ -8857,10 +8602,7 @@ export type GetRoomCurrentPlaybackQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type GetRoomCurrentPlaybackQuery = {
-  __typename?: 'Query';
-  getRoomCurrentPlayback: number;
-};
+export type GetRoomCurrentPlaybackQuery = { __typename?: 'Query'; getRoomCurrentPlayback: number };
 
 export type RoomPlaybackStartedSubscriptionVariables = Exact<{
   id: Scalars['String'];
@@ -9090,11 +8832,7 @@ export type GetManySeriesQuery = {
       genres: Array<{ __typename?: 'Genre'; name: string }>;
       cover?: { __typename?: 'Media'; url: string } | null;
     }>;
-    pageInfo: {
-      __typename?: 'OffsetPageInfo';
-      totalCount: number;
-      hasNextPage: boolean;
-    };
+    pageInfo: { __typename?: 'OffsetPageInfo'; totalCount: number; hasNextPage: boolean };
   };
 };
 
@@ -9121,11 +8859,7 @@ export type GetOneSeriesQuery = {
   };
 };
 
-export type BaseStudioFragment = {
-  __typename?: 'Studio';
-  id: string;
-  name: string;
-};
+export type BaseStudioFragment = { __typename?: 'Studio'; id: string; name: string };
 
 export type StudioFragment = {
   __typename?: 'Studio';
@@ -9141,12 +8875,7 @@ export type GetAllStudiosQueryVariables = Exact<{
 
 export type GetAllStudiosQuery = {
   __typename?: 'Query';
-  getAllStudios: Array<{
-    __typename?: 'Studio';
-    moviesCount: number;
-    id: string;
-    name: string;
-  }>;
+  getAllStudios: Array<{ __typename?: 'Studio'; moviesCount: number; id: string; name: string }>;
 };
 
 export type GetStudiosQueryVariables = Exact<{
@@ -9174,28 +8903,18 @@ export type CancelSubscriptionMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type CancelSubscriptionMutation = {
-  __typename?: 'Mutation';
-  cancelSubscription: boolean;
-};
+export type CancelSubscriptionMutation = { __typename?: 'Mutation'; cancelSubscription: boolean };
 
-export type CreateSubscriptionsManageLinkMutationVariables = Exact<{
-  [key: string]: never;
-}>;
+export type CreateSubscriptionsManageLinkMutationVariables = Exact<{ [key: string]: never }>;
 
 export type CreateSubscriptionsManageLinkMutation = {
   __typename?: 'Mutation';
   createSubscriptionsManageLink: string;
 };
 
-export type HasActiveSubscriptionQueryVariables = Exact<{
-  [key: string]: never;
-}>;
+export type HasActiveSubscriptionQueryVariables = Exact<{ [key: string]: never }>;
 
-export type HasActiveSubscriptionQuery = {
-  __typename?: 'Query';
-  hasActiveSubscription: boolean;
-};
+export type HasActiveSubscriptionQuery = { __typename?: 'Query'; hasActiveSubscription: boolean };
 
 export type BaseUserFragment = {
   __typename?: 'User';
@@ -9337,16 +9056,31 @@ export type VideoFragment = {
   }>;
 };
 
+export type GetVideoQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+export type GetVideoQuery = {
+  __typename?: 'Query';
+  getVideo: {
+    __typename?: 'Video';
+    dashManifestMedia?: { __typename?: 'Media'; url: string } | null;
+    hlsManifestMedia?: { __typename?: 'Media'; url: string } | null;
+    subtitles: Array<{
+      __typename?: 'Subtitles';
+      languageId: string;
+      file: { __typename?: 'Media'; url: string };
+    }>;
+  };
+};
+
 export const BaseUserFragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9357,9 +9091,7 @@ export const BaseUserFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9373,10 +9105,7 @@ export const CollectionReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9389,12 +9118,7 @@ export const CollectionReviewFragmentDoc = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
@@ -9404,10 +9128,7 @@ export const CollectionReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9418,9 +9139,7 @@ export const CollectionReviewFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9434,10 +9153,7 @@ export const CollectionUserFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9456,10 +9172,7 @@ export const BaseCollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9481,28 +9194,17 @@ export const CollectionCard_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionCard_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -9510,9 +9212,7 @@ export const CollectionCard_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9521,10 +9221,7 @@ export const CollectionCard_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9541,10 +9238,7 @@ export const CollectionCard_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9555,9 +9249,7 @@ export const CollectionCard_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9571,10 +9263,7 @@ export const BaseSeriesFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9596,25 +9285,17 @@ export const SeriesCard_SeriesFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9622,9 +9303,7 @@ export const SeriesCard_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9632,9 +9311,7 @@ export const SeriesCard_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9642,9 +9319,7 @@ export const SeriesCard_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9653,10 +9328,7 @@ export const SeriesCard_SeriesFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9678,10 +9350,7 @@ export const FilmBaseFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9702,10 +9371,7 @@ export const FilmCard_FilmFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9715,9 +9381,7 @@ export const FilmCard_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9725,9 +9389,7 @@ export const FilmCard_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9735,9 +9397,7 @@ export const FilmCard_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9745,9 +9405,7 @@ export const FilmCard_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9756,10 +9414,7 @@ export const FilmCard_FilmFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9780,17 +9435,11 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionItem_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'cover' },
@@ -9807,12 +9456,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -9821,14 +9465,8 @@ export const CollectionItem_CollectionFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -9838,10 +9476,7 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9858,10 +9493,7 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9877,10 +9509,7 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9897,10 +9526,7 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9911,9 +9537,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9922,25 +9546,17 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9948,9 +9564,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9958,9 +9572,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -9968,9 +9580,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -9979,10 +9589,7 @@ export const CollectionItem_CollectionFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -9992,9 +9599,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10002,9 +9607,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10012,9 +9615,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10022,9 +9623,7 @@ export const CollectionItem_CollectionFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10038,10 +9637,7 @@ export const BaseCountryFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10058,17 +9654,11 @@ export const CountryFragmentFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CountryFragment' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCountry' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'language' },
@@ -10098,10 +9688,7 @@ export const CountryFragmentFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10118,10 +9705,7 @@ export const VideoFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10130,9 +9714,7 @@ export const VideoFragmentDoc = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10140,9 +9722,7 @@ export const VideoFragmentDoc = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10157,9 +9737,7 @@ export const VideoFragmentDoc = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -10176,10 +9754,7 @@ export const FilmItem_FilmFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmItem_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10189,9 +9764,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10199,9 +9772,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10209,9 +9780,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10219,9 +9788,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'productId' } },
@@ -10230,12 +9797,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
             },
           },
         ],
@@ -10244,10 +9806,7 @@ export const FilmItem_FilmFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10263,10 +9822,7 @@ export const FilmItem_FilmFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10275,9 +9831,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10285,9 +9839,7 @@ export const FilmItem_FilmFragmentDoc = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10302,9 +9854,7 @@ export const FilmItem_FilmFragmentDoc = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -10321,10 +9871,7 @@ export const MovieImageCard_MovieImageFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieImageCard_MovieImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieImage' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieImage' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10345,9 +9892,7 @@ export const MovieImageCard_MovieImageFragmentDoc = {
             name: { kind: 'Name', value: 'image' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10361,10 +9906,7 @@ export const PersonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Person' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Person' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Person' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10375,9 +9917,7 @@ export const PersonFragmentDoc = {
             name: { kind: 'Name', value: 'image' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10386,10 +9926,7 @@ export const PersonFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseCountry' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
               ],
             },
           },
@@ -10399,10 +9936,7 @@ export const PersonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10419,10 +9953,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MoviePersonCard_MoviePerson' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MoviePerson' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MoviePerson' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10444,12 +9975,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
             name: { kind: 'Name', value: 'person' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Person' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Person' } }],
             },
           },
         ],
@@ -10458,10 +9984,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10473,10 +9996,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Person' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Person' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Person' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10487,9 +10007,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
             name: { kind: 'Name', value: 'image' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -10498,10 +10016,7 @@ export const MoviePersonCard_MoviePersonFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseCountry' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
               ],
             },
           },
@@ -10516,10 +10031,7 @@ export const BaseMovieReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10532,12 +10044,7 @@ export const BaseMovieReviewFragmentDoc = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -10546,10 +10053,7 @@ export const BaseMovieReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10560,9 +10064,7 @@ export const BaseMovieReviewFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10576,17 +10078,11 @@ export const MovieReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseMovieReview' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseMovieReview' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'movie' },
@@ -10604,10 +10100,7 @@ export const MovieReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10618,9 +10111,7 @@ export const MovieReviewFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10629,10 +10120,7 @@ export const MovieReviewFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10645,12 +10133,7 @@ export const MovieReviewFragmentDoc = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -10664,15 +10147,13 @@ export const MovieUserFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'isBookmarked' } },
           { kind: 'Field', name: { kind: 'Name', value: 'isWatched' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
           { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
         ],
@@ -10686,31 +10167,19 @@ export const MovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Movie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Movie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Movie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'FilmCard_Film' },
-          },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'SeriesCard_Series' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
         ],
       },
     },
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10726,10 +10195,7 @@ export const MovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10746,10 +10212,7 @@ export const MovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10759,9 +10222,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10769,9 +10230,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10779,9 +10238,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10789,9 +10246,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10800,25 +10255,17 @@ export const MovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10826,9 +10273,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10836,9 +10281,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -10846,9 +10289,7 @@ export const MovieFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -10862,10 +10303,7 @@ export const PlanPriceFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'PlanPrice' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10895,10 +10333,7 @@ export const PlanFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Plan' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Plan' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Plan' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10909,12 +10344,7 @@ export const PlanFragmentDoc = {
             name: { kind: 'Name', value: 'prices' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'PlanPrice' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PlanPrice' } }],
             },
           },
         ],
@@ -10923,10 +10353,7 @@ export const PlanFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'PlanPrice' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10956,10 +10383,7 @@ export const BasePriceFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BasePrice' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -10977,10 +10401,7 @@ export const PriceFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Price' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11009,10 +10430,7 @@ export const ProductFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Product' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Product' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Product' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11023,12 +10441,7 @@ export const ProductFragmentDoc = {
             name: { kind: 'Name', value: 'prices' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Price' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Price' } }],
             },
           },
         ],
@@ -11037,10 +10450,7 @@ export const ProductFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Price' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11069,10 +10479,7 @@ export const BaseRoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11092,10 +10499,7 @@ export const BaseRoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11106,12 +10510,7 @@ export const BaseRoomFragmentDoc = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -11120,10 +10519,7 @@ export const BaseRoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11134,9 +10530,7 @@ export const BaseRoomFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11150,10 +10544,7 @@ export const RoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11164,14 +10555,8 @@ export const RoomMovieFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -11184,10 +10569,7 @@ export const RoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11204,10 +10586,7 @@ export const RoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11223,25 +10602,17 @@ export const RoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11249,9 +10620,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11259,9 +10628,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11269,9 +10636,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11280,10 +10645,7 @@ export const RoomMovieFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11293,9 +10655,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11303,9 +10663,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11313,9 +10671,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11323,9 +10679,7 @@ export const RoomMovieFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11339,10 +10693,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Room' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11352,12 +10703,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'currentMovie' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
           {
@@ -11365,12 +10711,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'participants' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -11378,12 +10719,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'movies' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -11392,10 +10728,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11406,9 +10739,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11417,10 +10748,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11437,25 +10765,17 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11463,9 +10783,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11473,9 +10791,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11483,9 +10799,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11494,10 +10808,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11513,10 +10824,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11526,9 +10834,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11536,9 +10842,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11546,9 +10850,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11556,9 +10858,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -11567,10 +10867,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11581,12 +10878,7 @@ export const RoomFragmentDoc = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -11595,10 +10887,7 @@ export const RoomFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11609,14 +10898,8 @@ export const RoomFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -11634,10 +10917,7 @@ export const BaseSeasonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeason' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Season' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Season' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11657,10 +10937,7 @@ export const EpisodeFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Episode' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Episode' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Episode' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11676,9 +10953,7 @@ export const EpisodeFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11686,12 +10961,7 @@ export const EpisodeFragmentDoc = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
             },
           },
         ],
@@ -11700,10 +10970,7 @@ export const EpisodeFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11712,9 +10979,7 @@ export const EpisodeFragmentDoc = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11722,9 +10987,7 @@ export const EpisodeFragmentDoc = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11739,9 +11002,7 @@ export const EpisodeFragmentDoc = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -11758,28 +11019,17 @@ export const SeasonItem_SeasonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeasonItem_Season' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Season' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Season' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeason' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeason' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'episodes' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Episode' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Episode' } }],
             },
           },
         ],
@@ -11788,10 +11038,7 @@ export const SeasonItem_SeasonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11800,9 +11047,7 @@ export const SeasonItem_SeasonFragmentDoc = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11810,9 +11055,7 @@ export const SeasonItem_SeasonFragmentDoc = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11827,9 +11070,7 @@ export const SeasonItem_SeasonFragmentDoc = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -11841,10 +11082,7 @@ export const SeasonItem_SeasonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeason' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Season' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Season' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11859,10 +11097,7 @@ export const SeasonItem_SeasonFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Episode' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Episode' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Episode' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11878,9 +11113,7 @@ export const SeasonItem_SeasonFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -11888,12 +11121,7 @@ export const SeasonItem_SeasonFragmentDoc = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
             },
           },
         ],
@@ -11907,25 +11135,17 @@ export const SeriesItem_SeriesFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesItem_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11933,9 +11153,7 @@ export const SeriesItem_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11943,9 +11161,7 @@ export const SeriesItem_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -11953,9 +11169,7 @@ export const SeriesItem_SeriesFragmentDoc = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'productId' } },
@@ -11965,10 +11179,7 @@ export const SeriesItem_SeriesFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -11990,10 +11201,7 @@ export const BaseStudioFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseStudio' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Studio' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Studio' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12010,27 +11218,18 @@ export const StudioFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Studio' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Studio' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Studio' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseStudio' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseStudio' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseCountry' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
               ],
             },
           },
@@ -12040,10 +11239,7 @@ export const StudioFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseStudio' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Studio' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Studio' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12055,10 +11251,7 @@ export const StudioFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12075,10 +11268,7 @@ export const UserFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12104,10 +11294,7 @@ export const UserFragmentDoc = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12118,9 +11305,7 @@ export const UserFragmentDoc = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12138,16 +11323,10 @@ export const LoginDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'LoginInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'LoginInput' } },
           },
         },
       ],
@@ -12161,31 +11340,20 @@ export const LoginDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'refreshToken' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'user' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'User' },
-                      },
-                    ],
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
                   },
                 },
               ],
@@ -12197,10 +11365,7 @@ export const LoginDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12211,9 +11376,7 @@ export const LoginDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12222,10 +11385,7 @@ export const LoginDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12260,16 +11420,10 @@ export const SignUpDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'RegisterInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'SignUpInput' } },
           },
         },
       ],
@@ -12278,36 +11432,25 @@ export const SignUpDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'register' },
+            name: { kind: 'Name', value: 'signUp' },
             arguments: [
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'refreshToken' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'user' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'User' },
-                      },
-                    ],
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
                   },
                 },
               ],
@@ -12319,10 +11462,7 @@ export const SignUpDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12333,9 +11473,7 @@ export const SignUpDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12344,10 +11482,7 @@ export const SignUpDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12389,13 +11524,64 @@ export const RefreshDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'refreshToken' },
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
+                  },
                 },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'BaseUser' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'avatar' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'User' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'country' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isEmailConfirmed' } },
         ],
       },
     },
@@ -12410,9 +11596,7 @@ export const LogoutDocument = {
       name: { kind: 'Name', value: 'Logout' },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'logout' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'logout' } }],
       },
     },
   ],
@@ -12427,24 +11611,15 @@ export const AddCollectionMovieDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -12461,37 +11636,25 @@ export const AddCollectionMovieDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'collectionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'movie' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'FilmCard_Film' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
                       {
                         kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'SeriesCard_Series' },
@@ -12508,10 +11671,7 @@ export const AddCollectionMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12527,10 +11687,7 @@ export const AddCollectionMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12547,10 +11704,7 @@ export const AddCollectionMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12560,9 +11714,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12570,9 +11722,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12580,9 +11730,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12590,9 +11738,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12601,25 +11747,17 @@ export const AddCollectionMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12627,9 +11765,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12637,9 +11773,7 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -12647,19 +11781,14 @@ export const AddCollectionMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  AddCollectionMovieMutation,
-  AddCollectionMovieMutationVariables
->;
+} as unknown as DocumentNode<AddCollectionMovieMutation, AddCollectionMovieMutationVariables>;
 export const RemoveCollectionMovieDocument = {
   kind: 'Document',
   definitions: [
@@ -12670,24 +11799,15 @@ export const RemoveCollectionMovieDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -12704,27 +11824,18 @@ export const RemoveCollectionMovieDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'collectionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
               ],
             },
@@ -12733,10 +11844,7 @@ export const RemoveCollectionMovieDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  RemoveCollectionMovieMutation,
-  RemoveCollectionMovieMutationVariables
->;
+} as unknown as DocumentNode<RemoveCollectionMovieMutation, RemoveCollectionMovieMutationVariables>;
 export const CreateCollectionReviewDocument = {
   kind: 'Document',
   definitions: [
@@ -12747,10 +11855,7 @@ export const CreateCollectionReviewDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
             type: {
@@ -12770,19 +11875,13 @@ export const CreateCollectionReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectionReview' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionReview' } },
               ],
             },
           },
@@ -12792,10 +11891,7 @@ export const CreateCollectionReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12806,9 +11902,7 @@ export const CreateCollectionReviewDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12817,10 +11911,7 @@ export const CreateCollectionReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12833,12 +11924,7 @@ export const CreateCollectionReviewDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
@@ -12877,19 +11963,13 @@ export const GetCollectionReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectionReview' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionReview' } },
               ],
             },
           },
@@ -12899,10 +11979,7 @@ export const GetCollectionReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12913,9 +11990,7 @@ export const GetCollectionReviewDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -12924,10 +11999,7 @@ export const GetCollectionReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -12940,12 +12012,7 @@ export const GetCollectionReviewDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
@@ -12953,10 +12020,7 @@ export const GetCollectionReviewDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetCollectionReviewQuery,
-  GetCollectionReviewQueryVariables
->;
+} as unknown as DocumentNode<GetCollectionReviewQuery, GetCollectionReviewQueryVariables>;
 export const HasCollectionReviewDocument = {
   kind: 'Document',
   definitions: [
@@ -12967,10 +12031,7 @@ export const HasCollectionReviewDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -12987,10 +12048,7 @@ export const HasCollectionReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'collectionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
               },
             ],
           },
@@ -12998,10 +12056,7 @@ export const HasCollectionReviewDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  HasCollectionReviewQuery,
-  HasCollectionReviewQueryVariables
->;
+} as unknown as DocumentNode<HasCollectionReviewQuery, HasCollectionReviewQueryVariables>;
 export const GetCollectionsReviewsOffsetDocument = {
   kind: 'Document',
   definitions: [
@@ -13012,29 +12067,17 @@ export const GetCollectionsReviewsOffsetDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionReviewFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReviewFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionReviewSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReviewSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -13042,10 +12085,7 @@ export const GetCollectionsReviewsOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -13053,10 +12093,7 @@ export const GetCollectionsReviewsOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'withCollection' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'withCollection' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
           defaultValue: { kind: 'BooleanValue', value: false },
         },
@@ -13071,34 +12108,22 @@ export const GetCollectionsReviewsOffsetDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
             ],
             selectionSet: {
@@ -13110,10 +12135,7 @@ export const GetCollectionsReviewsOffsetDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'CollectionReview' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionReview' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'collection' },
@@ -13127,10 +12149,7 @@ export const GetCollectionsReviewsOffsetDocument = {
                                 name: { kind: 'Name', value: 'if' },
                                 value: {
                                   kind: 'Variable',
-                                  name: {
-                                    kind: 'Name',
-                                    value: 'withCollection',
-                                  },
+                                  name: { kind: 'Name', value: 'withCollection' },
                                 },
                               },
                             ],
@@ -13139,14 +12158,8 @@ export const GetCollectionsReviewsOffsetDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' },
-                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                           ],
                         },
                       },
@@ -13158,12 +12171,7 @@ export const GetCollectionsReviewsOffsetDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -13175,10 +12183,7 @@ export const GetCollectionsReviewsOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13189,9 +12194,7 @@ export const GetCollectionsReviewsOffsetDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -13200,10 +12203,7 @@ export const GetCollectionsReviewsOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13216,12 +12216,7 @@ export const GetCollectionsReviewsOffsetDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
@@ -13243,29 +12238,17 @@ export const GetCollectionsReviewsRelayDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionReviewFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReviewFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionReviewSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReviewSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'before' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
@@ -13275,18 +12258,12 @@ export const GetCollectionsReviewsRelayDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'after' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'first' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
       ],
@@ -13300,50 +12277,32 @@ export const GetCollectionsReviewsRelayDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'before' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'before' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'last' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'last' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'last' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'first' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'first' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'after' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'after' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
               },
             ],
             selectionSet: {
@@ -13368,10 +12327,7 @@ export const GetCollectionsReviewsRelayDocument = {
                           ],
                         },
                       },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'cursor' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
                     ],
                   },
                 },
@@ -13381,18 +12337,9 @@ export const GetCollectionsReviewsRelayDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasPreviousPage' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'startCursor' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasNextPage' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
                     ],
                   },
                 },
@@ -13405,10 +12352,7 @@ export const GetCollectionsReviewsRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13419,9 +12363,7 @@ export const GetCollectionsReviewsRelayDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -13430,10 +12372,7 @@ export const GetCollectionsReviewsRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13446,12 +12385,7 @@ export const GetCollectionsReviewsRelayDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'collectionId' } },
@@ -13473,16 +12407,10 @@ export const CreateCollectionUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateCollectionUserInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateCollectionUserInput' } },
           },
         },
       ],
@@ -13496,19 +12424,13 @@ export const CreateCollectionUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectionUser' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionUser' } },
               ],
             },
           },
@@ -13518,10 +12440,7 @@ export const CreateCollectionUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13533,10 +12452,7 @@ export const CreateCollectionUserDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateCollectionUserMutation,
-  CreateCollectionUserMutationVariables
->;
+} as unknown as DocumentNode<CreateCollectionUserMutation, CreateCollectionUserMutationVariables>;
 export const UpdateCollectionUserDocument = {
   kind: 'Document',
   definitions: [
@@ -13547,24 +12463,15 @@ export const UpdateCollectionUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -13572,16 +12479,10 @@ export const UpdateCollectionUserDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateCollectionUserInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'UpdateCollectionUserInput' } },
           },
         },
       ],
@@ -13595,35 +12496,23 @@ export const UpdateCollectionUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'userId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'userId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'collectionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectionUser' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionUser' } },
               ],
             },
           },
@@ -13633,10 +12522,7 @@ export const UpdateCollectionUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13648,10 +12534,7 @@ export const UpdateCollectionUserDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  UpdateCollectionUserMutation,
-  UpdateCollectionUserMutationVariables
->;
+} as unknown as DocumentNode<UpdateCollectionUserMutation, UpdateCollectionUserMutationVariables>;
 export const GetCollectionUserDocument = {
   kind: 'Document',
   definitions: [
@@ -13662,24 +12545,15 @@ export const GetCollectionUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'collectionId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -13696,27 +12570,18 @@ export const GetCollectionUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'userId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'userId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'collectionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'collectionId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'collectionId' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectionUser' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CollectionUser' } },
               ],
             },
           },
@@ -13726,10 +12591,7 @@ export const GetCollectionUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectionUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13741,10 +12603,7 @@ export const GetCollectionUserDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetCollectionUserQuery,
-  GetCollectionUserQueryVariables
->;
+} as unknown as DocumentNode<GetCollectionUserQuery, GetCollectionUserQueryVariables>;
 export const CreateCollectionDocument = {
   kind: 'Document',
   definitions: [
@@ -13755,16 +12614,10 @@ export const CreateCollectionDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateCollectionInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateCollectionInput' } },
           },
         },
       ],
@@ -13778,10 +12631,7 @@ export const CreateCollectionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
@@ -13800,10 +12650,7 @@ export const CreateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13820,10 +12667,7 @@ export const CreateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13834,9 +12678,7 @@ export const CreateCollectionDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -13845,28 +12687,17 @@ export const CreateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionCard_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -13874,19 +12705,14 @@ export const CreateCollectionDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateCollectionMutation,
-  CreateCollectionMutationVariables
->;
+} as unknown as DocumentNode<CreateCollectionMutation, CreateCollectionMutationVariables>;
 export const UpdateCollectionDocument = {
   kind: 'Document',
   definitions: [
@@ -13905,16 +12731,10 @@ export const UpdateCollectionDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateCollectionInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'UpdateCollectionInput' } },
           },
         },
       ],
@@ -13928,18 +12748,12 @@ export const UpdateCollectionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
@@ -13958,10 +12772,7 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13978,10 +12789,7 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -13992,9 +12800,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14003,10 +12809,7 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14023,25 +12826,17 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14049,9 +12844,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14059,9 +12852,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14069,9 +12860,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14080,10 +12869,7 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14099,10 +12885,7 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14112,9 +12895,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14122,9 +12903,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14132,9 +12911,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14142,9 +12919,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14153,17 +12928,11 @@ export const UpdateCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionItem_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'cover' },
@@ -14180,12 +12949,7 @@ export const UpdateCollectionDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -14194,14 +12958,8 @@ export const UpdateCollectionDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -14209,10 +12967,7 @@ export const UpdateCollectionDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  UpdateCollectionMutation,
-  UpdateCollectionMutationVariables
->;
+} as unknown as DocumentNode<UpdateCollectionMutation, UpdateCollectionMutationVariables>;
 export const DeleteCollectionDocument = {
   kind: 'Document',
   definitions: [
@@ -14240,27 +12995,19 @@ export const DeleteCollectionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  DeleteCollectionMutation,
-  DeleteCollectionMutationVariables
->;
+} as unknown as DocumentNode<DeleteCollectionMutation, DeleteCollectionMutationVariables>;
 export const GetCollectionsDocument = {
   kind: 'Document',
   definitions: [
@@ -14271,10 +13018,7 @@ export const GetCollectionsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -14282,10 +13026,7 @@ export const GetCollectionsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -14293,22 +13034,13 @@ export const GetCollectionsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CollectionSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CollectionSort' } },
         },
       ],
       selectionSet: {
@@ -14321,34 +13053,22 @@ export const GetCollectionsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
@@ -14362,10 +13082,7 @@ export const GetCollectionsDocument = {
                     selections: [
                       {
                         kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'CollectionCard_Collection',
-                        },
+                        name: { kind: 'Name', value: 'CollectionCard_Collection' },
                       },
                     ],
                   },
@@ -14375,12 +13092,7 @@ export const GetCollectionsDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -14392,10 +13104,7 @@ export const GetCollectionsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14412,10 +13121,7 @@ export const GetCollectionsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14426,9 +13132,7 @@ export const GetCollectionsDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14437,28 +13141,17 @@ export const GetCollectionsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionCard_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -14466,9 +13159,7 @@ export const GetCollectionsDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14503,10 +13194,7 @@ export const GetCollectionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
@@ -14525,10 +13213,7 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCollection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14545,10 +13230,7 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14559,9 +13241,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14570,10 +13250,7 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14590,25 +13267,17 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14616,9 +13285,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14626,9 +13293,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14636,9 +13301,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14647,10 +13310,7 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14666,10 +13326,7 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14679,9 +13336,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14689,9 +13344,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14699,9 +13352,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -14709,9 +13360,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -14720,17 +13369,11 @@ export const GetCollectionDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CollectionItem_Collection' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Collection' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseCollection' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCollection' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'cover' },
@@ -14747,12 +13390,7 @@ export const GetCollectionDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -14761,14 +13399,8 @@ export const GetCollectionDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -14788,21 +13420,12 @@ export const GetAllCountriesDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CountrySort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CountrySort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieType' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieTypeEnum' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieTypeEnum' } },
         },
       ],
       selectionSet: {
@@ -14815,19 +13438,13 @@ export const GetAllCountriesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseCountry' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'moviesCount' },
@@ -14835,10 +13452,7 @@ export const GetAllCountriesDocument = {
                     {
                       kind: 'Argument',
                       name: { kind: 'Name', value: 'type' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'movieType' },
-                      },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
                     },
                   ],
                 },
@@ -14851,10 +13465,7 @@ export const GetAllCountriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -14864,10 +13475,7 @@ export const GetAllCountriesDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetAllCountriesQuery,
-  GetAllCountriesQueryVariables
->;
+} as unknown as DocumentNode<GetAllCountriesQuery, GetAllCountriesQueryVariables>;
 export const GetCountriesDocument = {
   kind: 'Document',
   definitions: [
@@ -14878,10 +13486,7 @@ export const GetCountriesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -14889,10 +13494,7 @@ export const GetCountriesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -14900,22 +13502,13 @@ export const GetCountriesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CountryFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CountryFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'CountrySort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'CountrySort' } },
         },
       ],
       selectionSet: {
@@ -14928,34 +13521,22 @@ export const GetCountriesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
@@ -14967,10 +13548,7 @@ export const GetCountriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'BaseCountry' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
                     ],
                   },
                 },
@@ -14983,10 +13561,7 @@ export const GetCountriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15007,16 +13582,10 @@ export const ConfirmEmailDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'token' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'token' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -15030,10 +13599,7 @@ export const ConfirmEmailDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'token' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'token' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'token' } },
               },
             ],
           },
@@ -15041,10 +13607,7 @@ export const ConfirmEmailDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  ConfirmEmailMutation,
-  ConfirmEmailMutationVariables
->;
+} as unknown as DocumentNode<ConfirmEmailMutation, ConfirmEmailMutationVariables>;
 export const SendEmailConfirmationDocument = {
   kind: 'Document',
   definitions: [
@@ -15054,16 +13617,11 @@ export const SendEmailConfirmationDocument = {
       name: { kind: 'Name', value: 'SendEmailConfirmation' },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'sendConfirmation' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'sendConfirmation' } }],
       },
     },
   ],
-} as unknown as DocumentNode<
-  SendEmailConfirmationMutation,
-  SendEmailConfirmationMutationVariables
->;
+} as unknown as DocumentNode<SendEmailConfirmationMutation, SendEmailConfirmationMutationVariables>;
 export const GetEpisodeBySeriesAndNumDocument = {
   kind: 'Document',
   definitions: [
@@ -15074,24 +13632,15 @@ export const GetEpisodeBySeriesAndNumDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'seriesId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'seriesId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'numberInSeries' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'numberInSeries' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15108,28 +13657,17 @@ export const GetEpisodeBySeriesAndNumDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'seriesId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'seriesId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'seriesId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'numInSeries' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'numberInSeries' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'numberInSeries' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Episode' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Episode' } }],
             },
           },
         ],
@@ -15138,10 +13676,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15150,9 +13685,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -15160,9 +13693,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -15177,9 +13708,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -15191,10 +13720,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Episode' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Episode' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Episode' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15210,9 +13736,7 @@ export const GetEpisodeBySeriesAndNumDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -15220,10 +13744,97 @@ export const GetEpisodeBySeriesAndNumDocument = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetEpisodeBySeriesAndNumQuery, GetEpisodeBySeriesAndNumQueryVariables>;
+export const GetEpisodesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetEpisodes' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'EpisodeSort' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'EpisodeFilter' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getEpisodes' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
               selections: [
                 {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'Episode' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                  },
                 },
               ],
             },
@@ -15231,11 +13842,85 @@ export const GetEpisodeBySeriesAndNumDocument = {
         ],
       },
     },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Video' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dashManifestMedia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'hlsManifestMedia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subtitles' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'languageId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'file' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Episode' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Episode' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'releaseDate' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ageRestriction' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'numberInSeries' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'numberInSeason' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'cover' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'video' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
+            },
+          },
+        ],
+      },
+    },
   ],
-} as unknown as DocumentNode<
-  GetEpisodeBySeriesAndNumQuery,
-  GetEpisodeBySeriesAndNumQueryVariables
->;
+} as unknown as DocumentNode<GetEpisodesQuery, GetEpisodesQueryVariables>;
 export const GetFilmsDocument = {
   kind: 'Document',
   definitions: [
@@ -15246,10 +13931,7 @@ export const GetFilmsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15257,10 +13939,7 @@ export const GetFilmsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15269,21 +13948,12 @@ export const GetFilmsDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'FilmSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'FilmSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'FilmFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'FilmFilter' } },
         },
       ],
       selectionSet: {
@@ -15296,34 +13966,22 @@ export const GetFilmsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -15335,10 +13993,7 @@ export const GetFilmsDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'FilmCard_Film' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
                     ],
                   },
                 },
@@ -15348,14 +14003,8 @@ export const GetFilmsDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasNextPage' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
                     ],
                   },
                 },
@@ -15368,10 +14017,7 @@ export const GetFilmsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15387,10 +14033,7 @@ export const GetFilmsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15400,9 +14043,7 @@ export const GetFilmsDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15410,9 +14051,7 @@ export const GetFilmsDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15420,9 +14059,7 @@ export const GetFilmsDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15430,9 +14067,7 @@ export const GetFilmsDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -15453,10 +14088,7 @@ export const GetFilmDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -15470,19 +14102,13 @@ export const GetFilmDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmItem_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmItem_Film' } },
               ],
             },
           },
@@ -15492,10 +14118,7 @@ export const GetFilmDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15511,10 +14134,7 @@ export const GetFilmDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15523,9 +14143,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -15533,9 +14151,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -15550,9 +14166,7 @@ export const GetFilmDocument = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -15564,10 +14178,7 @@ export const GetFilmDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmItem_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -15577,9 +14188,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15587,9 +14196,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15597,9 +14204,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -15607,9 +14212,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'productId' } },
@@ -15618,12 +14221,7 @@ export const GetFilmDocument = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
             },
           },
         ],
@@ -15642,21 +14240,12 @@ export const GetAllGenresDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'GenreSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'GenreSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieType' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieTypeEnum' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieTypeEnum' } },
         },
       ],
       selectionSet: {
@@ -15669,10 +14258,7 @@ export const GetAllGenresDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
@@ -15687,10 +14273,7 @@ export const GetAllGenresDocument = {
                     {
                       kind: 'Argument',
                       name: { kind: 'Name', value: 'type' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'movieType' },
-                      },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
                     },
                   ],
                 },
@@ -15712,10 +14295,7 @@ export const GetGenresDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15723,10 +14303,7 @@ export const GetGenresDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15734,22 +14311,13 @@ export const GetGenresDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'GenreFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'GenreFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'GenreSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'GenreSort' } },
         },
       ],
       selectionSet: {
@@ -15762,34 +14330,22 @@ export const GetGenresDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
@@ -15827,10 +14383,7 @@ export const UploadImageDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'file' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'Upload' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Upload' } },
           },
         },
       ],
@@ -15844,10 +14397,7 @@ export const UploadImageDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'file' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'file' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'file' } },
               },
             ],
             selectionSet: {
@@ -15864,6 +14414,49 @@ export const UploadImageDocument = {
     },
   ],
 } as unknown as DocumentNode<UploadImageMutation, UploadImageMutationVariables>;
+export const CreateUploadDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateUpload' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'MediaTypeEnum' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createUpload' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'type' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'mediaId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'uploadUrl' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateUploadMutation, CreateUploadMutationVariables>;
 export const GetMoviesImagesDocument = {
   kind: 'Document',
   definitions: [
@@ -15874,10 +14467,7 @@ export const GetMoviesImagesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15885,10 +14475,7 @@ export const GetMoviesImagesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -15897,21 +14484,12 @@ export const GetMoviesImagesDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieImageSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieImageSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieImageFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieImageFilter' } },
         },
       ],
       selectionSet: {
@@ -15924,34 +14502,22 @@ export const GetMoviesImagesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -15965,10 +14531,7 @@ export const GetMoviesImagesDocument = {
                     selections: [
                       {
                         kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'MovieImageCard_MovieImage',
-                        },
+                        name: { kind: 'Name', value: 'MovieImageCard_MovieImage' },
                       },
                     ],
                   },
@@ -15978,12 +14541,7 @@ export const GetMoviesImagesDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -15995,10 +14553,7 @@ export const GetMoviesImagesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieImageCard_MovieImage' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieImage' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieImage' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16019,19 +14574,14 @@ export const GetMoviesImagesDocument = {
             name: { kind: 'Name', value: 'image' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesImagesQuery,
-  GetMoviesImagesQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesImagesQuery, GetMoviesImagesQueryVariables>;
 export const GetMoviesPersonsDocument = {
   kind: 'Document',
   definitions: [
@@ -16042,10 +14592,7 @@ export const GetMoviesPersonsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -16053,10 +14600,7 @@ export const GetMoviesPersonsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -16065,21 +14609,12 @@ export const GetMoviesPersonsDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MoviePersonSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MoviePersonSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MoviePersonFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MoviePersonFilter' } },
         },
       ],
       selectionSet: {
@@ -16092,34 +14627,22 @@ export const GetMoviesPersonsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -16133,10 +14656,7 @@ export const GetMoviesPersonsDocument = {
                     selections: [
                       {
                         kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'MoviePersonCard_MoviePerson',
-                        },
+                        name: { kind: 'Name', value: 'MoviePersonCard_MoviePerson' },
                       },
                     ],
                   },
@@ -16146,12 +14666,7 @@ export const GetMoviesPersonsDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -16163,10 +14678,7 @@ export const GetMoviesPersonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseCountry' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Country' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Country' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16178,10 +14690,7 @@ export const GetMoviesPersonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Person' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Person' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Person' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16192,9 +14701,7 @@ export const GetMoviesPersonsDocument = {
             name: { kind: 'Name', value: 'image' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -16203,10 +14710,7 @@ export const GetMoviesPersonsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseCountry' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseCountry' } },
               ],
             },
           },
@@ -16216,10 +14720,7 @@ export const GetMoviesPersonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MoviePersonCard_MoviePerson' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MoviePerson' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MoviePerson' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16241,22 +14742,14 @@ export const GetMoviesPersonsDocument = {
             name: { kind: 'Name', value: 'person' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Person' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Person' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesPersonsQuery,
-  GetMoviesPersonsQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesPersonsQuery, GetMoviesPersonsQueryVariables>;
 export const CreateMovieReviewDocument = {
   kind: 'Document',
   definitions: [
@@ -16267,16 +14760,10 @@ export const CreateMovieReviewDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateMovieReviewInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateMovieReviewInput' } },
           },
         },
       ],
@@ -16290,19 +14777,13 @@ export const CreateMovieReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MovieReview' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieReview' } },
               ],
             },
           },
@@ -16312,10 +14793,7 @@ export const CreateMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16326,9 +14804,7 @@ export const CreateMovieReviewDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -16337,10 +14813,7 @@ export const CreateMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16353,12 +14826,7 @@ export const CreateMovieReviewDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -16367,17 +14835,11 @@ export const CreateMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseMovieReview' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseMovieReview' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'movie' },
@@ -16393,10 +14855,7 @@ export const CreateMovieReviewDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateMovieReviewMutation,
-  CreateMovieReviewMutationVariables
->;
+} as unknown as DocumentNode<CreateMovieReviewMutation, CreateMovieReviewMutationVariables>;
 export const GetMovieReviewDocument = {
   kind: 'Document',
   definitions: [
@@ -16424,19 +14883,13 @@ export const GetMovieReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MovieReview' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieReview' } },
               ],
             },
           },
@@ -16446,10 +14899,7 @@ export const GetMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16460,9 +14910,7 @@ export const GetMovieReviewDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -16471,10 +14919,7 @@ export const GetMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16487,12 +14932,7 @@ export const GetMovieReviewDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -16501,17 +14941,11 @@ export const GetMovieReviewDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseMovieReview' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseMovieReview' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'movie' },
@@ -16538,16 +14972,10 @@ export const HasMovieReviewDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -16561,10 +14989,7 @@ export const HasMovieReviewDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
             ],
           },
@@ -16583,29 +15008,17 @@ export const GetMoviesReviewsOffsetDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieReviewFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReviewFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieReviewSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReviewSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -16613,10 +15026,7 @@ export const GetMoviesReviewsOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -16624,10 +15034,7 @@ export const GetMoviesReviewsOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'withMovie' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'withMovie' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
           defaultValue: { kind: 'BooleanValue', value: false },
         },
@@ -16642,34 +15049,22 @@ export const GetMoviesReviewsOffsetDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
             ],
             selectionSet: {
@@ -16681,10 +15076,7 @@ export const GetMoviesReviewsOffsetDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'BaseMovieReview' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseMovieReview' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'movie' },
@@ -16707,14 +15099,8 @@ export const GetMoviesReviewsOffsetDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'title' },
-                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                           ],
                         },
                       },
@@ -16726,12 +15112,7 @@ export const GetMoviesReviewsOffsetDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -16743,10 +15124,7 @@ export const GetMoviesReviewsOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16757,9 +15135,7 @@ export const GetMoviesReviewsOffsetDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -16768,10 +15144,7 @@ export const GetMoviesReviewsOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -16784,22 +15157,14 @@ export const GetMoviesReviewsOffsetDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesReviewsOffsetQuery,
-  GetMoviesReviewsOffsetQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesReviewsOffsetQuery, GetMoviesReviewsOffsetQueryVariables>;
 export const GetMoviesReviewsRelayDocument = {
   kind: 'Document',
   definitions: [
@@ -16810,29 +15175,17 @@ export const GetMoviesReviewsRelayDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieReviewFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReviewFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieReviewSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReviewSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'before' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
@@ -16842,26 +15195,17 @@ export const GetMoviesReviewsRelayDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'after' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'first' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'withMovie' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'withMovie' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
           defaultValue: { kind: 'BooleanValue', value: false },
         },
@@ -16876,50 +15220,32 @@ export const GetMoviesReviewsRelayDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'before' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'before' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'last' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'last' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'last' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'first' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'first' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'after' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'after' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
               },
             ],
             selectionSet: {
@@ -16954,10 +15280,7 @@ export const GetMoviesReviewsRelayDocument = {
                                       name: { kind: 'Name', value: 'if' },
                                       value: {
                                         kind: 'Variable',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'withMovie',
-                                        },
+                                        name: { kind: 'Name', value: 'withMovie' },
                                       },
                                     },
                                   ],
@@ -16966,24 +15289,15 @@ export const GetMoviesReviewsRelayDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'title' },
-                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                                 ],
                               },
                             },
                           ],
                         },
                       },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'cursor' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
                     ],
                   },
                 },
@@ -16993,18 +15307,9 @@ export const GetMoviesReviewsRelayDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasPreviousPage' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'startCursor' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasNextPage' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
                     ],
                   },
                 },
@@ -17017,10 +15322,7 @@ export const GetMoviesReviewsRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17031,9 +15333,7 @@ export const GetMoviesReviewsRelayDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -17042,10 +15342,7 @@ export const GetMoviesReviewsRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseMovieReview' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieReview' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieReview' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17058,22 +15355,14 @@ export const GetMoviesReviewsRelayDocument = {
             name: { kind: 'Name', value: 'user' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesReviewsRelayQuery,
-  GetMoviesReviewsRelayQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesReviewsRelayQuery, GetMoviesReviewsRelayQueryVariables>;
 export const CreateMovieUserDocument = {
   kind: 'Document',
   definitions: [
@@ -17084,16 +15373,10 @@ export const CreateMovieUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateMovieUserInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateMovieUserInput' } },
           },
         },
       ],
@@ -17107,20 +15390,12 @@ export const CreateMovieUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MovieUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieUser' } }],
             },
           },
         ],
@@ -17129,25 +15404,20 @@ export const CreateMovieUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'isBookmarked' } },
           { kind: 'Field', name: { kind: 'Name', value: 'isWatched' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
           { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateMovieUserMutation,
-  CreateMovieUserMutationVariables
->;
+} as unknown as DocumentNode<CreateMovieUserMutation, CreateMovieUserMutationVariables>;
 export const UpdateMovieUserDocument = {
   kind: 'Document',
   definitions: [
@@ -17158,44 +15428,26 @@ export const UpdateMovieUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateMovieUserInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'UpdateMovieUserInput' } },
           },
         },
       ],
@@ -17209,36 +15461,22 @@ export const UpdateMovieUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'userId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'userId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MovieUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieUser' } }],
             },
           },
         ],
@@ -17247,25 +15485,20 @@ export const UpdateMovieUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'isBookmarked' } },
           { kind: 'Field', name: { kind: 'Name', value: 'isWatched' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
           { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  UpdateMovieUserMutation,
-  UpdateMovieUserMutationVariables
->;
+} as unknown as DocumentNode<UpdateMovieUserMutation, UpdateMovieUserMutationVariables>;
 export const GetMovieUserDocument = {
   kind: 'Document',
   definitions: [
@@ -17276,30 +15509,18 @@ export const GetMovieUserDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -17313,28 +15534,17 @@ export const GetMovieUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'userId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'userId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MovieUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieUser' } }],
             },
           },
         ],
@@ -17343,15 +15553,13 @@ export const GetMovieUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'isBookmarked' } },
           { kind: 'Field', name: { kind: 'Name', value: 'isWatched' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
           { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
         ],
@@ -17369,10 +15577,7 @@ export const GetMoviesUsersDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -17380,10 +15585,7 @@ export const GetMoviesUsersDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -17392,28 +15594,16 @@ export const GetMoviesUsersDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieUserSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUserSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieUserFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUserFilter' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'withMovie' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'withMovie' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
           defaultValue: { kind: 'BooleanValue', value: false },
         },
@@ -17428,34 +15618,22 @@ export const GetMoviesUsersDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -17467,10 +15645,7 @@ export const GetMoviesUsersDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'MovieUser' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MovieUser' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'movie' },
@@ -17499,10 +15674,7 @@ export const GetMoviesUsersDocument = {
                             },
                             {
                               kind: 'FragmentSpread',
-                              name: {
-                                kind: 'Name',
-                                value: 'SeriesCard_Series',
-                              },
+                              name: { kind: 'Name', value: 'SeriesCard_Series' },
                             },
                           ],
                         },
@@ -17515,12 +15687,7 @@ export const GetMoviesUsersDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -17532,10 +15699,7 @@ export const GetMoviesUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17551,10 +15715,7 @@ export const GetMoviesUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17571,15 +15732,13 @@ export const GetMoviesUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'MovieUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MovieUser' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieUser' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'isBookmarked' } },
           { kind: 'Field', name: { kind: 'Name', value: 'isWatched' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isFavorite' } },
           { kind: 'Field', name: { kind: 'Name', value: 'movieId' } },
           { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
         ],
@@ -17588,10 +15747,7 @@ export const GetMoviesUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17601,9 +15757,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17611,9 +15765,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17621,9 +15773,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17631,9 +15781,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -17642,25 +15790,17 @@ export const GetMoviesUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17668,9 +15808,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17678,9 +15816,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17688,9 +15824,7 @@ export const GetMoviesUsersDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -17708,16 +15842,10 @@ export const IncreaseMovieVisitsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -17731,10 +15859,7 @@ export const IncreaseMovieVisitsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
             ],
           },
@@ -17742,10 +15867,7 @@ export const IncreaseMovieVisitsDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  IncreaseMovieVisitsMutation,
-  IncreaseMovieVisitsMutationVariables
->;
+} as unknown as DocumentNode<IncreaseMovieVisitsMutation, IncreaseMovieVisitsMutationVariables>;
 export const GetMovieDocument = {
   kind: 'Document',
   definitions: [
@@ -17759,10 +15881,7 @@ export const GetMovieDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -17776,23 +15895,14 @@ export const GetMovieDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
               ],
             },
           },
@@ -17802,10 +15912,7 @@ export const GetMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17821,10 +15928,7 @@ export const GetMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17841,10 +15945,7 @@ export const GetMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -17854,9 +15955,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17864,9 +15963,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17874,9 +15971,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17884,9 +15979,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -17895,25 +15988,17 @@ export const GetMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17921,9 +16006,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17931,9 +16014,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -17941,9 +16022,7 @@ export const GetMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -17961,10 +16040,7 @@ export const GetRandomMoviesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -17972,10 +16048,7 @@ export const GetRandomMoviesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -17992,31 +16065,19 @@ export const GetRandomMoviesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
               ],
             },
           },
@@ -18026,10 +16087,7 @@ export const GetRandomMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18045,10 +16103,7 @@ export const GetRandomMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18065,10 +16120,7 @@ export const GetRandomMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18078,9 +16130,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18088,9 +16138,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18098,9 +16146,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18108,9 +16154,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -18119,25 +16163,17 @@ export const GetRandomMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18145,9 +16181,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18155,9 +16189,7 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18165,19 +16197,14 @@ export const GetRandomMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetRandomMoviesQuery,
-  GetRandomMoviesQueryVariables
->;
+} as unknown as DocumentNode<GetRandomMoviesQuery, GetRandomMoviesQueryVariables>;
 export const GetMostReviewedMoviesDocument = {
   kind: 'Document',
   definitions: [
@@ -18188,10 +16215,7 @@ export const GetMostReviewedMoviesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18199,10 +16223,7 @@ export const GetMostReviewedMoviesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18219,31 +16240,19 @@ export const GetMostReviewedMoviesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
               ],
             },
           },
@@ -18253,10 +16262,7 @@ export const GetMostReviewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18272,10 +16278,7 @@ export const GetMostReviewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18292,10 +16295,7 @@ export const GetMostReviewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18305,9 +16305,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18315,9 +16313,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18325,9 +16321,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18335,9 +16329,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -18346,25 +16338,17 @@ export const GetMostReviewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18372,9 +16356,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18382,9 +16364,7 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18392,19 +16372,14 @@ export const GetMostReviewedMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMostReviewedMoviesQuery,
-  GetMostReviewedMoviesQueryVariables
->;
+} as unknown as DocumentNode<GetMostReviewedMoviesQuery, GetMostReviewedMoviesQueryVariables>;
 export const GetMostViewedMoviesDocument = {
   kind: 'Document',
   definitions: [
@@ -18415,10 +16390,7 @@ export const GetMostViewedMoviesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18426,10 +16398,7 @@ export const GetMostViewedMoviesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18446,31 +16415,19 @@ export const GetMostViewedMoviesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
               ],
             },
           },
@@ -18480,10 +16437,7 @@ export const GetMostViewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18499,10 +16453,7 @@ export const GetMostViewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18519,10 +16470,7 @@ export const GetMostViewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18532,9 +16480,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18542,9 +16488,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18552,9 +16496,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18562,9 +16504,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -18573,25 +16513,17 @@ export const GetMostViewedMoviesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18599,9 +16531,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18609,9 +16539,7 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18619,19 +16547,14 @@ export const GetMostViewedMoviesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMostViewedMoviesQuery,
-  GetMostViewedMoviesQueryVariables
->;
+} as unknown as DocumentNode<GetMostViewedMoviesQuery, GetMostViewedMoviesQueryVariables>;
 export const GetMoviesProtectedOffsetDocument = {
   kind: 'Document',
   definitions: [
@@ -18642,10 +16565,7 @@ export const GetMoviesProtectedOffsetDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18653,10 +16573,7 @@ export const GetMoviesProtectedOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18665,21 +16582,12 @@ export const GetMoviesProtectedOffsetDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieFilter' } },
         },
       ],
       selectionSet: {
@@ -18692,34 +16600,22 @@ export const GetMoviesProtectedOffsetDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -18731,10 +16627,7 @@ export const GetMoviesProtectedOffsetDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'FilmCard_Film' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
                       {
                         kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'SeriesCard_Series' },
@@ -18747,12 +16640,7 @@ export const GetMoviesProtectedOffsetDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -18764,10 +16652,7 @@ export const GetMoviesProtectedOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18783,10 +16668,7 @@ export const GetMoviesProtectedOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18803,10 +16685,7 @@ export const GetMoviesProtectedOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -18816,9 +16695,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18826,9 +16703,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18836,9 +16711,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18846,9 +16719,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -18857,25 +16728,17 @@ export const GetMoviesProtectedOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18883,9 +16746,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18893,9 +16754,7 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -18903,19 +16762,14 @@ export const GetMoviesProtectedOffsetDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesProtectedOffsetQuery,
-  GetMoviesProtectedOffsetQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesProtectedOffsetQuery, GetMoviesProtectedOffsetQueryVariables>;
 export const GetMoviesOffsetDocument = {
   kind: 'Document',
   definitions: [
@@ -18926,10 +16780,7 @@ export const GetMoviesOffsetDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18937,10 +16788,7 @@ export const GetMoviesOffsetDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -18949,21 +16797,12 @@ export const GetMoviesOffsetDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieFilter' } },
         },
       ],
       selectionSet: {
@@ -18976,34 +16815,22 @@ export const GetMoviesOffsetDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -19015,10 +16842,7 @@ export const GetMoviesOffsetDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'FilmCard_Film' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
                       {
                         kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'SeriesCard_Series' },
@@ -19031,12 +16855,7 @@ export const GetMoviesOffsetDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -19048,10 +16867,7 @@ export const GetMoviesOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19067,10 +16883,7 @@ export const GetMoviesOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19087,10 +16900,7 @@ export const GetMoviesOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19100,9 +16910,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19110,9 +16918,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19120,9 +16926,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19130,9 +16934,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -19141,25 +16943,17 @@ export const GetMoviesOffsetDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19167,9 +16961,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19177,9 +16969,7 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19187,19 +16977,14 @@ export const GetMoviesOffsetDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetMoviesOffsetQuery,
-  GetMoviesOffsetQueryVariables
->;
+} as unknown as DocumentNode<GetMoviesOffsetQuery, GetMoviesOffsetQueryVariables>;
 export const GetMoviesRelayDocument = {
   kind: 'Document',
   definitions: [
@@ -19211,28 +16996,16 @@ export const GetMoviesRelayDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieFilter' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'before' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
@@ -19242,18 +17015,12 @@ export const GetMoviesRelayDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'after' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'first' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
       ],
@@ -19267,50 +17034,32 @@ export const GetMoviesRelayDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'before' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'before' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'before' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'last' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'last' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'last' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'first' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'first' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'after' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'after' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'after' } },
               },
             ],
             selectionSet: {
@@ -19334,18 +17083,12 @@ export const GetMoviesRelayDocument = {
                             },
                             {
                               kind: 'FragmentSpread',
-                              name: {
-                                kind: 'Name',
-                                value: 'SeriesCard_Series',
-                              },
+                              name: { kind: 'Name', value: 'SeriesCard_Series' },
                             },
                           ],
                         },
                       },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'cursor' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
                     ],
                   },
                 },
@@ -19355,22 +17098,10 @@ export const GetMoviesRelayDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasPreviousPage' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'startCursor' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasNextPage' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'endCursor' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
                     ],
                   },
                 },
@@ -19383,10 +17114,7 @@ export const GetMoviesRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19402,10 +17130,7 @@ export const GetMoviesRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19422,10 +17147,7 @@ export const GetMoviesRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19435,9 +17157,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19445,9 +17165,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19455,9 +17173,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19465,9 +17181,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -19476,25 +17190,17 @@ export const GetMoviesRelayDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19502,9 +17208,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19512,9 +17216,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19522,9 +17224,7 @@ export const GetMoviesRelayDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -19547,12 +17247,7 @@ export const GetPlansDocument = {
             name: { kind: 'Name', value: 'getPlans' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Plan' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Plan' } }],
             },
           },
         ],
@@ -19561,10 +17256,7 @@ export const GetPlansDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'PlanPrice' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19589,10 +17281,7 @@ export const GetPlansDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Plan' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Plan' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Plan' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19603,12 +17292,7 @@ export const GetPlansDocument = {
             name: { kind: 'Name', value: 'prices' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'PlanPrice' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PlanPrice' } }],
             },
           },
         ],
@@ -19629,10 +17313,7 @@ export const GetProductDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -19646,20 +17327,12 @@ export const GetProductDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Product' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Product' } }],
             },
           },
         ],
@@ -19668,10 +17341,7 @@ export const GetProductDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Price' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Price' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Price' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19695,10 +17365,7 @@ export const GetProductDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Product' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Product' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Product' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19709,12 +17376,7 @@ export const GetProductDocument = {
             name: { kind: 'Name', value: 'prices' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Price' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Price' } }],
             },
           },
         ],
@@ -19732,30 +17394,18 @@ export const CreatePurchaseSessionDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'priceId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'priceId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -19769,18 +17419,12 @@ export const CreatePurchaseSessionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'priceId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'priceId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'priceId' } },
               },
             ],
           },
@@ -19788,10 +17432,7 @@ export const CreatePurchaseSessionDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreatePurchaseSessionMutation,
-  CreatePurchaseSessionMutationVariables
->;
+} as unknown as DocumentNode<CreatePurchaseSessionMutation, CreatePurchaseSessionMutationVariables>;
 export const HasPurchaseDocument = {
   kind: 'Document',
   definitions: [
@@ -19802,16 +17443,10 @@ export const HasPurchaseDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -19825,10 +17460,7 @@ export const HasPurchaseDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
             ],
           },
@@ -19847,16 +17479,10 @@ export const CreateRoomMovieDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateRoomMovieInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateRoomMovieInput' } },
           },
         },
       ],
@@ -19870,20 +17496,12 @@ export const CreateRoomMovieDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -19892,10 +17510,7 @@ export const CreateRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19912,25 +17527,17 @@ export const CreateRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19938,9 +17545,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19948,9 +17553,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -19958,9 +17561,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -19969,10 +17570,7 @@ export const CreateRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -19988,10 +17586,7 @@ export const CreateRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20001,9 +17596,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20011,9 +17604,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20021,9 +17612,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20031,9 +17620,7 @@ export const CreateRoomMovieDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20042,10 +17629,7 @@ export const CreateRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20056,14 +17640,8 @@ export const CreateRoomMovieDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -20074,10 +17652,7 @@ export const CreateRoomMovieDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateRoomMovieMutation,
-  CreateRoomMovieMutationVariables
->;
+} as unknown as DocumentNode<CreateRoomMovieMutation, CreateRoomMovieMutationVariables>;
 export const DeleteRoomMovieDocument = {
   kind: 'Document',
   definitions: [
@@ -20088,30 +17663,18 @@ export const DeleteRoomMovieDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'roomId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -20125,27 +17688,18 @@ export const DeleteRoomMovieDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'roomId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'roomId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'movieId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'movieId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'movieId' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseRoomMovie' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseRoomMovie' } },
               ],
             },
           },
@@ -20155,10 +17709,7 @@ export const DeleteRoomMovieDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20171,10 +17722,7 @@ export const DeleteRoomMovieDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  DeleteRoomMovieMutation,
-  DeleteRoomMovieMutationVariables
->;
+} as unknown as DocumentNode<DeleteRoomMovieMutation, DeleteRoomMovieMutationVariables>;
 export const CreateRoomDocument = {
   kind: 'Document',
   definitions: [
@@ -20185,16 +17733,10 @@ export const CreateRoomDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateRoomInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateRoomInput' } },
           },
         },
       ],
@@ -20208,20 +17750,12 @@ export const CreateRoomDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Room' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Room' } }],
             },
           },
         ],
@@ -20230,10 +17764,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20244,9 +17775,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20255,10 +17784,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20269,12 +17795,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -20283,10 +17804,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20303,25 +17821,17 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20329,9 +17839,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20339,9 +17847,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20349,9 +17855,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20360,10 +17864,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20379,10 +17880,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20392,9 +17890,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20402,9 +17898,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20412,9 +17906,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20422,9 +17914,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20433,10 +17923,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20447,14 +17934,8 @@ export const CreateRoomDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -20467,10 +17948,7 @@ export const CreateRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Room' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20480,12 +17958,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'currentMovie' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
           {
@@ -20493,12 +17966,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'participants' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -20506,12 +17974,7 @@ export const CreateRoomDocument = {
             name: { kind: 'Name', value: 'movies' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -20529,16 +17992,10 @@ export const JoinRoomDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'inviteToken' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'inviteToken' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -20552,20 +18009,12 @@ export const JoinRoomDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'inviteToken' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'inviteToken' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'inviteToken' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Room' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Room' } }],
             },
           },
         ],
@@ -20574,10 +18023,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20588,9 +18034,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20599,10 +18043,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20613,12 +18054,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -20627,10 +18063,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20647,25 +18080,17 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20673,9 +18098,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20683,9 +18106,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20693,9 +18114,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20704,10 +18123,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20723,10 +18139,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20736,9 +18149,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20746,9 +18157,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20756,9 +18165,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -20766,9 +18173,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20777,10 +18182,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20791,14 +18193,8 @@ export const JoinRoomDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -20811,10 +18207,7 @@ export const JoinRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Room' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20824,12 +18217,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'currentMovie' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
           {
@@ -20837,12 +18225,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'participants' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -20850,12 +18233,7 @@ export const JoinRoomDocument = {
             name: { kind: 'Name', value: 'movies' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -20876,10 +18254,7 @@ export const LeaveRoomDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -20893,20 +18268,12 @@ export const LeaveRoomDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Room' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Room' } }],
             },
           },
         ],
@@ -20915,10 +18282,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20929,9 +18293,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -20940,10 +18302,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20954,12 +18313,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -20968,10 +18322,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -20988,25 +18339,17 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21014,9 +18357,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21024,9 +18365,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21034,9 +18373,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21045,10 +18382,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21064,10 +18398,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21077,9 +18408,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21087,9 +18416,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21097,9 +18424,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21107,9 +18432,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21118,10 +18441,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21132,14 +18452,8 @@ export const LeaveRoomDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -21152,10 +18466,7 @@ export const LeaveRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Room' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21165,12 +18476,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'currentMovie' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
           {
@@ -21178,12 +18484,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'participants' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -21191,12 +18492,7 @@ export const LeaveRoomDocument = {
             name: { kind: 'Name', value: 'movies' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -21217,10 +18513,7 @@ export const GenerateRoomInviteDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21234,10 +18527,7 @@ export const GenerateRoomInviteDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
           },
@@ -21245,10 +18535,7 @@ export const GenerateRoomInviteDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GenerateRoomInviteMutation,
-  GenerateRoomInviteMutationVariables
->;
+} as unknown as DocumentNode<GenerateRoomInviteMutation, GenerateRoomInviteMutationVariables>;
 export const DeleteRoomDocument = {
   kind: 'Document',
   definitions: [
@@ -21262,10 +18549,7 @@ export const DeleteRoomDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21279,20 +18563,12 @@ export const DeleteRoomDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseRoom' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseRoom' } }],
             },
           },
         ],
@@ -21301,10 +18577,7 @@ export const DeleteRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21315,9 +18588,7 @@ export const DeleteRoomDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21326,10 +18597,7 @@ export const DeleteRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21340,12 +18608,7 @@ export const DeleteRoomDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -21366,10 +18629,7 @@ export const StartRoomPlaybackDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21383,10 +18643,7 @@ export const StartRoomPlaybackDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
           },
@@ -21394,10 +18651,7 @@ export const StartRoomPlaybackDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  StartRoomPlaybackMutation,
-  StartRoomPlaybackMutationVariables
->;
+} as unknown as DocumentNode<StartRoomPlaybackMutation, StartRoomPlaybackMutationVariables>;
 export const EndRoomPlaybackDocument = {
   kind: 'Document',
   definitions: [
@@ -21411,10 +18665,7 @@ export const EndRoomPlaybackDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21428,10 +18679,7 @@ export const EndRoomPlaybackDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
           },
@@ -21439,10 +18687,7 @@ export const EndRoomPlaybackDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  EndRoomPlaybackMutation,
-  EndRoomPlaybackMutationVariables
->;
+} as unknown as DocumentNode<EndRoomPlaybackMutation, EndRoomPlaybackMutationVariables>;
 export const GetRoomDocument = {
   kind: 'Document',
   definitions: [
@@ -21456,10 +18701,7 @@ export const GetRoomDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21473,20 +18715,12 @@ export const GetRoomDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Room' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Room' } }],
             },
           },
         ],
@@ -21495,10 +18729,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21509,9 +18740,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21520,10 +18749,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21534,12 +18760,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -21548,10 +18769,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21568,25 +18786,17 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21594,9 +18804,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21604,9 +18812,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21614,9 +18820,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21625,10 +18829,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21644,10 +18845,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21657,9 +18855,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21667,9 +18863,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21677,9 +18871,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -21687,9 +18879,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21698,10 +18888,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21712,14 +18899,8 @@ export const GetRoomDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -21732,10 +18913,7 @@ export const GetRoomDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Room' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21745,12 +18923,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'currentMovie' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
           {
@@ -21758,12 +18931,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'participants' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
           {
@@ -21771,12 +18939,7 @@ export const GetRoomDocument = {
             name: { kind: 'Name', value: 'movies' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -21794,10 +18957,7 @@ export const GetRoomsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -21805,10 +18965,7 @@ export const GetRoomsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -21817,21 +18974,12 @@ export const GetRoomsDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'RoomSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'RoomFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomFilter' } },
         },
       ],
       selectionSet: {
@@ -21844,34 +18992,22 @@ export const GetRoomsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -21883,10 +19019,7 @@ export const GetRoomsDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'BaseRoom' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseRoom' } },
                     ],
                   },
                 },
@@ -21895,12 +19028,7 @@ export const GetRoomsDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -21912,10 +19040,7 @@ export const GetRoomsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21926,9 +19051,7 @@ export const GetRoomsDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -21937,10 +19060,7 @@ export const GetRoomsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -21951,12 +19071,7 @@ export const GetRoomsDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
@@ -21977,10 +19092,7 @@ export const GetRoomCurrentPlaybackDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -21994,10 +19106,7 @@ export const GetRoomCurrentPlaybackDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
           },
@@ -22005,10 +19114,7 @@ export const GetRoomCurrentPlaybackDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetRoomCurrentPlaybackQuery,
-  GetRoomCurrentPlaybackQueryVariables
->;
+} as unknown as DocumentNode<GetRoomCurrentPlaybackQuery, GetRoomCurrentPlaybackQueryVariables>;
 export const RoomPlaybackStartedDocument = {
   kind: 'Document',
   definitions: [
@@ -22022,10 +19128,7 @@ export const RoomPlaybackStartedDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -22039,20 +19142,12 @@ export const RoomPlaybackStartedDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RoomMovie' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RoomMovie' } }],
             },
           },
         ],
@@ -22061,10 +19156,7 @@ export const RoomPlaybackStartedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22081,25 +19173,17 @@ export const RoomPlaybackStartedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22107,9 +19191,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22117,9 +19199,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22127,9 +19207,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -22138,10 +19216,7 @@ export const RoomPlaybackStartedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmBase' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22157,10 +19232,7 @@ export const RoomPlaybackStartedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FilmCard_Film' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Film' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Film' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22170,9 +19242,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22180,9 +19250,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22190,9 +19258,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22200,9 +19266,7 @@ export const RoomPlaybackStartedDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -22211,10 +19275,7 @@ export const RoomPlaybackStartedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22225,14 +19286,8 @@ export const RoomPlaybackStartedDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesCard_Series' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'FilmCard_Film' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesCard_Series' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'FilmCard_Film' } },
               ],
             },
           },
@@ -22260,10 +19315,7 @@ export const RoomPlaybackEndedDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -22277,19 +19329,13 @@ export const RoomPlaybackEndedDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseRoomMovie' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseRoomMovie' } },
               ],
             },
           },
@@ -22299,10 +19345,7 @@ export const RoomPlaybackEndedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoomMovie' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RoomMovie' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomMovie' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22315,10 +19358,7 @@ export const RoomPlaybackEndedDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  RoomPlaybackEndedSubscription,
-  RoomPlaybackEndedSubscriptionVariables
->;
+} as unknown as DocumentNode<RoomPlaybackEndedSubscription, RoomPlaybackEndedSubscriptionVariables>;
 export const RoomDeletedDocument = {
   kind: 'Document',
   definitions: [
@@ -22332,10 +19372,7 @@ export const RoomDeletedDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -22349,20 +19386,12 @@ export const RoomDeletedDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseRoom' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseRoom' } }],
             },
           },
         ],
@@ -22371,10 +19400,7 @@ export const RoomDeletedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22385,9 +19411,7 @@ export const RoomDeletedDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -22396,10 +19420,7 @@ export const RoomDeletedDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseRoom' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Room' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Room' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22410,22 +19431,14 @@ export const RoomDeletedDocument = {
             name: { kind: 'Name', value: 'owner' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseUser' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } }],
             },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<
-  RoomDeletedSubscription,
-  RoomDeletedSubscriptionVariables
->;
+} as unknown as DocumentNode<RoomDeletedSubscription, RoomDeletedSubscriptionVariables>;
 export const GetSeasonsDocument = {
   kind: 'Document',
   definitions: [
@@ -22436,10 +19449,7 @@ export const GetSeasonsDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -22447,10 +19457,7 @@ export const GetSeasonsDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -22459,21 +19466,12 @@ export const GetSeasonsDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'SeasonSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SeasonSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'SeasonFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SeasonFilter' } },
         },
       ],
       selectionSet: {
@@ -22486,34 +19484,22 @@ export const GetSeasonsDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -22537,12 +19523,7 @@ export const GetSeasonsDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -22554,10 +19535,7 @@ export const GetSeasonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeason' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Season' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Season' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22572,10 +19550,7 @@ export const GetSeasonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Video' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Video' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22584,9 +19559,7 @@ export const GetSeasonsDocument = {
             name: { kind: 'Name', value: 'dashManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -22594,9 +19567,7 @@ export const GetSeasonsDocument = {
             name: { kind: 'Name', value: 'hlsManifestMedia' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -22611,9 +19582,7 @@ export const GetSeasonsDocument = {
                   name: { kind: 'Name', value: 'file' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
                   },
                 },
               ],
@@ -22625,10 +19594,7 @@ export const GetSeasonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Episode' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Episode' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Episode' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22644,9 +19610,7 @@ export const GetSeasonsDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           {
@@ -22654,12 +19618,7 @@ export const GetSeasonsDocument = {
             name: { kind: 'Name', value: 'video' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Video' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
             },
           },
         ],
@@ -22668,28 +19627,17 @@ export const GetSeasonsDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeasonItem_Season' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Season' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Season' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeason' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeason' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'episodes' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Episode' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Episode' } }],
             },
           },
         ],
@@ -22707,10 +19655,7 @@ export const GetManySeriesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -22718,10 +19663,7 @@ export const GetManySeriesDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -22730,21 +19672,12 @@ export const GetManySeriesDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'SeriesSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SeriesSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'SeriesFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SeriesFilter' } },
         },
       ],
       selectionSet: {
@@ -22757,34 +19690,22 @@ export const GetManySeriesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
             ],
             selectionSet: {
@@ -22809,14 +19730,8 @@ export const GetManySeriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'hasNextPage' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
                     ],
                   },
                 },
@@ -22829,10 +19744,7 @@ export const GetManySeriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22849,25 +19761,17 @@ export const GetManySeriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesCard_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22875,9 +19779,7 @@ export const GetManySeriesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22885,9 +19787,7 @@ export const GetManySeriesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -22895,9 +19795,7 @@ export const GetManySeriesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -22918,10 +19816,7 @@ export const GetOneSeriesDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -22935,19 +19830,13 @@ export const GetOneSeriesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'SeriesItem_Series' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SeriesItem_Series' } },
               ],
             },
           },
@@ -22957,10 +19846,7 @@ export const GetOneSeriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseSeries' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -22977,25 +19863,17 @@ export const GetOneSeriesDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'SeriesItem_Series' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Series' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Series' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'BaseSeries' },
-          },
+          { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseSeries' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'studios' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -23003,9 +19881,7 @@ export const GetOneSeriesDocument = {
             name: { kind: 'Name', value: 'countries' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -23013,9 +19889,7 @@ export const GetOneSeriesDocument = {
             name: { kind: 'Name', value: 'genres' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
             },
           },
           {
@@ -23023,9 +19897,7 @@ export const GetOneSeriesDocument = {
             name: { kind: 'Name', value: 'cover' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'productId' } },
@@ -23045,21 +19917,12 @@ export const GetAllStudiosDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'StudioSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'StudioSort' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'movieType' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MovieTypeEnum' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MovieTypeEnum' } },
         },
       ],
       selectionSet: {
@@ -23072,19 +19935,13 @@ export const GetAllStudiosDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'BaseStudio' },
-                },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseStudio' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'moviesCount' },
@@ -23092,10 +19949,7 @@ export const GetAllStudiosDocument = {
                     {
                       kind: 'Argument',
                       name: { kind: 'Name', value: 'type' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'movieType' },
-                      },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'movieType' } },
                     },
                   ],
                 },
@@ -23108,10 +19962,7 @@ export const GetAllStudiosDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseStudio' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Studio' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Studio' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23132,10 +19983,7 @@ export const GetStudiosDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -23143,10 +19991,7 @@ export const GetStudiosDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -23154,22 +19999,13 @@ export const GetStudiosDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'StudioFilter' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'StudioFilter' } },
         },
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'StudioSort' },
-          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'StudioSort' } },
         },
       ],
       selectionSet: {
@@ -23182,34 +20018,22 @@ export const GetStudiosDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filter' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sort' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sort' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
               },
             ],
             selectionSet: {
@@ -23221,10 +20045,7 @@ export const GetStudiosDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'BaseStudio' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseStudio' } },
                     ],
                   },
                 },
@@ -23237,10 +20058,7 @@ export const GetStudiosDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseStudio' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Studio' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Studio' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23261,16 +20079,10 @@ export const SubscribeDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'priceId' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'priceId' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -23284,10 +20096,7 @@ export const SubscribeDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'priceId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'priceId' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'priceId' } },
               },
             ],
           },
@@ -23309,10 +20118,7 @@ export const CancelSubscriptionDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -23326,10 +20132,7 @@ export const CancelSubscriptionDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
           },
@@ -23337,10 +20140,7 @@ export const CancelSubscriptionDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CancelSubscriptionMutation,
-  CancelSubscriptionMutationVariables
->;
+} as unknown as DocumentNode<CancelSubscriptionMutation, CancelSubscriptionMutationVariables>;
 export const CreateSubscriptionsManageLinkDocument = {
   kind: 'Document',
   definitions: [
@@ -23351,10 +20151,7 @@ export const CreateSubscriptionsManageLinkDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createSubscriptionsManageLink' },
-          },
+          { kind: 'Field', name: { kind: 'Name', value: 'createSubscriptionsManageLink' } },
         ],
       },
     },
@@ -23372,19 +20169,11 @@ export const HasActiveSubscriptionDocument = {
       name: { kind: 'Name', value: 'HasActiveSubscription' },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'hasActiveSubscription' },
-          },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'hasActiveSubscription' } }],
       },
     },
   ],
-} as unknown as DocumentNode<
-  HasActiveSubscriptionQuery,
-  HasActiveSubscriptionQueryVariables
->;
+} as unknown as DocumentNode<HasActiveSubscriptionQuery, HasActiveSubscriptionQueryVariables>;
 export const UpdatePasswordDocument = {
   kind: 'Document',
   definitions: [
@@ -23395,30 +20184,18 @@ export const UpdatePasswordDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'oldPassword' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'newPassword' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -23432,28 +20209,17 @@ export const UpdatePasswordDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'oldPassword' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'oldPassword' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'newPassword' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'newPassword' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
             },
           },
         ],
@@ -23462,10 +20228,7 @@ export const UpdatePasswordDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23476,9 +20239,7 @@ export const UpdatePasswordDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23487,10 +20248,7 @@ export const UpdatePasswordDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23514,10 +20272,7 @@ export const UpdatePasswordDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  UpdatePasswordMutation,
-  UpdatePasswordMutationVariables
->;
+} as unknown as DocumentNode<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
 export const UpdateMeDocument = {
   kind: 'Document',
   definitions: [
@@ -23528,16 +20283,10 @@ export const UpdateMeDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'input' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateUserInput' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'UpdateUserInput' } },
           },
         },
       ],
@@ -23551,20 +20300,12 @@ export const UpdateMeDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'input' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'input' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
             },
           },
         ],
@@ -23573,10 +20314,7 @@ export const UpdateMeDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23587,9 +20325,7 @@ export const UpdateMeDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23598,10 +20334,7 @@ export const UpdateMeDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23639,10 +20372,7 @@ export const UpdateAvatarDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'file' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'Upload' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Upload' } },
           },
         },
       ],
@@ -23656,20 +20386,12 @@ export const UpdateAvatarDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'file' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'file' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'file' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
             },
           },
         ],
@@ -23678,10 +20400,7 @@ export const UpdateAvatarDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23692,9 +20411,7 @@ export const UpdateAvatarDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23703,10 +20420,7 @@ export const UpdateAvatarDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23730,10 +20444,7 @@ export const UpdateAvatarDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  UpdateAvatarMutation,
-  UpdateAvatarMutationVariables
->;
+} as unknown as DocumentNode<UpdateAvatarMutation, UpdateAvatarMutationVariables>;
 export const GetMeDocument = {
   kind: 'Document',
   definitions: [
@@ -23749,12 +20460,7 @@ export const GetMeDocument = {
             name: { kind: 'Name', value: 'getMe' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
             },
           },
         ],
@@ -23763,10 +20469,7 @@ export const GetMeDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23777,9 +20480,7 @@ export const GetMeDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23788,10 +20489,7 @@ export const GetMeDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23829,10 +20527,7 @@ export const GetUserDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -23846,20 +20541,12 @@ export const GetUserDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
             },
           },
         ],
@@ -23868,10 +20555,7 @@ export const GetUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23882,9 +20566,7 @@ export const GetUserDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23893,10 +20575,7 @@ export const GetUserDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23943,10 +20622,7 @@ export const GetUsersDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'BaseUser' },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'BaseUser' } },
                     ],
                   },
                 },
@@ -23955,12 +20631,7 @@ export const GetUsersDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' },
-                      },
-                    ],
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
                   },
                 },
               ],
@@ -23972,10 +20643,7 @@ export const GetUsersDocument = {
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'BaseUser' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -23986,9 +20654,7 @@ export const GetUsersDocument = {
             name: { kind: 'Name', value: 'avatar' },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-              ],
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
             },
           },
         ],
@@ -23996,3 +20662,87 @@ export const GetUsersDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+export const GetVideoDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVideo' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getVideo' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Video' } }],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Video' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Video' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dashManifestMedia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'hlsManifestMedia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subtitles' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'languageId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'file' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVideoQuery, GetVideoQueryVariables>;

@@ -1,10 +1,8 @@
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { FilterArgs } from '../model/types';
 
-export const getParamsWithArgs = (
-  searchParams: URLSearchParams,
-  values: FilterArgs,
-) => {
-  const params = new URLSearchParams(searchParams);
+export const getParamsWithArgs = (searchParams: ReadonlyURLSearchParams, values: FilterArgs) => {
+  const params = new URLSearchParams(searchParams.toString());
 
   params.delete('page');
 

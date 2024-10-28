@@ -5,3 +5,10 @@ mutation UploadImage($file: Upload!) {
     type
   }
 }
+
+mutation CreateUpload($type: MediaTypeEnum!) {
+  createUpload(type: $type) {
+    mediaId
+    uploadUrl
+  }
+}

@@ -1,28 +1,25 @@
 'use client';
 
-import React, { startTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { Button, Field } from 'shared/ui';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as Crypto from 'crypto';
-import Link from 'next/link';
-import { signUpSchema } from '../model/sign-up-schema';
-import { useUser } from '@entities/user';
-import { ROUTES } from '@shared/constants/routes';
-import { RegisterInput, SignUpDocument } from '@shared/api/graphql';
+import { SignUpInput } from '@shared/api/graphql';
+import { useToast } from '@shared/hooks/use-toast';
+import { Button } from '@shared/ui/Button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/Form';
+import { Input } from '@shared/ui/Input';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { signUpSchema } from '../model/sign-up-schema';
+import { signUp } from '@features/auth/api';
+import { useSession } from '@features/auth/session';
 
 type Props = {
-  redirect?: 'back' | string;
+  redirectOnSuccess?: 'back' | string;
 };
 
-const SignUpForm = ({ redirect }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterInput>({
+const SignUpForm = ({ redirectOnSuccess }: Props) => {
+  const { toast } = useToast();
+  const form = useForm<SignUpInput>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
@@ -31,93 +28,95 @@ const SignUpForm = ({ redirect }: Props) => {
       name: '',
     },
   });
-  const [signUp, { loading, error }] = useMutation(SignUpDocument);
-  const { setUser } = useUser();
   const router = useRouter();
   const { cache } = useApolloClient();
+  const session = useSession();
 
-  const onSubmit = async (input: RegisterInput) => {
-    const { errors, data } = await signUp({
-      variables: {
-        input: {
-          ...input,
-          password: Crypto.createHash('sha512')
-            .update(input.password)
-            .digest('hex'),
-          passwordRepeat: Crypto.createHash('sha512')
-            .update(input.passwordRepeat)
-            .digest('hex'),
-        },
-      },
-      errorPolicy: 'ignore',
-    });
+  const onSubmit = async (input: SignUpInput) => {
+    try {
+      const { data, errors } = await signUp(input);
 
-    if (!errors && data) {
-      await cache.reset();
-      startTransition(() => {
-        if (redirect) {
-          if (redirect === 'back') {
-            router.back();
-          } else {
-            router.push(redirect);
-          }
+      if (!errors && data) {
+        await cache.reset();
+        await session.update();
+
+        if (redirectOnSuccess) {
+          redirectOnSuccess === 'back' ? router.back() : router.push(redirectOnSuccess);
         }
-        router.refresh();
-
-        localStorage.setItem('access-token', data.register.accessToken);
-        setUser(data.register.user);
+      }
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'There was an error signing up!',
+        variant: 'destructive',
       });
     }
   };
 
   return (
-    <form
-      className="flex flex-col p-5 rounded gap-3 w-[300px] md:w-[640px] lg:w-[720px] bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <fieldset className="flex flex-col gap-2" disabled={loading}>
-        <Field
-          type="email"
-          label="Email"
-          {...register('email')}
-          error={errors.email?.message}
+    <Form {...form}>
+      <form
+        className="flex flex-col gap-3 w-full"
+        onSubmit={form.handleSubmit(onSubmit)}
+        autoComplete="off"
+      >
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="example@example.com" type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="email"
         />
-        <Field
-          type="password"
-          label="Password"
-          {...register('password')}
-          error={errors.password?.message}
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder="********" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="password"
         />
-        <Field
-          type="password"
-          label="Password(repeat)"
-          {...register('passwordRepeat', {
-            validate: (v, formValues) => {
-              return v === formValues.password;
-            },
-          })}
-          error={errors.password?.message}
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password (repeat)</FormLabel>
+              <FormControl>
+                <Input placeholder="********" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="passwordRepeat"
         />
-        <Field
-          type="text"
-          label="Name"
-          {...register('name')}
-          error={errors.name?.message}
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="John, Mary, etc." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="name"
         />
-      </fieldset>
-      <span className="text-xs text-red-500">{error?.message}</span>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-        <Button type="submit" stretch disabled={loading}>
+        <Button type="submit" isLoading={form.formState.isLoading}>
           Sign Up
         </Button>
-        <Link
-          className="text-xs text-gray-500 border-b-2 border-gray-500 self-start lg:self-center"
-          href={ROUTES.login}
-        >
-          Already have account?
-        </Link>
-      </div>
-    </form>
+      </form>
+    </Form>
   );
 };
 

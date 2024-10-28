@@ -1,18 +1,13 @@
 'use client';
 
-import React, { ChangeEvent, useRef } from 'react';
-import Image from 'next/image';
-import clsx from 'clsx';
+import { cn } from '@shared/lib/utils';
+import Image, { ImageProps } from 'next/image';
+import { InputHTMLAttributes, forwardRef } from 'react';
 
-type Props = {
-  url?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  imageForm: 'circle' | 'square';
-};
+type Props = InputHTMLAttributes<HTMLInputElement> &
+  Pick<ImageProps, 'alt' | 'src' | 'title' | 'width' | 'height'>;
 
-const ImageInput = ({ url, onChange, imageForm }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
+const ImageInput = forwardRef<HTMLInputElement, Props>(({ className, type, ...props }, ref) => {
   return (
     <>
       <Image
@@ -21,21 +16,17 @@ const ImageInput = ({ url, onChange, imageForm }: Props) => {
         title="Image input"
         width={512}
         height={512}
-        priority={true}
-        className={clsx('cursor-pointer shrink-0 object-cover', {
+        className={cn('cursor-pointer shrink-0 object-cover aspect-video', {
           ['rounded-full w-32 h-32 xl:w-48 xl:h-48']: imageForm === 'circle',
           ['rounded-lg w-full h-32 xl:h-48']: imageForm === 'square',
         })}
-        onClick={() => inputRef.current?.click()}
+        onClick={() => ref?.current?.click()}
       />
-      <input
-        className="hidden"
-        ref={inputRef}
-        type="file"
-        onChange={onChange}
-      />
+      <input className="hidden" ref={ref} type="file" onChange={onChange} />
     </>
   );
-};
+});
+
+ImageInput.displayName = 'ImageInput';
 
 export default ImageInput;

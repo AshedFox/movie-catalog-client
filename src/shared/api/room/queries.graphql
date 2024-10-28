@@ -4,12 +4,7 @@ query GetRoom($id: String!) {
   }
 }
 
-query GetRooms(
-  $limit: Int!
-  $offset: Int!
-  $sort: RoomSort
-  $filter: RoomFilter
-) {
+query GetRooms($limit: Int!, $offset: Int!, $sort: RoomSort, $filter: RoomFilter) {
   getRooms(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...BaseRoom

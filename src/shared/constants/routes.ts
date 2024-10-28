@@ -1,11 +1,4 @@
-type RouteKey =
-  | 'home'
-  | 'login'
-  | 'films'
-  | 'series'
-  | 'signUp'
-  | 'users'
-  | 'collections';
+type RouteKey = 'home' | 'login' | 'films' | 'series' | 'signUp' | 'users' | 'collections';
 
 export const ROUTES: Record<RouteKey, string> = {
   login: '/login',

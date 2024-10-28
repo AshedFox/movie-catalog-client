@@ -1,1 +1,1 @@
-export { default as PageNavigation } from './ui/PageNavigation';
+export { default as QueryPageNavigation } from './ui/QueryPageNavigation';

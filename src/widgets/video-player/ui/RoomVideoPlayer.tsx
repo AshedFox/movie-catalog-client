@@ -20,11 +20,7 @@ export const VideoPlayer = ({ videoUrl, seek, ...otherProps }: Props) => {
         videoRef.current.volume = Number(volume);
       }
       const player = (playerRef.current = new shaka.Player(videoRef.current));
-      const ui = new shaka.ui.Overlay(
-        player,
-        videoContainerRef.current,
-        videoRef.current,
-      );
+      const ui = new shaka.ui.Overlay(player, videoContainerRef.current, videoRef.current);
       const controls = ui.getControls();
 
       controls?.configure({
@@ -61,7 +57,7 @@ export const VideoPlayer = ({ videoUrl, seek, ...otherProps }: Props) => {
 
   return (
     <div
-      className="shadow-lg mx-auto flex-auto bg-gray-900 rounded-lg overflow-hidden"
+      className="shadow-lg mx-auto w-full bg-gray-900 rounded-lg overflow-hidden aspect-video"
       ref={videoContainerRef}
     >
       <video

@@ -1,20 +1,17 @@
-import React from 'react';
-import { LogoutButton } from '@features/logout';
-import { Metadata } from 'next';
-import { EditEmailForm } from '@features/edit-email';
-import { EditNameForm } from '@features/edit-name';
 import { EditPasswordForm } from '@features/edit-password';
+import { EditProfileForm } from '@features/edit-profile';
+import { LogoutButton } from '@features/logout';
 import { ManageSubscriptionLink } from 'features/manage-subscription';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Settings' };
 
 const Page = () => {
   return (
-    <main className="flex flex-col pl-4 flex-auto gap-2 md:gap-5">
+    <main className="flex flex-col flex-auto gap-2 md:gap-5 py-10">
       <h1 className="font-semibold text-3xl leading-tight">Settings</h1>
       <div className="flex flex-col gap-3 flex-auto">
-        <EditEmailForm />
-        <EditNameForm />
+        <EditProfileForm />
         <EditPasswordForm />
         <ManageSubscriptionLink />
         <LogoutButton />

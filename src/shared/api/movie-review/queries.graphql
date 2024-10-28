@@ -15,12 +15,7 @@ query GetMoviesReviewsOffset(
   $limit: Int!
   $withMovie: Boolean = false
 ) {
-  getMoviesReviewsOffset(
-    filter: $filter
-    sort: $sort
-    offset: $offset
-    limit: $limit
-  ) {
+  getMoviesReviewsOffset(filter: $filter, sort: $sort, offset: $offset, limit: $limit) {
     nodes {
       ...BaseMovieReview
       movie @include(if: $withMovie) {

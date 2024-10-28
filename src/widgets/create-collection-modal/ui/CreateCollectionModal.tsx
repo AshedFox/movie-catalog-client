@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Modal } from '@shared/ui';
 import { CreateCollectionForm } from '@features/create-collection';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@shared/ui';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   collectionType: 'custom' | 'system';
@@ -11,22 +10,15 @@ type Props = {
 
 const CreateCollectionModal = ({ collectionType }: Props) => {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(true);
-
   return (
-    <Modal
-      rootId="modal-root"
-      showModal={showModal}
-      title={<div className="text-xl font-semibold">Create collection</div>}
-      onClose={() => {
-        setShowModal(false);
-        router.back();
-      }}
-    >
-      <div className="flex w-screen max-w-screen-lg overflow-auto p-1">
+    <Dialog defaultOpen onOpenChange={(open) => !open && router.back()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-3xl">Create collection</DialogTitle>
+        </DialogHeader>
         <CreateCollectionForm collectionType={collectionType} />
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useMutation, useSuspenseQuery_experimental } from '@apollo/client';
+import { useMutation, useSuspenseQuery } from '@apollo/client';
 import {
   CreateSubscriptionsManageLinkDocument,
   HasActiveSubscriptionDocument,
@@ -9,17 +9,14 @@ import {
 import { Button } from '@shared/ui';
 
 const ManageSubscriptionLink = () => {
-  const { data } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-    },
-  );
+  const { data } = useSuspenseQuery(HasActiveSubscriptionDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
   const [createLink] = useMutation(CreateSubscriptionsManageLinkDocument);
 
   if (!data || !data.hasActiveSubscription) {
-    return <></>;
+    return null;
   }
 
   return (

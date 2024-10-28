@@ -4,11 +4,7 @@ mutation CreateMovieUser($input: CreateMovieUserInput!) {
   }
 }
 
-mutation UpdateMovieUser(
-  $userId: String!
-  $movieId: String!
-  $input: UpdateMovieUserInput!
-) {
+mutation UpdateMovieUser($userId: String!, $movieId: String!, $input: UpdateMovieUserInput!) {
   updateMovieUser(userId: $userId, movieId: $movieId, input: $input) {
     ...MovieUser
   }

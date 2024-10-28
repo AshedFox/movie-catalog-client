@@ -1,14 +1,7 @@
-'use client';
-
-import React from 'react';
-import { List } from '@shared/ui';
-import { ReviewItem } from '@entities/review';
+import { Loader } from 'lucide-react';
 import Link from 'next/link';
-import {
-  GetCollectionsReviewsRelayDocument,
-  SortDirectionEnum,
-} from '@shared/api/graphql';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { Suspense } from 'react';
+import UserCollectionsReviewsList from './UserCollectionsReviewsList';
 
 type Props = {
   title: string;
@@ -17,71 +10,24 @@ type Props = {
   fullLink?: string;
 };
 
-const UserCollectionsReviews = ({
-  userId,
-  reviewsCount,
-  title,
-  fullLink,
-}: Props) => {
-  const { data } = useSuspenseQuery_experimental(
-    GetCollectionsReviewsRelayDocument,
-    {
-      variables: {
-        first: reviewsCount,
-        filter: {
-          userId: {
-            eq: userId,
-          },
-        },
-        sort: {
-          createdAt: {
-            direction: SortDirectionEnum.DESC,
-          },
-        },
-      },
-    },
-  );
-
-  const moviesReviewsEdges = data.getCollectionsReviewsRelay.edges;
-
-  return (
-    <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-      <h2 className="font-bold text-2xl leading-tight">{title}</h2>
-      <div className="flex p-2 max-h-[400px] flex-auto overflow-auto">
-        <List
-          items={moviesReviewsEdges.map((edge) => {
-            const node = edge.node;
-
-            return {
-              key: node.id,
-              content: (
-                <ReviewItem
-                  review={node}
-                  isOwn={true}
-                  fullLinkSlot={
-                    <Link
-                      className="text-sm text-gray-600 dark:text-gray-400 truncate"
-                      href={`/collections/${node.collectionId}`}
-                    >
-                      {`See collection →`}
-                    </Link>
-                  }
-                />
-              ),
-            };
-          })}
-        />
-      </div>
-      {fullLink && (
-        <Link
-          className="text-sm border-t border-gray-200 dark:border-gray-800 pt-1"
-          href={fullLink}
-        >
-          See all →
-        </Link>
-      )}
-    </div>
-  );
-};
+const UserCollectionsReviews = ({ userId, reviewsCount, title, fullLink }: Props) => (
+  <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h2 className="font-bold text-2xl leading-tight">{title}</h2>
+    <Suspense
+      fallback={
+        <div className="flex-auto h-[400px] flex items-center justify-center">
+          <Loader className="w-12 h-12 animate-spin" />
+        </div>
+      }
+    >
+      <UserCollectionsReviewsList userId={userId} reviewsCount={reviewsCount} height={400} />
+    </Suspense>
+    {fullLink && (
+      <Link className="text-sm border-t border-gray-200 dark:border-gray-800 pt-1" href={fullLink}>
+        See all →
+      </Link>
+    )}
+  </div>
+);
 
 export default UserCollectionsReviews;

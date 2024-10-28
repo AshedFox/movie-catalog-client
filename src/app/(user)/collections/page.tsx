@@ -1,61 +1,20 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { GetCollectionsDocument, SortDirectionEnum } from '@shared/api/graphql';
-import { Grid, Loader } from '@shared/ui';
+import { Loader } from '@shared/ui';
 import { ROUTES } from '@shared/constants/routes';
-import { getClient } from '@shared/api/graphql/client';
-import { CollectionCard } from '@entities/collection';
-
-export const dynamic = 'force-dynamic';
+import { NonSystemCollectionsGrid, SystemCollectionsGrid } from '@widgets/collections-grid';
 
 export const metadata: Metadata = {
   title: 'Collections',
 };
 
 const Page = async () => {
-  const client = getClient();
-  const { data: nonSystemCollectionsData } = await client.query({
-    query: GetCollectionsDocument,
-    variables: {
-      sort: {
-        createdAt: {
-          direction: SortDirectionEnum.DESC,
-        },
-      },
-      offset: 0,
-      limit: 20,
-      filter: {
-        isSystem: {
-          eq: false,
-        },
-      },
-    },
-  });
-
-  const { data: systemCollectionsData } = await client.query({
-    query: GetCollectionsDocument,
-    variables: {
-      sort: {
-        createdAt: {
-          direction: SortDirectionEnum.DESC,
-        },
-      },
-      offset: 0,
-      limit: 20,
-      filter: {
-        isSystem: {
-          eq: true,
-        },
-      },
-    },
-  });
-
   return (
-    <main className="flex flex-col py-4 container flex-auto gap-6">
+    <main className="flex flex-col py-4 gap-5 flex-auto">
       <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
         <h2 className="font-bold text-2xl leading-tight">System collections</h2>
-        <div className="py-2 flex-auto min-h-[150px] overflow-x-auto overflow-y-hidden">
+        <div className="flex-auto min-h-[150px] max-h-[720px] overflow-y-auto p-2">
           <Suspense
             fallback={
               <div className="flex flex-auto items-center justify-center">
@@ -63,20 +22,7 @@ const Page = async () => {
               </div>
             }
           >
-            {systemCollectionsData.getCollections.nodes.length > 0 ? (
-              <Grid
-                items={systemCollectionsData.getCollections.nodes.map(
-                  (collection) => ({
-                    key: collection.id,
-                    content: <CollectionCard collection={collection} />,
-                  }),
-                )}
-              />
-            ) : (
-              <div className="flex text-gray-500 italic w-full h-full items-center justify-center">
-                Nothing here...
-              </div>
-            )}
+            <SystemCollectionsGrid />
           </Suspense>
         </div>
         <Link
@@ -88,7 +34,7 @@ const Page = async () => {
       </div>
       <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
         <h2 className="font-bold text-2xl leading-tight">Users collections</h2>
-        <div className="py-2 flex-auto min-h-[150px] overflow-x-auto overflow-y-hidden">
+        <div className="flex-auto min-h-[150px] max-h-[720px] overflow-y-auto p-2">
           <Suspense
             fallback={
               <div className="flex flex-auto items-center justify-center">
@@ -96,20 +42,7 @@ const Page = async () => {
               </div>
             }
           >
-            {nonSystemCollectionsData.getCollections.nodes.length > 0 ? (
-              <Grid
-                items={nonSystemCollectionsData.getCollections.nodes.map(
-                  (collection) => ({
-                    key: collection.id,
-                    content: <CollectionCard collection={collection} />,
-                  }),
-                )}
-              />
-            ) : (
-              <div className="flex text-gray-500 italic w-full h-full items-center justify-center">
-                Nothing here...
-              </div>
-            )}
+            <NonSystemCollectionsGrid />
           </Suspense>
         </div>
         <Link

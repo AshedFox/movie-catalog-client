@@ -1,61 +1,80 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import {
   FilmItem_FilmFragment,
+  GetVideoDocument,
   HasActiveSubscriptionDocument,
   HasPurchaseDocument,
 } from '@shared/api/graphql';
 import { VideoPlayer } from '@widgets/video-player';
+import { Button, buttonVariants } from '@shared/ui';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   film: FilmItem_FilmFragment;
 };
 
 const ClientSide = ({ film }: Props) => {
-  const { data: hasPurchaseData } = useSuspenseQuery_experimental(
-    HasPurchaseDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-      variables: {
-        movieId: film.id,
-      },
+  const { data: hasPurchaseData } = useSuspenseQuery(HasPurchaseDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+    variables: {
+      movieId: film.id,
     },
-  );
-  const { data: hasSubscriptionData } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
+  });
+  const { data: hasSubscriptionData } = useSuspenseQuery(HasActiveSubscriptionDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
+  const { data: videoData } = useSuspenseQuery(GetVideoDocument, {
+    variables: {
+      id: film.videoId!,
     },
-  );
+    skip: !film.videoId,
+  });
 
-  const canWatch =
-    !!film.video &&
-    !!(
-      (hasPurchaseData && hasPurchaseData.hasPurchase) ||
-      (hasSubscriptionData && hasSubscriptionData.hasActiveSubscription)
+  if (
+    (!hasSubscriptionData || !hasSubscriptionData.hasActiveSubscription) &&
+    (!hasPurchaseData || !hasPurchaseData.hasPurchase)
+  ) {
+    return (
+      <div className="text-3xl flex-1 flex items-center justify-center">
+        No access to watch this film!
+      </div>
     );
-
-  if (!canWatch) {
-    return <main className="relative flex container">Cannot watch!</main>;
   }
 
+  if (!videoData) {
+    return <div className="text-3xl flex-1 flex items-center justify-center">Will be soon...</div>;
+  }
+
+  const video = videoData.getVideo;
+
   return (
-    <main className="relative flex container">
-      {film.video?.dashManifestMedia?.url ? (
-        <VideoPlayer
-          videoUrl={film.video.dashManifestMedia.url}
-          subtitles={film.video.subtitles.map((value) => ({
-            url: value.file.url,
-            language: value.languageId,
-          }))}
-        />
-      ) : (
-        <div>Unable to watch...</div>
-      )}
+    <main className="relative flex-1 flex flex-col p-4 gap-3">
+      <div className="flex gap-3 items-center">
+        <Link href={`/films/${film.id}`} className={buttonVariants({ variant: 'ghost' })}>
+          <ChevronLeft className="w-3 h-3" />
+          Back
+        </Link>
+        <h1 className="font-semibold text-3xl leading-tight">{film.title}</h1>
+      </div>
+      <div>
+        {video?.dashManifestMedia?.url ? (
+          <VideoPlayer
+            videoUrl={video.dashManifestMedia.url}
+            subtitles={video.subtitles.map((value) => ({
+              url: value.file.url,
+              language: value.languageId,
+            }))}
+          />
+        ) : (
+          <div>Unable to watch...</div>
+        )}
+      </div>
     </main>
   );
 };

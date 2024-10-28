@@ -4,12 +4,7 @@ query GetMoviesPersons(
   $sort: MoviePersonSort
   $filter: MoviePersonFilter
 ) {
-  getMoviesPersons(
-    limit: $limit
-    offset: $offset
-    sort: $sort
-    filter: $filter
-  ) {
+  getMoviesPersons(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...MoviePersonCard_MoviePerson
     }

@@ -1,24 +1,33 @@
 'use client';
 
-import React from 'react';
 import { LoginForm } from '@features/login';
-import { Modal } from '@shared/ui';
+import { ROUTES } from '@shared/constants/routes';
+import { cn } from '@shared/lib/utils';
+import { buttonVariants, Dialog, DialogContent, DialogHeader, DialogTitle } from '@shared/ui';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
   const router = useRouter();
 
   return (
-    <Modal
-      id="login-modal"
-      rootId="modal-root"
-      title={<h1 className="text-5xl font-bold">Login</h1>}
-      closable={true}
-      showModal={true}
-      onClose={() => router.back()}
-    >
-      <LoginForm redirect="back" />
-    </Modal>
+    <Dialog defaultOpen onOpenChange={(open) => !open && router.back()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-3xl">Login</DialogTitle>
+        </DialogHeader>
+        <div>
+          <LoginForm redirectOnSuccess="back" />
+          <Link
+            className={cn(buttonVariants({ variant: 'link', size: 'sm' }), 'text-xs')}
+            href={ROUTES.signUp}
+            replace
+          >
+            Don&apos;t have account?
+          </Link>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

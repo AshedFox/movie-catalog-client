@@ -1,0 +1,5 @@
+query GetVideo($id: Int!) {
+  getVideo(id: $id) {
+    ...Video
+  }
+}

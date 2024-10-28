@@ -108,6 +108,11 @@ type Country {
   name: String!
 }
 
+type CreateUploadResult {
+  mediaId: ID!
+  uploadUrl: String!
+}
+
 type Currency {
   id: ID!
   name: String!
@@ -203,7 +208,7 @@ type MovieImage {
   movie: Movie!
   movieId: ID!
   type: MovieImageType
-  typeId: Float
+  typeId: Int
 }
 
 type MovieImageType {
@@ -306,6 +311,7 @@ type Mutation {
   createSubscriptionsManageLink: String!
   createSubtitles(input: CreateSubtitlesInput!): Subtitles!
   createTrailer(input: CreateTrailerInput!): Trailer!
+  createUpload(type: MediaTypeEnum!): CreateUploadResult!
   createVideo: Video!
   createVideoVariant(input: CreateVideoVariantInput!): VideoVariant!
   deleteCollection(id: Int!): Collection!
@@ -353,18 +359,15 @@ type Mutation {
   logout: Boolean!
   moveRoomMovie(input: MoveRoomMovieInput!, roomId: String!): RoomMovie!
   refresh: AuthResult!
-  register(input: RegisterInput!): AuthResult!
   removeVideo(id: Int!): Video!
   sendConfirmation: Boolean!
+  signUp(input: SignUpInput!): AuthResult!
   startRoomMovie(roomId: String!): RoomMovie!
   startRoomPlayback(id: String!): Boolean!
   subscribe(priceId: String!): String!
   updateAvatar(file: Upload!): User!
   updateCollection(id: Int!, input: UpdateCollectionInput!): Collection!
-  updateCollectionReview(
-    id: Int!
-    input: UpdateCollectionReviewInput!
-  ): CollectionReview!
+  updateCollectionReview(id: Int!, input: UpdateCollectionReviewInput!): CollectionReview!
   updateCollectionUser(
     collectionId: Int!
     input: UpdateCollectionUserInput!
@@ -380,21 +383,11 @@ type Mutation {
   updateMe(input: UpdateUserInput!): User!
   updateMovie(id: String!, input: UpdateMovieInput!): Movie!
   updateMovieImage(id: Int!, input: UpdateMovieImageInput!): MovieImage!
-  updateMovieImageType(
-    id: Int!
-    input: UpdateMovieImageTypeInput!
-  ): MovieImageType!
+  updateMovieImageType(id: Int!, input: UpdateMovieImageTypeInput!): MovieImageType!
   updateMoviePerson(id: Int!, input: UpdateMoviePersonInput!): MoviePerson!
-  updateMoviePersonType(
-    id: Int!
-    input: UpdateMoviePersonTypeInput!
-  ): MoviePersonType!
+  updateMoviePersonType(id: Int!, input: UpdateMoviePersonTypeInput!): MoviePersonType!
   updateMovieReview(id: Int!, input: UpdateMovieReviewInput!): MovieReview!
-  updateMovieUser(
-    input: UpdateMovieUserInput!
-    movieId: String!
-    userId: String!
-  ): MovieUser!
+  updateMovieUser(input: UpdateMovieUserInput!, movieId: String!, userId: String!): MovieUser!
   updatePassword(newPassword: String!, oldPassword: String!): User!
   updatePerson(id: Int!, input: UpdatePersonInput!): Person!
   updateRoom(id: String!, input: UpdateRoomInput!): Room!
@@ -668,12 +661,7 @@ type Query {
     sort: EpisodeSort
   ): PaginatedEpisodes!
   getFilm(id: String!): Film!
-  getFilms(
-    filter: FilmFilter
-    limit: Int! = 20
-    offset: Int! = 0
-    sort: FilmSort
-  ): PaginatedFilms!
+  getFilms(filter: FilmFilter, limit: Int! = 20, offset: Int! = 0, sort: FilmSort): PaginatedFilms!
   getFilmsProtected(
     filter: FilmFilter
     limit: Int! = 20
@@ -836,12 +824,7 @@ type Query {
   getRoom(id: String!): Room!
   getRoomCurrentPlayback(id: String!): Int!
   getRoomMovie(movieId: String!, roomId: String!): RoomMovie!
-  getRooms(
-    filter: RoomFilter
-    limit: Int! = 20
-    offset: Int! = 0
-    sort: RoomSort
-  ): PaginatedRooms!
+  getRooms(filter: RoomFilter, limit: Int! = 20, offset: Int! = 0, sort: RoomSort): PaginatedRooms!
   getRoomsMovies(
     filter: RoomMovieFilter
     limit: Int! = 20
@@ -876,12 +859,7 @@ type Query {
     sort: TrailerSort
   ): PaginatedTrailers!
   getUser(id: String!): User!
-  getUsers(
-    filter: UserFilter
-    limit: Int! = 20
-    offset: Int! = 0
-    sort: UserSort
-  ): PaginatedUsers!
+  getUsers(filter: UserFilter, limit: Int! = 20, offset: Int! = 0, sort: UserSort): PaginatedUsers!
   getVideo(id: Int!): Video!
   getVideoVariant(id: Int!): VideoVariant!
   getVideos(
@@ -1027,10 +1005,12 @@ type StudioCountry {
 }
 
 type Subscription {
+  audioVariantsProgress(id: Int!): String!
   roomDeleted(id: String!): Room!
   roomPlaybackEnded(id: String!): RoomMovie!
   roomPlaybackStarted(id: String!): RoomMovie!
-  videosGenerationCompleted(id: Int!): String!
+  streamingGenerationProgress(id: Int!): String!
+  videoVariantsProgress(id: Int!): String!
 }
 
 type Subtitles {
@@ -1262,6 +1242,146 @@ input CollectionMovieEntity_FilmSort {
   movieId: SortOptions
 }
 
+input CollectionMovieEntity_MovieEntity_MovieImageFilter {
+  and: [CollectionMovieEntity_MovieEntity_MovieImageFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MovieImageFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MoviePersonFilter {
+  and: [CollectionMovieEntity_MovieEntity_MoviePersonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MovieReviewFilter {
+  and: [CollectionMovieEntity_MovieEntity_MovieReviewFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
 input CollectionMovieEntity_MovieFilter {
   and: [CollectionMovieEntity_MovieFilter!]
   collectionId: IDFilter
@@ -1272,6 +1392,13 @@ input CollectionMovieEntity_MovieFilter {
 input CollectionMovieEntity_MovieSort {
   collectionId: SortOptions
   movieId: SortOptions
+}
+
+input CollectionMovieEntity_SeriesEntity_SeasonFilter {
+  and: [CollectionMovieEntity_SeriesEntity_SeasonFilter!]
+  collectionId: IDFilter
+  movieId: IDFilter
+  or: [CollectionMovieEntity_SeriesEntity_SeasonFilter!]
 }
 
 input CollectionMovieEntity_SeriesFilter {
@@ -1335,6 +1462,209 @@ input CollectionUserSort {
   isBookmarked: SortOptions
   isWatched: SortOptions
   userId: SortOptions
+}
+
+input CountryEntity_MovieCountryEntity_FilmFilter {
+  and: [CountryEntity_MovieCountryEntity_FilmFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_FilmFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  currencyId: StringFilter
+  id: IDFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  currencyId: StringFilter
+  id: IDFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  currencyId: StringFilter
+  id: IDFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_MovieFilter {
+  and: [CountryEntity_MovieCountryEntity_MovieFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_MovieFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter {
+  and: [CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+}
+
+input CountryEntity_MovieCountryEntity_SeriesFilter {
+  and: [CountryEntity_MovieCountryEntity_SeriesFilter!]
+  currency: CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter
+  currencyId: StringFilter
+  id: IDFilter
+  language: LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter
+  languageId: StringFilter
+  name: StringFilter
+  or: [CountryEntity_MovieCountryEntity_SeriesFilter!]
 }
 
 input CountryFilter {
@@ -1430,7 +1760,7 @@ input CreateLanguageInput {
 input CreateMovieImageInput {
   imageId: String!
   movieId: String!
-  typeId: Float!
+  typeId: Int!
 }
 
 input CreateMovieImageTypeInput {
@@ -1552,6 +1882,134 @@ input CreateVideoVariantInput {
   videoId: Int!
 }
 
+input CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_FilmFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_MovieFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+  symbol: StringFilter
+}
+
+input CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter {
+  and: [CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [CurrencyEntity_CountryEntity_MovieCountryEntity_SeriesFilter!]
+  symbol: StringFilter
+}
+
 input CurrencyEntity_CountryFilter {
   and: [CurrencyEntity_CountryFilter!]
   id: IDFilter
@@ -1646,6 +2104,7 @@ input FilmFilter {
   description: StringFilter
   genresConnection: MovieGenreEntity_FilmFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_FilmFilter
   or: [FilmFilter!]
   releaseDate: DateFilter
   studiosConnection: MovieStudioEntity_FilmFilter
@@ -1665,6 +2124,7 @@ input FilmSort {
   description: SortOptions
   genresConnection: MovieGenreEntity_FilmSort
   id: SortOptions
+  moviePersons: MoviePersonEntity_FilmSort
   releaseDate: SortOptions
   studiosConnection: MovieStudioEntity_FilmSort
   title: SortOptions
@@ -1739,6 +2199,118 @@ input IntFilter {
   nin: [Int!]
 }
 
+input LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_FilmFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_MovieFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter!]
+}
+
+input LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter {
+  and: [LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [LanguageEntity_CountryEntity_MovieCountryEntity_SeriesFilter!]
+}
+
 input LanguageEntity_CountryFilter {
   and: [LanguageEntity_CountryFilter!]
   id: IDFilter
@@ -1796,6 +2368,166 @@ input MediaEntity_FilmSort {
   url: SortOptions
 }
 
+input MediaEntity_MovieEntity_MovieImageFilter {
+  and: [MediaEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MovieImageFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MoviePersonFilter {
+  and: [MediaEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MoviePersonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MovieReviewFilter {
+  and: [MediaEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MovieReviewFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
+input MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  or: [MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
+}
+
 input MediaEntity_MovieFilter {
   and: [MediaEntity_MovieFilter!]
   id: IDFilter
@@ -1808,6 +2540,14 @@ input MediaEntity_MovieSort {
   id: SortOptions
   type: SortOptions
   url: SortOptions
+}
+
+input MediaEntity_SeriesEntity_SeasonFilter {
+  and: [MediaEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  or: [MediaEntity_SeriesEntity_SeasonFilter!]
+  type: MediaTypeEnumFilter
+  url: StringFilter
 }
 
 input MediaEntity_SeriesFilter {
@@ -1852,6 +2592,7 @@ input MoveRoomMovieInput {
 
 input MovieCountryEntity_FilmFilter {
   and: [MovieCountryEntity_FilmFilter!]
+  country: CountryEntity_MovieCountryEntity_FilmFilter
   countryId: IDFilter
   movieId: IDFilter
   or: [MovieCountryEntity_FilmFilter!]
@@ -1862,8 +2603,164 @@ input MovieCountryEntity_FilmSort {
   movieId: SortOptions
 }
 
+input MovieCountryEntity_MovieEntity_MovieImageFilter {
+  and: [MovieCountryEntity_MovieEntity_MovieImageFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MovieImageFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MoviePersonFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MovieReviewFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
 input MovieCountryEntity_MovieFilter {
   and: [MovieCountryEntity_MovieFilter!]
+  country: CountryEntity_MovieCountryEntity_MovieFilter
   countryId: IDFilter
   movieId: IDFilter
   or: [MovieCountryEntity_MovieFilter!]
@@ -1874,8 +2771,17 @@ input MovieCountryEntity_MovieSort {
   movieId: SortOptions
 }
 
+input MovieCountryEntity_SeriesEntity_SeasonFilter {
+  and: [MovieCountryEntity_SeriesEntity_SeasonFilter!]
+  country: CountryEntity_MovieCountryEntity_SeriesEntity_SeasonFilter
+  countryId: IDFilter
+  movieId: IDFilter
+  or: [MovieCountryEntity_SeriesEntity_SeasonFilter!]
+}
+
 input MovieCountryEntity_SeriesFilter {
   and: [MovieCountryEntity_SeriesFilter!]
+  country: CountryEntity_MovieCountryEntity_SeriesFilter
   countryId: IDFilter
   movieId: IDFilter
   or: [MovieCountryEntity_SeriesFilter!]
@@ -1890,14 +2796,20 @@ input MovieEntity_MovieImageFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
   and: [MovieEntity_MovieImageFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MovieImageFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MovieImageFilter
+  cover: MediaEntity_MovieEntity_MovieImageFilter
   coverId: StringFilter
   createdAt: DateFilter
   description: StringFilter
   endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MovieImageFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MovieImageFilter
   or: [MovieEntity_MovieImageFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MovieImageFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -1918,18 +2830,437 @@ input MovieEntity_MovieImageSort {
   videoId: SortOptions
 }
 
-input MovieEntity_MoviePersonFilter {
+input MovieEntity_MoviePersonEntity_FilmFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
-  and: [MovieEntity_MoviePersonFilter!]
+  and: [MovieEntity_MoviePersonEntity_FilmFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  or: [MovieEntity_MoviePersonEntity_FilmFilter!]
+  releaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  releaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  id: IDFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  releaseDate: DateFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
   coverId: StringFilter
   createdAt: DateFilter
   description: StringFilter
   endReleaseDate: DateFilter
   id: IDFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  id: IDFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  or: [MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_MovieFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_MovieFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  or: [MovieEntity_MoviePersonEntity_MovieFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  or: [MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonEntity_SeriesFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonEntity_SeriesFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  cover: MediaEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  or: [MovieEntity_MoviePersonEntity_SeriesFilter!]
+  releaseDate: DateFilter
+  startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  title: StringFilter
+  updatedAt: DateFilter
+  videoId: NumberFilter
+}
+
+input MovieEntity_MoviePersonFilter {
+  accessMode: AccessModeEnumFilter
+  ageRestriction: AgeRestrictionEnumFilter
+  and: [MovieEntity_MoviePersonFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MoviePersonFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MoviePersonFilter
+  cover: MediaEntity_MovieEntity_MoviePersonFilter
+  coverId: StringFilter
+  createdAt: DateFilter
+  description: StringFilter
+  endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MoviePersonFilter
+  id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MoviePersonFilter
   or: [MovieEntity_MoviePersonFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MoviePersonFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -1954,14 +3285,20 @@ input MovieEntity_MovieReviewFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
   and: [MovieEntity_MovieReviewFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MovieReviewFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MovieReviewFilter
+  cover: MediaEntity_MovieEntity_MovieReviewFilter
   coverId: StringFilter
   createdAt: DateFilter
   description: StringFilter
   endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MovieReviewFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MovieReviewFilter
   or: [MovieEntity_MovieReviewFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MovieReviewFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -1986,14 +3323,20 @@ input MovieEntity_MovieVisitStatsLastMonthFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
   and: [MovieEntity_MovieVisitStatsLastMonthFilter!]
+  collectionsConnection: CollectionMovieEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  countriesConnection: MovieCountryEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  cover: MediaEntity_MovieEntity_MovieVisitStatsLastMonthFilter
   coverId: StringFilter
   createdAt: DateFilter
   description: StringFilter
   endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
   or: [MovieEntity_MovieVisitStatsLastMonthFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -2027,6 +3370,7 @@ input MovieFilter {
   endReleaseDate: DateFilter
   genresConnection: MovieGenreEntity_MovieFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_MovieFilter
   or: [MovieFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
@@ -2048,6 +3392,146 @@ input MovieGenreEntity_FilmSort {
   movieId: SortOptions
 }
 
+input MovieGenreEntity_MovieEntity_MovieImageFilter {
+  and: [MovieGenreEntity_MovieEntity_MovieImageFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieGenreEntity_MovieEntity_MoviePersonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieGenreEntity_MovieEntity_MovieReviewFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
 input MovieGenreEntity_MovieFilter {
   and: [MovieGenreEntity_MovieFilter!]
   genreId: IDFilter
@@ -2058,6 +3542,13 @@ input MovieGenreEntity_MovieFilter {
 input MovieGenreEntity_MovieSort {
   genreId: SortOptions
   movieId: SortOptions
+}
+
+input MovieGenreEntity_SeriesEntity_SeasonFilter {
+  and: [MovieGenreEntity_SeriesEntity_SeasonFilter!]
+  genreId: IDFilter
+  movieId: IDFilter
+  or: [MovieGenreEntity_SeriesEntity_SeasonFilter!]
 }
 
 input MovieGenreEntity_SeriesFilter {
@@ -2080,7 +3571,7 @@ input MovieImageFilter {
   movieId: IDFilter
   or: [MovieImageFilter!]
   type: MovieImageTypeEntity_MovieImageFilter
-  typeId: NumberFilter
+  typeId: IntFilter
 }
 
 input MovieImageSort {
@@ -2116,6 +3607,308 @@ input MovieImageTypeSort {
   name: SortOptions
 }
 
+input MoviePersonEntity_FilmFilter {
+  and: [MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_FilmFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_FilmFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_FilmFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_FilmSort {
+  id: SortOptions
+  movieId: SortOptions
+  personId: SortOptions
+  role: SortOptions
+  typeId: SortOptions
+}
+
+input MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieFilter {
+  and: [MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_MovieFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_MovieFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_MovieFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_MovieSort {
+  id: SortOptions
+  movieId: SortOptions
+  personId: SortOptions
+  role: SortOptions
+  typeId: SortOptions
+}
+
+input MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  movie: MovieEntity_MoviePersonEntity_SeriesFilter
+  movieId: StringFilter
+  or: [MoviePersonEntity_SeriesFilter!]
+  personId: NumberFilter
+  role: StringFilter
+  type: MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter
+  typeId: NumberFilter
+}
+
+input MoviePersonEntity_SeriesSort {
+  id: SortOptions
+  movieId: SortOptions
+  personId: SortOptions
+  role: SortOptions
+  typeId: SortOptions
+}
+
 input MoviePersonFilter {
   and: [MoviePersonFilter!]
   id: IDFilter
@@ -2136,6 +3929,139 @@ input MoviePersonSort {
   role: SortOptions
   type: MoviePersonTypeEntity_MoviePersonSort
   typeId: SortOptions
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_FilmFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_MovieFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_MovieFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_MovieFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+}
+
+input MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter {
+  and: [MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter!]
+  id: IDFilter
+  name: StringFilter
+  or: [MoviePersonTypeEntity_MoviePersonEntity_SeriesFilter!]
 }
 
 input MoviePersonTypeEntity_MoviePersonFilter {
@@ -2198,6 +4124,7 @@ input MovieSort {
   endReleaseDate: SortOptions
   genresConnection: MovieGenreEntity_MovieSort
   id: SortOptions
+  moviePersons: MoviePersonEntity_MovieSort
   releaseDate: SortOptions
   startReleaseDate: SortOptions
   studiosConnection: MovieStudioEntity_MovieSort
@@ -2218,6 +4145,146 @@ input MovieStudioEntity_FilmSort {
   studioId: SortOptions
 }
 
+input MovieStudioEntity_MovieEntity_MovieImageFilter {
+  and: [MovieStudioEntity_MovieEntity_MovieImageFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MovieImageFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_FilmFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieImageFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MoviePersonFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieReviewFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_MovieFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesEntity_SeasonFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonEntity_SeriesFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MoviePersonFilter {
+  and: [MovieStudioEntity_MovieEntity_MoviePersonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MoviePersonFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MovieReviewFilter {
+  and: [MovieStudioEntity_MovieEntity_MovieReviewFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MovieReviewFilter!]
+  studioId: IDFilter
+}
+
+input MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter {
+  and: [MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_MovieEntity_MovieVisitStatsLastMonthFilter!]
+  studioId: IDFilter
+}
+
 input MovieStudioEntity_MovieFilter {
   and: [MovieStudioEntity_MovieFilter!]
   movieId: IDFilter
@@ -2228,6 +4295,13 @@ input MovieStudioEntity_MovieFilter {
 input MovieStudioEntity_MovieSort {
   movieId: SortOptions
   studioId: SortOptions
+}
+
+input MovieStudioEntity_SeriesEntity_SeasonFilter {
+  and: [MovieStudioEntity_SeriesEntity_SeasonFilter!]
+  movieId: IDFilter
+  or: [MovieStudioEntity_SeriesEntity_SeasonFilter!]
+  studioId: IDFilter
 }
 
 input MovieStudioEntity_SeriesFilter {
@@ -2293,13 +4367,6 @@ input PersonSort {
   id: SortOptions
   imageId: SortOptions
   name: SortOptions
-}
-
-input RegisterInput {
-  email: String!
-  name: String!
-  password: String!
-  passwordRepeat: String!
 }
 
 input RoleEnumFilter {
@@ -2385,14 +4452,20 @@ input SeriesEntity_SeasonFilter {
   accessMode: AccessModeEnumFilter
   ageRestriction: AgeRestrictionEnumFilter
   and: [SeriesEntity_SeasonFilter!]
+  collectionsConnection: CollectionMovieEntity_SeriesEntity_SeasonFilter
+  countriesConnection: MovieCountryEntity_SeriesEntity_SeasonFilter
+  cover: MediaEntity_SeriesEntity_SeasonFilter
   coverId: StringFilter
   createdAt: DateFilter
   description: StringFilter
   endReleaseDate: DateFilter
+  genresConnection: MovieGenreEntity_SeriesEntity_SeasonFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_SeriesEntity_SeasonFilter
   or: [SeriesEntity_SeasonFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
+  studiosConnection: MovieStudioEntity_SeriesEntity_SeasonFilter
   title: StringFilter
   updatedAt: DateFilter
   videoId: NumberFilter
@@ -2426,6 +4499,7 @@ input SeriesFilter {
   endReleaseDate: DateFilter
   genresConnection: MovieGenreEntity_SeriesFilter
   id: IDFilter
+  moviePersons: MoviePersonEntity_SeriesFilter
   or: [SeriesFilter!]
   releaseDate: DateFilter
   startReleaseDate: DateFilter
@@ -2447,12 +4521,20 @@ input SeriesSort {
   endReleaseDate: SortOptions
   genresConnection: MovieGenreEntity_SeriesSort
   id: SortOptions
+  moviePersons: MoviePersonEntity_SeriesSort
   releaseDate: SortOptions
   startReleaseDate: SortOptions
   studiosConnection: MovieStudioEntity_SeriesSort
   title: SortOptions
   updatedAt: SortOptions
   videoId: SortOptions
+}
+
+input SignUpInput {
+  email: String!
+  name: String!
+  password: String!
+  passwordRepeat: String!
 }
 
 input SortOptions {
@@ -2570,7 +4652,7 @@ input UpdateLanguageInput {
 input UpdateMovieImageInput {
   imageId: String
   movieId: String
-  typeId: Float
+  typeId: Int
 }
 
 input UpdateMovieImageTypeInput {

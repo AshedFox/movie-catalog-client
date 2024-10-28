@@ -25,34 +25,5 @@ const config: CodegenConfig = {
       },
     },
   },
-  /* generates: {
-    'src/shared/api/graphql/__generated__/types.ts': {
-      plugins: ['typescript'],
-    },
-    'src/': {
-      preset: 'near-operation-file',
-      presetConfig: {
-        folder: '__generated__',
-        extension: '.generated.ts',
-        baseTypesPath: 'shared/api/graphql/__generated__/types.ts',
-      },
-      plugins: ['typescript-operations', 'typescript-react-apollo'],
-      config: {
-        dedupeOperationSuffix: true,
-      },
-    },
-  },*/
-  /* generates: {
-    'src/shared/api/graphql/__generated__/types.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
-      config: {
-        dedupeOperationSuffix: true,
-      },
-    },
-  },*/
 };
 export default config;

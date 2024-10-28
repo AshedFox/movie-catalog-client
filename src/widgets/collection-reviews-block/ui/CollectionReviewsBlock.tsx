@@ -1,14 +1,14 @@
 'use client';
 
-import { useSuspenseQuery_experimental } from '@apollo/client';
-import { Button } from '@shared/ui';
-import { useUser } from '@entities/user';
+import { useSuspenseQuery } from '@apollo/client';
 import { ReviewItem } from '@entities/review';
+import { useSession } from '@features/auth/session';
 import { CreateCollectionReviewForm } from '@features/create-collection-review';
 import {
   GetCollectionsReviewsRelayDocument,
   HasCollectionReviewDocument,
 } from '@shared/api/graphql';
+import { Button } from '@shared/ui';
 
 type Props = {
   collectionId: number;
@@ -17,40 +17,27 @@ type Props = {
 const reviewsCount = 2;
 
 const CollectionReviewsBlock = ({ collectionId }: Props) => {
-  const { data: reviewsData, fetchMore } = useSuspenseQuery_experimental(
-    GetCollectionsReviewsRelayDocument,
-    {
-      variables: {
-        filter: {
-          collectionId: {
-            eq: collectionId,
-          },
+  const { data: reviewsData, fetchMore } = useSuspenseQuery(GetCollectionsReviewsRelayDocument, {
+    variables: {
+      filter: {
+        collectionId: {
+          eq: collectionId,
         },
-        last: reviewsCount,
       },
+      last: reviewsCount,
     },
-  );
-  const { user } = useUser();
-  const { data: hasReviewData } = useSuspenseQuery_experimental(
-    HasCollectionReviewDocument,
-    {
-      variables: {
-        collectionId,
-      },
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore',
+  });
+  const session = useSession();
+  const user = session.data?.user;
+  const { data: hasReviewData } = useSuspenseQuery(HasCollectionReviewDocument, {
+    variables: {
+      collectionId,
     },
-  );
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  });
 
-  const shouldShowCreation = () => {
-    return (
-      hasReviewData &&
-      !hasReviewData?.hasCollectionReview &&
-      !reviewsData?.getCollectionsReviewsRelay.edges.some(
-        (edge) => edge.node.user.id === user?.id,
-      )
-    );
-  };
+  const isFormVisible = !!user && hasReviewData && !hasReviewData?.hasCollectionReview;
 
   return (
     <div className="flex flex-col flex-auto gap-2">
@@ -76,8 +63,7 @@ const CollectionReviewsBlock = ({ collectionId }: Props) => {
           onClick={() =>
             fetchMore({
               variables: {
-                before:
-                  reviewsData?.getCollectionsReviewsRelay.pageInfo.startCursor,
+                before: reviewsData?.getCollectionsReviewsRelay.pageInfo.startCursor,
               },
             })
           }
@@ -85,9 +71,7 @@ const CollectionReviewsBlock = ({ collectionId }: Props) => {
           Load More
         </Button>
       )}
-      {shouldShowCreation() && (
-        <CreateCollectionReviewForm collectionId={collectionId} />
-      )}
+      {isFormVisible && <CreateCollectionReviewForm collectionId={collectionId} />}
     </div>
   );
 };

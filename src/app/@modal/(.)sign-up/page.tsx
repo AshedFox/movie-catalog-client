@@ -1,4 +1,3 @@
-import React from 'react';
 import { SignUpModal } from '@widgets/sign-up-modal';
 import { Metadata } from 'next';
 

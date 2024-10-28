@@ -6,12 +6,7 @@ query GetAllGenres($sort: GenreSort, $movieType: MovieTypeEnum) {
   }
 }
 
-query GetGenres(
-  $limit: Int!
-  $offset: Int!
-  $filter: GenreFilter
-  $sort: GenreSort
-) {
+query GetGenres($limit: Int!, $offset: Int!, $filter: GenreFilter, $sort: GenreSort) {
   getGenres(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
     nodes {
       id

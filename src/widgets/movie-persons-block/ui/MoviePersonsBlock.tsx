@@ -10,16 +10,11 @@ type Props = {
   fullLink?: string;
 };
 
-const MoviePersonsBlock = ({
-  movieId,
-  title,
-  personsCount = 2,
-  fullLink,
-}: Props) => {
+const MoviePersonsBlock = ({ movieId, title, personsCount = 2, fullLink }: Props) => {
   return (
     <div className="flex flex-col flex-auto gap-2 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
       <h2 className="font-bold text-2xl leading-tight">{title}</h2>
-      <div className="flex py-2 flex-auto min-h-[150px] overflow-x-auto overflow-y-hidden">
+      <div className="flex flex-auto min-h-[150px] overflow-hidden">
         <Suspense
           fallback={
             <div className="flex flex-auto items-center justify-center">
@@ -32,7 +27,7 @@ const MoviePersonsBlock = ({
       </div>
       {fullLink && (
         <Link
-          className="text-sm border-t border-gray-200 dark:border-gray-800 pt-1"
+          className="text-sm border-t border-gray-200 dark:border-gray-800 pt-2"
           href={fullLink}
         >
           See all →

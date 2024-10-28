@@ -10,19 +10,7 @@ type Props = {
 } & ComponentPropsWithoutRef<'input'>;
 
 const Field = forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      id,
-      label,
-      name,
-      error,
-      disabled,
-      stretch,
-      required,
-      ...otherProps
-    }: Props,
-    ref,
-  ) => (
+  ({ id, label, name, error, disabled, stretch, required, ...otherProps }: Props, ref) => (
     <div
       className={clsx('flex flex-col gap-1', {
         'flex-auto': stretch,

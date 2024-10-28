@@ -4,7 +4,7 @@ import React from 'react';
 import { FilmCard } from '@entities/film';
 import { SeriesCard } from '@entities/series';
 import { Carousel } from '@shared/ui';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import { GetMostReviewedMoviesDocument } from '@shared/api/graphql';
 
 type Props = {
@@ -12,15 +12,12 @@ type Props = {
 };
 
 const MostReviewedMoviesCarousel = ({ count }: Props) => {
-  const { data } = useSuspenseQuery_experimental(
-    GetMostReviewedMoviesDocument,
-    {
-      variables: {
-        limit: count,
-        offset: 0,
-      },
+  const { data } = useSuspenseQuery(GetMostReviewedMoviesDocument, {
+    variables: {
+      limit: count,
+      offset: 0,
     },
-  );
+  });
 
   return (
     <Carousel

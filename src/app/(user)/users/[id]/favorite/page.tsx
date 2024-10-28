@@ -1,8 +1,7 @@
-import React from 'react';
-import { getClient } from '@shared/api/graphql/client';
+import { QueryPageNavigation } from '@features/page-navigation';
 import { GetMoviesUsersDocument } from '@shared/api/graphql';
+import { getClient } from '@shared/api/graphql/client';
 import { MoviesList } from '@widgets/movies-list';
-import { PageNavigation } from '@features/page-navigation';
 
 type Props = {
   params: {
@@ -16,9 +15,7 @@ type Props = {
 export const generateMetadata = async ({ searchParams }: Props) => {
   return {
     title: `Favorite movies${
-      searchParams?.page && Number(searchParams.page) > 1
-        ? ` - ${searchParams.page}`
-        : ''
+      searchParams?.page && Number(searchParams.page) > 1 ? ` - ${searchParams.page}` : ''
     }`,
   };
 };
@@ -44,10 +41,8 @@ const Page = async ({ searchParams, params }: Props) => {
   return (
     <main className="flex flex-col py-4 container flex-auto gap-2">
       <h1 className="font-semibold text-3xl leading-tight">Favorite movies</h1>
-      <MoviesList
-        movies={data.getMoviesUsers.nodes.map((item) => item.movie!)}
-      />
-      <PageNavigation
+      <MoviesList movies={data.getMoviesUsers.nodes.map((item) => item.movie!)} />
+      <QueryPageNavigation
         currentPage={page}
         amountPerPage={amountPerPage}
         totalCount={data.getMoviesUsers.pageInfo.totalCount}

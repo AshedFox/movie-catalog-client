@@ -23,9 +23,7 @@ const Page = async ({ params }: Props) => {
   return (
     <div className="flex container flex-auto">
       <h1 className="text-2xl font-semibold">
-        {!data || errors
-          ? 'Failed to confirm email!'
-          : 'Email successfully confirmed!'}
+        {!data || errors ? 'Failed to confirm email!' : 'Email successfully confirmed!'}
       </h1>
     </div>
   );

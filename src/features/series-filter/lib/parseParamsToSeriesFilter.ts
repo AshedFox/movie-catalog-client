@@ -10,18 +10,8 @@ type Params = {
   country?: string[];
 };
 
-export const parseParamsToSeriesFilter = (
-  searchParams: Params,
-): SeriesFilter => {
-  const {
-    title,
-    ageRestriction,
-    genre,
-    country,
-    studio,
-    releaseTo,
-    releaseFrom,
-  } = searchParams;
+export const parseParamsToSeriesFilter = (searchParams: Params): SeriesFilter => {
+  const { title, ageRestriction, genre, country, studio, releaseTo, releaseFrom } = searchParams;
   const filter: SeriesFilter = {};
 
   if (title) {

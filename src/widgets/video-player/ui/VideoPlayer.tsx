@@ -9,12 +9,7 @@ type Props = ComponentProps<'video'> & {
   subtitles?: { language: string; url: string }[];
 };
 
-export const VideoPlayer = ({
-  videoUrl,
-  seek,
-  subtitles = [],
-  ...otherProps
-}: Props) => {
+export const VideoPlayer = ({ videoUrl, seek, subtitles = [], ...otherProps }: Props) => {
   const videoContainerRef = React.useRef<HTMLDivElement>(null);
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const playerRef = React.useRef<shaka.Player | null>(null);
@@ -26,11 +21,7 @@ export const VideoPlayer = ({
         videoRef.current.volume = Number(volume);
       }
       const player = (playerRef.current = new shaka.Player(videoRef.current));
-      const ui = new shaka.ui.Overlay(
-        player,
-        videoContainerRef.current,
-        videoRef.current,
-      );
+      const ui = new shaka.ui.Overlay(player, videoContainerRef.current, videoRef.current);
       const controls = ui.getControls();
 
       controls?.configure({
@@ -79,7 +70,7 @@ export const VideoPlayer = ({
 
   return (
     <div
-      className="shadow-lg mx-auto flex-auto bg-gray-900 rounded-lg overflow-hidden"
+      className="shadow-lg mx-auto flex-auto bg-gray-900 rounded-md overflow-hidden"
       ref={videoContainerRef}
     >
       <video

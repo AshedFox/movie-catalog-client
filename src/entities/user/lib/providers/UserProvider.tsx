@@ -26,7 +26,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   });
 
   if (loading) {
-    return <></>;
+    return null;
   }
 
   return (

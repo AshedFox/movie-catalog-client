@@ -1,9 +1,8 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { List, Row } from '@shared/ui';
-import { CreateRoomBlock } from '@widgets/create-room-block';
 import { GetRoomsDocument } from '@shared/api/graphql';
 import { getClient } from '@shared/api/graphql/client';
+import { List, Row } from '@shared/ui';
+import { CreateRoomBlock } from '@widgets/create-room-block';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Rooms',
@@ -42,10 +41,9 @@ const Page = async ({ params }: Props) => {
     <main className="flex flex-col flex-auto pl-4 gap-2 md:gap-5 overflow-hidden">
       <div className="flex flex-auto overflow-y-auto">
         <List
-          items={data.getRooms.nodes.map((item) => ({
-            key: item.id,
-            content: <Row title={item.name} />,
-          }))}
+          items={data.getRooms.nodes.map((item) => (
+            <Row key={item.id} title={item.name} />
+          ))}
         />
       </div>
       <CreateRoomBlock />

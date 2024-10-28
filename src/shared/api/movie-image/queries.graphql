@@ -4,12 +4,7 @@ query GetMoviesImages(
   $sort: MovieImageSort
   $filter: MovieImageFilter
 ) {
-  getMoviesImages(
-    limit: $limit
-    offset: $offset
-    sort: $sort
-    filter: $filter
-  ) {
+  getMoviesImages(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...MovieImageCard_MovieImage
     }

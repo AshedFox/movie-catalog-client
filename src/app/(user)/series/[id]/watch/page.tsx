@@ -32,9 +32,7 @@ const Page = async ({ params, searchParams }: Props) => {
     notFound();
   }
 
-  return (
-    <ClientSide seriesId={params.id} episode={data.getEpisodeBySeriesAndNum} />
-  );
+  return <ClientSide seriesId={params.id} episode={data.getEpisodeBySeriesAndNum} />;
 };
 
 export default Page;

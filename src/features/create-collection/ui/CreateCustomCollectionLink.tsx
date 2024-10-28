@@ -1,20 +1,18 @@
-'use client';
-
 import React from 'react';
-import { Button } from '@shared/ui';
+import { buttonVariants } from '@shared/ui';
 import Link from 'next/link';
-import { useUser } from '@entities/user';
+import { getServerSession } from '@features/auth/session';
 
-const CreateCustomCollectionLink = () => {
-  const { user } = useUser();
+const CreateCustomCollectionLink = async () => {
+  const session = await getServerSession();
 
-  if (!user) {
-    return <></>;
+  if (!session?.user) {
+    return null;
   }
 
   return (
-    <Link href={'/collections/custom/create'}>
-      <Button size="sm">Create collection</Button>
+    <Link className={buttonVariants({ size: 'sm' })} href={'/collections/custom/create'}>
+      Create collection
     </Link>
   );
 };

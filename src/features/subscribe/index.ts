@@ -1,2 +1,2 @@
-export { default as SubscriptionForm } from './ui/SubscriptionForm';
-export { default as SubscribeLinkButton } from './ui/SubscribeLinkButton';
+export { default as SubscribeForm } from './ui/SubscribeForm';
+export { default as SubscribeLink } from './ui/SubscribeLink';

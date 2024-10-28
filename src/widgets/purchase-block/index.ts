@@ -1,1 +1,1 @@
-export { default as PurchaseBlock } from './ui/PurchaseBlock';
+export { default as PurchaseBlock } from './PurchaseBlock';

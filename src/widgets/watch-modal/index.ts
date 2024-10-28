@@ -1,1 +1,2 @@
-export { default as WatchModal } from './ui/WatchModal';
+export { default as FilmWatchModal } from './ui/FilmWatchModal';
+export { default as SeriesWatchModal } from './ui/SeriesWatchModal';

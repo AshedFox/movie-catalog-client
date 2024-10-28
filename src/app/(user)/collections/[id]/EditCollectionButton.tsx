@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useUser } from '@entities/user';
 import Link from 'next/link';
-import { Button } from '@shared/ui';
+import { Button, buttonVariants } from '@shared/ui';
+import { getServerSession, useSession } from '@features/auth/session';
 
 type Props = {
   collectionId: string;
@@ -11,15 +11,15 @@ type Props = {
 };
 
 const EditCollectionButton = ({ collectionOwnerId, collectionId }: Props) => {
-  const { user } = useUser();
+  const session = useSession();
 
-  if (user?.id !== collectionOwnerId) {
-    return <></>;
+  if (session?.data?.user.id !== collectionOwnerId) {
+    return null;
   }
 
   return (
-    <Link href={`/collections/${collectionId}/edit`}>
-      <Button size="sm">Edit</Button>
+    <Link className={buttonVariants({ size: 'sm' })} href={`/collections/${collectionId}/edit`}>
+      Edit
     </Link>
   );
 };

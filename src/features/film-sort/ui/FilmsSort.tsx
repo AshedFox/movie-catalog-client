@@ -1,48 +1,54 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { Button } from '@shared/ui';
-import { FilmSort } from '@shared/api/graphql/__generated__/graphql';
+import { FilmSort, SortDirectionEnum } from '@shared/api/graphql';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui/Select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 import { getParamsWithArgs } from '../lib/getParamsWithArgs';
 
-type Props = {
-  currentSort: FilmSort;
-};
-
-const FilmsSort = ({ currentSort }: Props) => {
+const FilmsSort = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleSortChange = (sortParam: keyof FilmSort) => {
-    router.push(`${pathname}?${createQueryString(sortParam)}`);
+  const [sortKey, sortDirection] = useMemo(() => {
+    const [key, direction] = searchParams.get('sort')?.split('_') ?? [];
+
+    return [key ?? 'title', direction ?? SortDirectionEnum.ASC] as [
+      keyof FilmSort,
+      SortDirectionEnum,
+    ];
+  }, [searchParams]);
+
+  const handleSortChange = (sortKey: keyof FilmSort, sortDirection: SortDirectionEnum) => {
+    router.push(`${pathname}?${createQueryString(`${sortKey}_${sortDirection}`)}`);
   };
 
   const createQueryString = useCallback(
-    (sortParam: keyof FilmSort) => getParamsWithArgs(searchParams, sortParam),
+    (sortParam: string) => getParamsWithArgs(searchParams, sortParam),
     [searchParams],
   );
 
   return (
-    <div className="flex items-center gap-2">
-      <Button
-        size="sm"
-        variant="secondary"
-        disabled={!!currentSort.releaseDate}
-        onClick={() => handleSortChange('releaseDate')}
-      >
-        By Release
-      </Button>
-      <Button
-        size="sm"
-        variant="secondary"
-        disabled={!!currentSort.title}
-        onClick={() => handleSortChange('title')}
-      >
-        By Title
-      </Button>
-    </div>
+    <Select
+      value={`${sortKey}_${sortDirection}`}
+      onValueChange={(value) => {
+        handleSortChange(
+          value.split('_')[0] as keyof FilmSort,
+          value.split('_')[1] as SortDirectionEnum,
+        );
+      }}
+    >
+      <SelectTrigger className="max-w-[200px] text-sm font-medium">
+        <SelectValue placeholder="Select sort" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="title_ASC">By title (A - Z)</SelectItem>
+        <SelectItem value="title_DESC">By title (Z - A)</SelectItem>
+        <SelectItem value="releaseDate_ASC">By release (Old - New)</SelectItem>
+        <SelectItem value="releaseDate_DESC">By release (New - Old)</SelectItem>
+      </SelectContent>
+    </Select>
   );
 };
 

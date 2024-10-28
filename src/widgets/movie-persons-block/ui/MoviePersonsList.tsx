@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import { GetMoviesPersonsDocument } from '@shared/api/graphql';
-import { List } from '@shared/ui';
 import { MoviePersonCard } from '@entities/movie-person';
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 };
 
 const MoviePersonsList = ({ movieId, count }: Props) => {
-  const { data } = useSuspenseQuery_experimental(GetMoviesPersonsDocument, {
+  const { data } = useSuspenseQuery(GetMoviesPersonsDocument, {
     variables: {
       offset: 0,
       limit: count,
@@ -26,16 +25,16 @@ const MoviePersonsList = ({ movieId, count }: Props) => {
 
   const moviePersons = data.getMoviesPersons.nodes;
 
+  if (moviePersons.length === 0) {
+    return <div className="m-auto text-gray-500 italic">Nothing here...</div>;
+  }
+
   return (
-    <List
-      direction="horizontal"
-      items={moviePersons.map((moviePerson) => {
-        return {
-          key: moviePerson.id,
-          content: <MoviePersonCard moviePerson={moviePerson} />,
-        };
-      })}
-    />
+    <ul className="w-full flex gap-2 overflow-x-auto overflow-y-hidden p-2">
+      {moviePersons.map((moviePerson) => (
+        <MoviePersonCard key={moviePerson.id} moviePerson={moviePerson} />
+      ))}
+    </ul>
   );
 };
 

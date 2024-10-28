@@ -1,31 +1,29 @@
 'use client';
 
-import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
-import {
-  HasActiveSubscriptionDocument,
-  PlanFragment,
-} from '@shared/api/graphql';
-import { SubscribeModal } from '@widgets/subscribe-modal';
+import { SubscribeForm } from '@features/subscribe';
+import { PlanFragment } from '@shared/api/graphql';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@shared/ui/Dialog';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   plans: PlanFragment[];
 };
 
 const ClientSide = ({ plans }: Props) => {
-  const { data } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-    },
+  const router = useRouter();
+
+  return (
+    <Dialog defaultOpen onOpenChange={(open) => !open && router.back()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-3xl">Login</DialogTitle>
+        </DialogHeader>
+        <h2>Subscribe to our service!</h2>
+        <p>You can choose one of the plans you like.</p>
+        <SubscribeForm plans={plans} />
+      </DialogContent>
+    </Dialog>
   );
-
-  if (!data || data.hasActiveSubscription) {
-    return <></>;
-  }
-
-  return <SubscribeModal plans={plans} />;
 };
 
 export default ClientSide;

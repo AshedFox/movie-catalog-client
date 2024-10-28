@@ -7,27 +7,24 @@ export const formatDuration = (duration: number) => {
 export const formatDateTime = (datetime: string) => {
   return new Date(datetime).toLocaleString();
 };
-export const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString();
+export const formatDate = (date?: string | null) => {
+  return date ? new Date(date).toLocaleDateString() : '??';
 };
 
-export const formatAsYear = (date: string) => {
-  return new Date(date).getFullYear().toString();
+export const formatAsYear = (date?: string | null) => {
+  return date ? new Date(date).getFullYear().toString() : '??';
 };
 
-export const formatAsFullRange = (
-  startDate?: string | null,
-  endDate?: string | null,
-) => {
-  const startPart = startDate ? formatDate(startDate) : '...';
-  const endPart = endDate ? formatDate(endDate) : '...';
+export const formatAsFullRange = (startDate?: string | null, endDate?: string | null) => {
+  const startPart = startDate ? formatDate(startDate) : '??';
+  const endPart = endDate ? formatDate(endDate) : '??';
 
   return `${startPart}-${endPart}`;
 };
 
-export const formatAsYearRange = (startDate?: string, endDate?: string) => {
-  const startPart = startDate ? new Date(startDate).getFullYear() : '...';
-  const endPart = endDate ? new Date(endDate).getFullYear() : '...';
+export const formatAsYearRange = (startDate?: string | null, endDate?: string | null) => {
+  const startPart = startDate ? new Date(startDate).getFullYear() : '??';
+  const endPart = endDate ? new Date(endDate).getFullYear() : '??';
 
-  return `${startPart}-${endPart}`;
+  return startPart !== endPart ? `${startPart}-${endPart}` : startPart;
 };

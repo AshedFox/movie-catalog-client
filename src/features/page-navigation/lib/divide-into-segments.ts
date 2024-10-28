@@ -1,8 +1,4 @@
-export const divideIntoSegments = (
-  pagesCount: number,
-  blockSize: number,
-  currentPage: number,
-) => {
+export const divideIntoSegments = (pagesCount: number, blockSize: number, currentPage: number) => {
   const items: number[] = [];
   const startItems: number[] = [];
   const endItems: number[] = [];

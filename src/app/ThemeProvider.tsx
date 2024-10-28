@@ -1,10 +1,6 @@
-import React, {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+'use client';
+
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -24,8 +20,7 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (
       localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       handleChange('dark');
     } else {

@@ -1,43 +1,43 @@
-'use client';
-
-import React, { PropsWithChildren, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser } from '@entities/user';
+import { getServerSession } from '@features/auth/session';
 import { RoleEnum } from '@shared/api/graphql';
+import { redirect } from 'next/navigation';
+import { PropsWithChildren } from 'react';
 
-type Props = PropsWithChildren<{
-  shouldBeAuthorized?: boolean;
-  shouldBeOfRole?: RoleEnum[];
-  redirect?: string;
-}>;
+type Props = PropsWithChildren<
+  | { shouldBeAuthorized?: false; shouldBeOfRole?: never; redirectPath?: string }
+  | {
+      shouldBeAuthorized: true;
+      shouldBeOfRole?: RoleEnum[];
+      redirectPath?: string;
+    }
+>;
 
-const AuthChecker = ({
-  redirect = '/',
+const AuthChecker = async ({
+  redirectPath = '/',
   shouldBeAuthorized = true,
   shouldBeOfRole,
   children,
 }: Props) => {
-  const { user } = useUser();
-  const router = useRouter();
+  const session = await getServerSession();
 
-  useEffect(() => {
-    if (
-      (shouldBeAuthorized && !user) ||
-      (!shouldBeAuthorized && user) ||
-      (shouldBeAuthorized &&
-        user &&
-        shouldBeOfRole &&
-        !shouldBeOfRole.includes(user.role))
-    ) {
-      router.push(redirect);
-    }
-  }, [redirect, router, shouldBeAuthorized, shouldBeOfRole, user]);
-
-  if ((shouldBeAuthorized && !user) || (!shouldBeAuthorized && user)) {
-    return <></>;
+  if (shouldBeAuthorized && !session) {
+    redirect(redirectPath);
   }
 
-  return <>{children}</>;
+  if (!shouldBeAuthorized && session) {
+    redirect(redirectPath);
+  }
+
+  if (
+    shouldBeAuthorized &&
+    session &&
+    shouldBeOfRole &&
+    !shouldBeOfRole.includes(session.user.role)
+  ) {
+    redirect(redirectPath);
+  }
+
+  return children;
 };
 
 export default AuthChecker;

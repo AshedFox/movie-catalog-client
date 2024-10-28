@@ -1,20 +1,28 @@
-import React, { Suspense } from 'react';
-import { Loader } from '@shared/ui';
+import { FilmCard } from '@entities/film';
 import { FilmsFilters, parseParamsToFilmFilter } from '@features/film-filter';
 import { FilmsSort, parseParamsToFilmSort } from '@features/film-sort';
-import { PageNavigation } from '@features/page-navigation';
-import { GetFilmsDocument } from '@shared/api/graphql';
-import { FilmsGrid } from '@widgets/films-grid';
+import { QueryPageNavigation } from '@features/page-navigation';
+import { FilmSort, GetFilmsDocument, SortDirectionEnum } from '@shared/api/graphql';
 import { getClient } from '@shared/api/graphql/client';
+import {
+  Button,
+  Loader,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@shared/ui';
+import { Settings2 } from 'lucide-react';
+import { Suspense } from 'react';
 
 export const dynamic = 'force-dynamic';
 
 export const generateMetadata = async ({ searchParams }: Props) => {
   return {
     title: `Films${
-      searchParams?.page && Number(searchParams.page) > 1
-        ? ` - ${searchParams.page}`
-        : ''
+      searchParams?.page && Number(searchParams.page) > 1 ? ` - ${searchParams.page}` : ''
     }`,
   };
 };
@@ -31,13 +39,15 @@ type Props = {
   };
 };
 
-const amountPerPage = 4;
+const amountPerPage = 20;
 
 const client = getClient();
 
 const Page = async ({ searchParams }: Props) => {
   const filter = parseParamsToFilmFilter({ ...searchParams });
-  const sort = parseParamsToFilmSort(searchParams?.sort ?? 'releaseDate');
+  const sortKey = searchParams?.sort?.split('_')[0] as keyof FilmSort;
+  const sortDirection = searchParams?.sort?.split('_')[1] as SortDirectionEnum;
+  const sort = parseParamsToFilmSort(sortKey, sortDirection);
   const page = Number(searchParams?.page ?? 1);
 
   const { data: filmsData } = await client.query({
@@ -50,36 +60,55 @@ const Page = async ({ searchParams }: Props) => {
     },
   });
 
+  const films = filmsData.getFilms.nodes;
+
   return (
-    <main className="flex flex-col py-4 container flex-auto">
-      <h1 className="font-semibold text-3xl leading-tight">Films</h1>
-      <div className="flex flex-col gap-3 flex-auto">
-        <Suspense
-          fallback={
-            <div className="flex flex-auto items-center justify-center">
-              <Loader />
-            </div>
-          }
-        >
-          <FilmsFilters />
-        </Suspense>
+    <main className="flex flex-col py-4 gap-3 flex-1">
+      <h1 className="font-semibold text-5xl leading-tight">Films</h1>
+      <div className="flex flex-col gap-3 flex-1">
         <div className="flex items-center justify-between gap-2">
-          <FilmsSort currentSort={sort} />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="flex gap-1" variant="outline" size="sm">
+                <Settings2 className="w-4 h-4" />
+                <span className="font-medium text-sm">Filters</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <SheetHeader>
+                <SheetTitle>Filters</SheetTitle>
+                <SheetDescription>Set filters to find films you interested in.</SheetDescription>
+              </SheetHeader>
+              <Suspense
+                fallback={
+                  <div className="flex flex-auto items-center justify-center">
+                    <Loader />
+                  </div>
+                }
+              >
+                <FilmsFilters />
+              </Suspense>
+            </SheetContent>
+          </Sheet>
+          <FilmsSort />
         </div>
-        <Suspense
-          fallback={
-            <div className="flex flex-auto items-center justify-center">
-              <Loader />
+        {films.length > 0 ? (
+          <div className="flex flex-col flex-1">
+            <div className="grid gap-2 lg:gap-3 xl:gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+              {films.map((film) => (
+                <FilmCard key={film.id} film={film} />
+              ))}
             </div>
-          }
-        >
-          <FilmsGrid items={filmsData.getFilms.nodes} />
-          <PageNavigation
-            currentPage={page}
-            amountPerPage={amountPerPage}
-            totalCount={filmsData.getFilms.pageInfo.totalCount}
-          />
-        </Suspense>
+          </div>
+        ) : (
+          <div className="flex-1 text-gray-500 text-xl flex items-center justify-center">
+            Nothing here...
+          </div>
+        )}
+        <QueryPageNavigation
+          amountPerPage={amountPerPage}
+          totalCount={filmsData.getFilms.pageInfo.totalCount}
+        />
       </div>
     </main>
   );

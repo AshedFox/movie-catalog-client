@@ -1,9 +1,8 @@
-import React from 'react';
-import { getClient } from '@shared/api/graphql/client';
-import { GetCollectionsDocument, SortDirectionEnum } from '@shared/api/graphql';
-import { PageNavigation } from '@features/page-navigation';
-import CollectionsGrid from '@widgets/collections-grid/ui/CollectionsGrid';
 import { CreateSystemCollectionLink } from '@features/create-collection';
+import { QueryPageNavigation } from '@features/page-navigation';
+import { GetCollectionsDocument, SortDirectionEnum } from '@shared/api/graphql';
+import { getClient } from '@shared/api/graphql/client';
+import CollectionsGrid from '@widgets/collections-grid/ui/CollectionsGrid';
 
 type Props = {
   searchParams?: {
@@ -16,9 +15,7 @@ type Props = {
 export const generateMetadata = async ({ searchParams }: Props) => {
   return {
     title: `System Collections${
-      searchParams?.page && Number(searchParams.page) > 1
-        ? ` - ${searchParams.page}`
-        : ''
+      searchParams?.page && Number(searchParams.page) > 1 ? ` - ${searchParams.page}` : ''
     }`,
   };
 };
@@ -55,8 +52,7 @@ const Page = async ({ searchParams }: Props) => {
       <div className="flex-auto">
         <CollectionsGrid items={data.getCollections.nodes} />
       </div>
-      <PageNavigation
-        currentPage={page}
+      <QueryPageNavigation
         amountPerPage={amountPerPage}
         totalCount={data.getCollections.pageInfo.totalCount}
       />

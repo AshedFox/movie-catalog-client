@@ -1,15 +1,13 @@
-'use client';
-
 import React from 'react';
 import { Button } from '@shared/ui';
 import Link from 'next/link';
-import { useUser } from '@entities/user';
+import { getServerSession } from '@features/auth/session';
 
-const CreateSystemCollectionLink = () => {
-  const { user } = useUser();
+const CreateSystemCollectionLink = async () => {
+  const session = await getServerSession();
 
-  if (!user || user.role !== 'Admin') {
-    return <></>;
+  if (!session?.user || session.user.role !== 'Admin') {
+    return null;
   }
 
   return (

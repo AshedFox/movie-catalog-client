@@ -1,10 +1,8 @@
 import { FilterArgs } from '../model/types';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 
-export const getParamsWithArgs = (
-  searchParams: URLSearchParams,
-  values: FilterArgs,
-) => {
-  const params = new URLSearchParams(searchParams);
+export const getParamsWithArgs = (searchParams: ReadonlyURLSearchParams, values: FilterArgs) => {
+  const params = new URLSearchParams(searchParams.toString());
 
   params.delete('page');
 
@@ -20,10 +18,7 @@ export const getParamsWithArgs = (
     params.set('title', values.title);
   }
   if (values.releaseDateStart) {
-    params.set(
-      'releaseDateGTE',
-      new Date(values.releaseDateStart).toISOString(),
-    );
+    params.set('releaseDateGTE', new Date(values.releaseDateStart).toISOString());
   }
   if (values.releaseDateEnd) {
     params.set('releaseDateLTE', new Date(values.releaseDateEnd).toISOString());

@@ -74,9 +74,7 @@ const CreateRoomForm = ({ userId }: Props) => {
       },
     });
     if (data) {
-      await fetch(
-        `http://localhost:3001/api/revalidate?tag=rooms_${data.createRoom.owner.id}`,
-      );
+      await fetch(`http://localhost:3001/api/revalidate?tag=rooms_${data.createRoom.owner.id}`);
       router.push(`/rooms/${data.createRoom.id}`);
     }
   };

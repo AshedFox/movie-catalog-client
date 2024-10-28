@@ -3,3 +3,14 @@ query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {
     ...Episode
   }
 }
+
+query GetEpisodes($limit: Int!, $offset: Int!, $sort: EpisodeSort, $filter: EpisodeFilter) {
+  getEpisodes(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
+    nodes {
+      ...Episode
+    }
+    pageInfo {
+      totalCount
+    }
+  }
+}

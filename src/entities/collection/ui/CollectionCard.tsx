@@ -19,10 +19,7 @@ const CollectionCard = ({ collection }: Props) => {
       tagsSlot={
         <div className="rounded text-xs py-0.5 px-2 bg-primary-200 dark:bg-primary-600">
           <span>By </span>
-          <Link
-            href={`${ROUTES.users}/${collection.owner.id}`}
-            className="font-semibold"
-          >
+          <Link href={`${ROUTES.users}/${collection.owner.id}`} className="font-semibold">
             {collection.owner.name}
           </Link>
         </div>
@@ -30,9 +27,7 @@ const CollectionCard = ({ collection }: Props) => {
       extraSlot={
         <>
           {collection.createdAt && (
-            <div className="text-sm font-semibold">
-              {formatDate(collection.createdAt)}
-            </div>
+            <div className="text-sm font-semibold">{formatDate(collection.createdAt)}</div>
           )}
         </>
       }

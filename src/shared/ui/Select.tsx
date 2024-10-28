@@ -1,95 +1,123 @@
 'use client';
 
-import React from 'react';
-import ReactSelect, { Props as RSProps } from 'react-select';
-import clsx from 'clsx';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { Check, ChevronDown } from 'lucide-react';
+import * as React from 'react';
 
-const controlStyles = {
-  base: 'border rounded bg-gray-50 dark:bg-gray-700 cursor-pointer',
-  focus: 'border-primary-200 dark:border-primary-600',
-  nonFocus: 'border-gray-200 dark:border-gray-600 hover:border-gray-400',
-};
-const placeholderStyles = 'text-gray-500';
-const selectInputStyles = '';
-const valueContainerStyles = 'gap-1 px-3';
-const singleValueStyles = 'ml-1';
-const multiValueStyles =
-  'bg-gray-200 dark:bg-gray-600 rounded px-2 py-1 gap-1.5';
-const multiValueLabelStyles = '';
-const multiValueRemoveStyles =
-  'hover:text-red-600 dark:hover:text-red-700 cursor-pointer';
-const indicatorsContainerStyles = 'p-1 gap-1';
-const clearIndicatorStyles =
-  'text-gray-500 p-2 hover:text-red-600 dark:hover:text-red-700 cursor-pointer';
-const indicatorSeparatorStyles = 'bg-gray-300 dark:bg-gray-500';
-const dropdownIndicatorStyles =
-  'p-1 text-gray-500 rounded-md cursor-pointer hover:text-gray-900 dark:hover:text-gray-50';
-const menuStyles =
-  'p-1 mt-2 border border-gray-200 dark:border-gray-600 bg-gray-50 cursor-pointer dark:bg-gray-700 rounded';
-const groupHeadingStyles = 'ml-3 mt-2 mb-1 text-gray-500 text-sm';
-const optionStyles = {
-  base: 'hover:cursor-pointer px-3 py-2 rounded',
-  focus:
-    'bg-gray-200 dark:bg-gray-600 active:bg-gray-300 dark:active:bg-gray-500',
-  selected: "after:content-['✔'] after:ml-2 after:text-green-500 text-gray-500",
-};
-const noOptionsMessageStyles =
-  'text-gray-500 p-2 bg-gray-50 dark:bg-gray-700 border border-dashed border-gray-200 border-gray-600 rounded-sm';
+import { cn } from '../lib/utils';
 
-const Select = (props: RSProps) => (
-  <ReactSelect
-    isMulti
-    closeMenuOnSelect={false}
-    hideSelectedOptions={false}
-    unstyled
-    styles={{
-      input: (base) => ({
-        ...base,
-        'input:focus': {
-          boxShadow: 'none',
-        },
-      }),
-      // On mobile, the label will truncate automatically, so we want to
-      // override that behaviour.
-      multiValueLabel: (base) => ({
-        ...base,
-        whiteSpace: 'normal',
-        overflow: 'visible',
-      }),
-      control: (base) => ({
-        ...base,
-        transition: 'none',
-      }),
-    }}
-    classNames={{
-      control: ({ isFocused }) =>
-        clsx(
-          isFocused ? controlStyles.focus : controlStyles.nonFocus,
-          controlStyles.base,
-        ),
-      placeholder: () => placeholderStyles,
-      input: () => selectInputStyles,
-      valueContainer: () => valueContainerStyles,
-      singleValue: () => singleValueStyles,
-      multiValue: () => multiValueStyles,
-      multiValueLabel: () => multiValueLabelStyles,
-      multiValueRemove: () => multiValueRemoveStyles,
-      indicatorsContainer: () => indicatorsContainerStyles,
-      clearIndicator: () => clearIndicatorStyles,
-      indicatorSeparator: () => indicatorSeparatorStyles,
-      dropdownIndicator: () => dropdownIndicatorStyles,
-      menu: () => menuStyles,
-      groupHeading: () => groupHeadingStyles,
-      option: ({ isFocused, isSelected }) =>
-        clsx(
-          isFocused && optionStyles.focus,
-          isSelected && optionStyles.selected,
-          optionStyles.base,
-        ),
-      noOptionsMessage: () => noOptionsMessageStyles,
-    }}
+const Select = SelectPrimitive.Root;
+
+Select.displayName = SelectPrimitive.Root.displayName;
+
+const SelectGroup = SelectPrimitive.Group;
+
+const SelectValue = SelectPrimitive.Value;
+
+const SelectTrigger = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <SelectPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      'flex h-10 w-full items-center justify-between rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-900 dark:border-gray-800 dark:ring-offset-gray-900 dark:placeholder:text-gray-400 dark:focus:ring-gray-800',
+      className,
+    )}
+    {...props}
+  >
+    {children}
+    <SelectPrimitive.Icon asChild>
+      <ChevronDown className="h-4 w-4" />
+    </SelectPrimitive.Icon>
+  </SelectPrimitive.Trigger>
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+
+const SelectContent = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
+>(({ className, children, position = 'popper', ...props }, ref) => (
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Content
+      ref={ref}
+      className={cn(
+        'relative z-50 min-w-[8rem] overflow-hidden rounded-md border border-gray-200 bg-gray-50 text-gray-900 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-50',
+        position === 'popper' &&
+          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+        className,
+      )}
+      position={position}
+      {...props}
+    >
+      <SelectPrimitive.Viewport
+        className={cn(
+          'p-1',
+          position === 'popper' &&
+            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+        )}
+      >
+        {children}
+      </SelectPrimitive.Viewport>
+    </SelectPrimitive.Content>
+  </SelectPrimitive.Portal>
+));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
+
+const SelectLabel = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.Label
+    ref={ref}
+    className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold', className)}
     {...props}
   />
-);
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
-export default Select;
+const SelectItem = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
+>(({ className, children, ...props }, ref) => (
+  <SelectPrimitive.Item
+    ref={ref}
+    className={cn(
+      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-gray-800 dark:focus:text-gray-50',
+      className,
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <SelectPrimitive.ItemIndicator>
+        <Check className="h-4 w-4" />
+      </SelectPrimitive.ItemIndicator>
+    </span>
+
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+  </SelectPrimitive.Item>
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;
+
+const SelectSeparator = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Separator>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.Separator
+    ref={ref}
+    className={cn('-mx-1 my-1 h-px bg-gray-100 dark:bg-gray-800', className)}
+    {...props}
+  />
+));
+SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+};

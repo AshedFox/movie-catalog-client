@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@entities/user';
 import {
   CollectionUserFragment,
   CreateCollectionUserDocument,
@@ -7,16 +6,17 @@ import {
   UpdateCollectionUserDocument,
 } from '@shared/api/graphql';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import clsx from 'clsx';
+import { useSession } from '@features/auth/session';
+import { cn } from '@shared/lib/utils';
 
 type Props = {
   collectionId: number;
 };
 
 const CollectionBookmarkBlock = ({ collectionId }: Props) => {
-  const { user } = useUser();
-  const [collectionUser, setCollectionUser] =
-    useState<CollectionUserFragment | null>(null);
+  const session = useSession();
+  const [collectionUser, setCollectionUser] = useState<CollectionUserFragment | null>(null);
+  const user = session.data?.user;
 
   const [getCollectionUser] = useLazyQuery(GetCollectionUserDocument, {
     onError() {
@@ -39,14 +39,11 @@ const CollectionBookmarkBlock = ({ collectionId }: Props) => {
       setCollectionUser(data.createCollectionUser);
     },
   });
-  const [updateCollectionUser, { loading }] = useMutation(
-    UpdateCollectionUserDocument,
-    {
-      onCompleted(data) {
-        setCollectionUser(data.updateCollectionUser);
-      },
+  const [updateCollectionUser, { loading }] = useMutation(UpdateCollectionUserDocument, {
+    onCompleted(data) {
+      setCollectionUser(data.updateCollectionUser);
     },
-  );
+  });
 
   useEffect(() => {
     if (user) {
@@ -87,7 +84,7 @@ const CollectionBookmarkBlock = ({ collectionId }: Props) => {
           width="24"
           height="24"
           fill="currentColor"
-          className={clsx('transition-colors', {
+          className={cn('transition-colors', {
             ['fill-yellow-400 dark:fill-yellow-500 hover:fill-red-400 dark:hover:fill-red-500']:
               collectionUser.isBookmarked,
             ['fill-gray-500 dark:fill-gray-300 hover:fill-yellow-400 dark:hover:fill-yellow-500']:
@@ -124,7 +121,7 @@ const CollectionBookmarkBlock = ({ collectionId }: Props) => {
           width="24"
           height="24"
           fill="currentColor"
-          className={clsx('transition-colors', {
+          className={cn('transition-colors', {
             ['fill-yellow-400 dark:fill-yellow-500 hover:fill-red-400 dark:hover:fill-red-500']:
               collectionUser.isWatched,
             ['fill-gray-500 dark:fill-gray-300 hover:fill-yellow-400 dark:hover:fill-yellow-500']:

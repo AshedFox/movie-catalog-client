@@ -1,59 +1,41 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import {
-  EpisodeFragment,
   HasActiveSubscriptionDocument,
   HasPurchaseDocument,
+  SeasonItem_SeasonFragment,
+  SeriesItem_SeriesFragment,
 } from '@shared/api/graphql';
-import { WatchModal } from '@widgets/watch-modal';
+import { SeriesWatchModal } from '@widgets/watch-modal';
 
 type Props = {
-  seriesId: string;
-  episode: EpisodeFragment;
+  series: SeriesItem_SeriesFragment;
+  seasons: SeasonItem_SeasonFragment[];
 };
 
-const ClientSide = ({ episode, seriesId }: Props) => {
-  const { data: hasPurchaseData } = useSuspenseQuery_experimental(
-    HasPurchaseDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-      variables: {
-        movieId: seriesId,
-      },
+const ClientSide = ({ series, seasons }: Props) => {
+  const { data: hasPurchaseData } = useSuspenseQuery(HasPurchaseDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+    variables: {
+      movieId: series.id,
     },
-  );
-  const { data: hasSubscriptionData } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-    },
-  );
+  });
+  const { data: hasSubscriptionData } = useSuspenseQuery(HasActiveSubscriptionDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
 
-  const canWatch =
-    !!episode.video &&
-    !!(
-      (hasPurchaseData && hasPurchaseData.hasPurchase) ||
-      (hasSubscriptionData && hasSubscriptionData.hasActiveSubscription)
-    );
-
-  if (!canWatch) {
-    return <></>;
+  if (
+    (!hasSubscriptionData || !hasSubscriptionData.hasActiveSubscription) &&
+    (!hasPurchaseData || !hasPurchaseData.hasPurchase)
+  ) {
+    return null;
   }
 
-  return (
-    <WatchModal
-      title={`Watch ${episode.title ?? `Episode #${episode.numberInSeries}`}`}
-      url={episode.video?.dashManifestMedia?.url}
-      subtitles={episode.video?.subtitles.map((value) => ({
-        url: value.file.url,
-        language: value.languageId,
-      }))}
-    />
-  );
+  return <SeriesWatchModal series={series} seasons={seasons} />;
 };
 
 export default ClientSide;

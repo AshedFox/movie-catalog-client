@@ -1,11 +1,7 @@
-import React from 'react';
-import { getClient } from '@shared/api/graphql/client';
-import {
-  GetCollectionsReviewsOffsetDocument,
-  SortDirectionEnum,
-} from '@shared/api/graphql';
-import { PageNavigation } from '@features/page-navigation';
 import { ReviewItem } from '@entities/review';
+import { QueryPageNavigation } from '@features/page-navigation';
+import { GetCollectionsReviewsOffsetDocument, SortDirectionEnum } from '@shared/api/graphql';
+import { getClient } from '@shared/api/graphql/client';
 import { List } from '@shared/ui';
 import Link from 'next/link';
 
@@ -21,9 +17,7 @@ type Props = {
 export const generateMetadata = async ({ searchParams }: Props) => {
   return {
     title: `Collections reviews${
-      searchParams?.page && Number(searchParams.page) > 1
-        ? ` - ${searchParams.page}`
-        : ''
+      searchParams?.page && Number(searchParams.page) > 1 ? ` - ${searchParams.page}` : ''
     }`,
   };
 };
@@ -52,30 +46,25 @@ const Page = async ({ searchParams, params }: Props) => {
 
   return (
     <main className="flex flex-col py-4 container flex-auto gap-2">
-      <h1 className="font-semibold text-3xl leading-tight">
-        Collections reviews
-      </h1>
+      <h1 className="font-semibold text-3xl leading-tight">Collections reviews</h1>
       <List
-        items={data.getCollectionsReviewsOffset.nodes.map((item) => ({
-          key: item.id,
-          content: (
-            <ReviewItem
-              review={item}
-              isOwn={false}
-              fullLinkSlot={
-                <Link
-                  className="text-sm text-gray-600 dark:text-gray-400 truncate"
-                  href={`/collections/${item.collection!.id}`}
-                >
-                  {`See collection →`}
-                </Link>
-              }
-            />
-          ),
-        }))}
+        items={data.getCollectionsReviewsOffset.nodes.map((item) => (
+          <ReviewItem
+            key={item.id}
+            review={item}
+            isOwn={false}
+            fullLinkSlot={
+              <Link
+                className="text-sm text-gray-600 dark:text-gray-400 truncate"
+                href={`/collections/${item.collection!.id}`}
+              >
+                {`See collection →`}
+              </Link>
+            }
+          />
+        ))}
       />
-      <PageNavigation
-        currentPage={page}
+      <QueryPageNavigation
         amountPerPage={amountPerPage}
         totalCount={data.getCollectionsReviewsOffset.pageInfo.totalCount}
       />

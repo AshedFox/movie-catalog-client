@@ -9,11 +9,7 @@ mutation UpdateCollectionUser(
   $collectionId: Int!
   $input: UpdateCollectionUserInput!
 ) {
-  updateCollectionUser(
-    userId: $userId
-    collectionId: $collectionId
-    input: $input
-  ) {
+  updateCollectionUser(userId: $userId, collectionId: $collectionId, input: $input) {
     ...CollectionUser
   }
 }

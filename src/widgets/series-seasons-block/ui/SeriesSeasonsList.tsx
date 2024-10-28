@@ -1,19 +1,18 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
-import { GetSeasonsDocument, SortDirectionEnum } from '@shared/api/graphql';
-import { Button, List } from '@shared/ui';
+import { useSuspenseQuery } from '@apollo/client';
+import { GetSeasonsDocument, HasPurchaseDocument, SortDirectionEnum } from '@shared/api/graphql';
+import { Button, List, buttonVariants } from '@shared/ui';
 import Link from 'next/link';
 import Image from 'next/image';
 
 type Props = {
   seriesId: string;
-  hasPurchase: boolean;
 };
 
-const SeriesSeasonsList = ({ seriesId, hasPurchase }: Props) => {
-  const { data } = useSuspenseQuery_experimental(GetSeasonsDocument, {
+const SeriesSeasonsList = ({ seriesId }: Props) => {
+  const { data } = useSuspenseQuery(GetSeasonsDocument, {
     variables: {
       limit: 999,
       offset: 0,
@@ -28,6 +27,13 @@ const SeriesSeasonsList = ({ seriesId, hasPurchase }: Props) => {
         },
       },
     },
+  });
+  const { data: hasPurchaseData } = useSuspenseQuery(HasPurchaseDocument, {
+    fetchPolicy: 'network-only',
+    variables: {
+      movieId: seriesId,
+    },
+    errorPolicy: 'ignore',
   });
 
   const seasons = data?.getSeasons?.nodes ?? [];
@@ -62,23 +68,17 @@ const SeriesSeasonsList = ({ seriesId, hasPurchase }: Props) => {
                           <div className="flex flex-col p-2 gap-2">
                             <h3
                               className="truncate"
-                              title={
-                                episode.title ??
-                                `Episode #${episode.numberInSeries}`
-                              }
+                              title={episode.title ?? `Episode #${episode.numberInSeries}`}
                             >
-                              {episode.title ??
-                                `Episode #${episode.numberInSeries}`}
+                              {episode.title ?? `Episode #${episode.numberInSeries}`}
                             </h3>
-                            {hasPurchase &&
+                            {!!hasPurchaseData?.hasPurchase &&
                               episode.video?.dashManifestMedia?.url && (
                                 <Link
-                                  className="flex"
+                                  className={buttonVariants({ size: 'sm' })}
                                   href={`series/${seriesId}/watch?e=${episode.numberInSeries}`}
                                 >
-                                  <Button stretch size="sm">
-                                    Watch
-                                  </Button>
+                                  Watch
                                 </Link>
                               )}
                           </div>

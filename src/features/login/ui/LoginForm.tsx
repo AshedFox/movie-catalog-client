@@ -1,116 +1,98 @@
 'use client';
 
-import React, { startTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { Button, Field } from 'shared/ui';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { ApolloError, useApolloClient } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as Crypto from 'crypto';
-import Link from 'next/link';
-import { ROUTES } from '@shared/constants/routes';
-import { loginSchema } from '../model/login-schema';
-import { useUser } from '@entities/user';
-import {
-  HasActiveSubscriptionDocument,
-  LoginDocument,
-  LoginInput,
-} from '@shared/api/graphql';
+import { LoginInput } from '@shared/api/graphql';
+import { useToast } from '@shared/hooks/use-toast';
+import { Button } from '@shared/ui/Button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@shared/ui/Form';
+import { Input } from '@shared/ui/Input';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { loginSchema } from '../model/login-schema';
+import { login } from '@features/auth/api';
+import { useSession } from '@features/auth/session';
 
 type Props = {
-  redirect?: 'back' | string;
+  redirectOnSuccess?: 'back' | string;
 };
 
-const LoginForm = ({ redirect }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginInput>({
+const LoginForm = ({ redirectOnSuccess }: Props) => {
+  const { toast } = useToast();
+  const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
-  const [login, { loading, error }] = useMutation(LoginDocument, {
-    refetchQueries: [HasActiveSubscriptionDocument],
-    update: (cache, { data }) => {
-      localStorage.setItem('access-token', data?.login.accessToken ?? '');
-    },
-  });
-  const { setUser } = useUser();
   const router = useRouter();
   const { cache } = useApolloClient();
+  const session = useSession();
 
   const onSubmit = async (input: LoginInput) => {
-    const { errors, data } = await login({
-      variables: {
-        input: {
-          email: input.email,
-          password: Crypto.createHash('sha512')
-            .update(input.password)
-            .digest('hex'),
-        },
-      },
-      errorPolicy: 'ignore',
-    });
+    try {
+      const { data, errors } = await login(input);
 
-    if (!errors && data) {
-      await cache.reset();
+      if (!errors && data) {
+        await cache.reset();
+        await session.update();
 
-      startTransition(() => {
-        if (redirect) {
-          if (redirect === 'back') {
-            router.back();
-          } else {
-            router.push(redirect);
-          }
+        if (redirectOnSuccess) {
+          redirectOnSuccess === 'back' ? router.back() : router.push(redirectOnSuccess);
         }
-        router.refresh();
-
-        localStorage.setItem('access-token', data.login.accessToken);
-        setUser(data.login.user);
-      });
+      }
+    } catch (error) {
+      if (error instanceof ApolloError) {
+        toast({
+          title: 'Error',
+          description: error.message,
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Error',
+          description: 'There is an error on login!',
+          variant: 'destructive',
+        });
+      }
     }
   };
 
   return (
-    <form
-      className="flex flex-col p-5 rounded gap-3 w-[300px] md:w-[640px] lg:w-[720px] bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <fieldset className="flex flex-col gap-2" disabled={loading}>
-        <Field
-          type="email"
-          label="Email"
-          {...register('email', {
-            required: true,
-          })}
-          error={errors.email?.message}
+    <Form {...form}>
+      <form className="flex flex-col gap-3 w-full" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="example@example.com" type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="email"
         />
-        <Field
-          type="password"
-          label="Password"
-          {...register('password', {
-            required: true,
-          })}
-          error={errors.password?.message}
+        <FormField
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder="********" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          name="password"
         />
-      </fieldset>
-      <span className="text-xs text-red-500">{error?.message}</span>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-        <Button type="submit" stretch disabled={loading}>
+        <Button type="submit" isLoading={form.formState.isLoading}>
           Login
         </Button>
-        <Link
-          className="text-xs text-gray-500 border-b-2 border-gray-500 self-start lg:self-center"
-          href={ROUTES.signUp}
-        >
-          {"Don't have account?"}
-        </Link>
-      </div>
-    </form>
+      </form>
+    </Form>
   );
 };
 

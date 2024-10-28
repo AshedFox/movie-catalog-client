@@ -15,12 +15,7 @@ query GetCollectionsReviewsOffset(
   $limit: Int!
   $withCollection: Boolean = false
 ) {
-  getCollectionsReviewsOffset(
-    filter: $filter
-    sort: $sort
-    offset: $offset
-    limit: $limit
-  ) {
+  getCollectionsReviewsOffset(filter: $filter, sort: $sort, offset: $offset, limit: $limit) {
     nodes {
       ...CollectionReview
       collection @include(if: $withCollection) {

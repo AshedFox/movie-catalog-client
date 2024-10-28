@@ -1,49 +1,54 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { Button } from '@shared/ui';
-import { SeriesSort as SeriesSortArgs } from '@shared/api/graphql/__generated__/graphql';
+import { SeriesSort, SortDirectionEnum } from '@shared/api/graphql';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@shared/ui';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 import { getParamsWithArgs } from '../lib/getParamsWithArgs';
 
-type Props = {
-  currentSort: SeriesSortArgs;
-};
-
-const SeriesSort = ({ currentSort }: Props) => {
+const SeriesSort = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleSortChange = (sortParam: keyof SeriesSortArgs) => {
-    router.push(`${pathname}?${createQueryString(sortParam)}`);
+  const [sortKey, sortDirection] = useMemo(() => {
+    const [key, direction] = searchParams.get('sort')?.split('_') ?? [];
+
+    return [key ?? 'title', direction ?? SortDirectionEnum.ASC] as [
+      keyof SeriesSort,
+      SortDirectionEnum,
+    ];
+  }, [searchParams]);
+
+  const handleSortChange = (sortKey: keyof SeriesSort, sortDirection: SortDirectionEnum) => {
+    router.push(`${pathname}?${createQueryString(`${sortKey}_${sortDirection}`)}`);
   };
 
   const createQueryString = useCallback(
-    (sortParam: keyof SeriesSortArgs) =>
-      getParamsWithArgs(searchParams, sortParam),
+    (sortParam: string) => getParamsWithArgs(searchParams, sortParam),
     [searchParams],
   );
 
   return (
-    <div className="flex items-center gap-2">
-      <Button
-        size="sm"
-        variant="secondary"
-        disabled={!!currentSort.startReleaseDate}
-        onClick={() => handleSortChange('startReleaseDate')}
-      >
-        By Release
-      </Button>
-      <Button
-        size="sm"
-        variant="secondary"
-        disabled={!!currentSort.title}
-        onClick={() => handleSortChange('title')}
-      >
-        By Title
-      </Button>
-    </div>
+    <Select
+      value={`${sortKey}_${sortDirection}`}
+      onValueChange={(value) => {
+        handleSortChange(
+          value.split('_')[0] as keyof SeriesSort,
+          value.split('_')[1] as SortDirectionEnum,
+        );
+      }}
+    >
+      <SelectTrigger className="max-w-[200px] text-sm font-medium">
+        <SelectValue placeholder="Select sort" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="title_ASC">By title (A - Z)</SelectItem>
+        <SelectItem value="title_DESC">By title (Z - A)</SelectItem>
+        <SelectItem value="startReleaseDate_ASC">By release (Old - New)</SelectItem>
+        <SelectItem value="startReleaseDate_DESC">By release (New - Old)</SelectItem>
+      </SelectContent>
+    </Select>
   );
 };
 

@@ -1,9 +1,4 @@
-query GetSeasons(
-  $limit: Int!
-  $offset: Int!
-  $sort: SeasonSort
-  $filter: SeasonFilter
-) {
+query GetSeasons($limit: Int!, $offset: Int!, $sort: SeasonSort, $filter: SeasonFilter) {
   getSeasons(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...SeasonItem_Season

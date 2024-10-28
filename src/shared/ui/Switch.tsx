@@ -1,83 +1,31 @@
-import React from 'react';
-import clsx from 'clsx';
+'use client';
 
-type Size = 'sm' | 'md' | 'lg';
-type Variant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+import * as SwitchPrimitives from '@radix-ui/react-switch';
+import * as React from 'react';
 
-type Props = {
-  onClick?: () => void;
-  variant?: Variant;
-  size?: Size;
-  value: boolean;
-};
+import { cn } from '../lib/utils';
 
-const SIZE_CLASSES: Record<Size, string> = {
-  sm: 'w-8 h-4',
-  md: 'w-14 h-7',
-  lg: 'w-20 h-10',
-};
-
-const SIZE_CLASSES_BALL: Record<Size, string> = {
-  sm: 'w-4 h-4',
-  md: 'w-7 h-7',
-  lg: 'w-10 h-10',
-};
-
-const LIGHT_THEME_CLASSES: Record<Variant, string> = {
-  primary: 'bg-primary-500 hover:bg-primary-600',
-  secondary: 'bg-gray-500 hover:bg-gray-600',
-  success: 'bg-green-500 hover:bg-green-600',
-  warning: 'bg-yellow-500 hover:bg-yellow-600',
-  danger: 'bg-red-500 hover:bg-red-600',
-};
-
-const DARK_THEME_CLASSES: Record<Variant, string> = {
-  primary: 'dark:bg-primary-700 dark:hover:bg-primary-600',
-  secondary: 'dark:bg-gray-700 dark:hover:bg-gray-600',
-  success: 'dark:bg-green-700 dark:hover:bg-green-600',
-  warning: 'dark:bg-yellow-700 dark:hover:bg-yellow-600',
-  danger: 'dark:bg-red-700 dark:hover:bg-red-600',
-};
-
-const RING_CLASSES: Record<Variant, string> = {
-  primary: 'focus:ring-primary-500',
-  secondary: 'focus:ring-gray-500',
-  success: 'focus:ring-green-500',
-  warning: 'focus:ring-yellow-500',
-  danger: 'focus:ring-red-500',
-};
-
-const Switch = ({
-  onClick,
-  variant = 'primary',
-  size = 'md',
-  value,
-}: Props) => {
-  return (
-    <div
-      className={clsx(
-        'cursor-pointer flex items-center relative shrink-0 overflow-hidden rounded-full',
-        'ring-1 ring-gray-300 dark:ring-gray-600',
-        'bg-gray-100 dark:bg-gray-800',
-        SIZE_CLASSES[size],
-        RING_CLASSES[variant],
+const Switch = React.forwardRef<
+  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
+>(({ className, children, ...props }, ref) => (
+  <SwitchPrimitives.Root
+    className={cn(
+      'peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 bg-gray-200 dark:focus-visible:ring-gray-800 dark:focus-visible:ring-offset-gray-900 dark:bg-gray-800',
+      className,
+    )}
+    {...props}
+    ref={ref}
+  >
+    <SwitchPrimitives.Thumb
+      className={cn(
+        'flex items-center justify-center pointer-events-none h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0 dark:bg-gray-900',
       )}
-      onClick={onClick}
     >
-      <div
-        className={clsx(
-          'rounded-full transition duration-300 ease-in-out',
-          SIZE_CLASSES_BALL[size],
-          LIGHT_THEME_CLASSES[variant],
-          DARK_THEME_CLASSES[variant],
-          {
-            ['ml-0']: !value,
-            ['ml-auto']: value,
-          },
-        )}
-      />
-    </div>
-  );
-};
+      {children}
+    </SwitchPrimitives.Thumb>
+  </SwitchPrimitives.Root>
+));
+Switch.displayName = SwitchPrimitives.Root.displayName;
 
-export default Switch;
+export { Switch };

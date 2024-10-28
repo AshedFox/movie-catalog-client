@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useLazyQuery, useMutation, useSubscription, useSuspenseQuery } from '@apollo/client';
+import { useSession } from '@features/auth/session';
 import {
   GetEpisodeBySeriesAndNumDocument,
   GetFilmDocument,
@@ -11,17 +12,11 @@ import {
   RoomPlaybackEndedDocument,
   RoomPlaybackStartedDocument,
 } from '@shared/api/graphql';
-import {
-  useLazyQuery,
-  useMutation,
-  useSubscription,
-  useSuspenseQuery_experimental,
-} from '@apollo/client';
-import { useUser } from '@entities/user';
 import { Button } from '@shared/ui';
-import Link from 'next/link';
 import { RoomVideoPlayer } from '@widgets/video-player';
+import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 type Props = {
   roomId: string;
@@ -29,7 +24,7 @@ type Props = {
 
 const ClientSide = ({ roomId }: Props) => {
   const router = useRouter();
-  const { data: roomData } = useSuspenseQuery_experimental(GetRoomDocument, {
+  const { data: roomData } = useSuspenseQuery(GetRoomDocument, {
     variables: {
       id: roomId,
     },
@@ -38,9 +33,7 @@ const ClientSide = ({ roomId }: Props) => {
   const [getFilm, { data: getFilmData }] = useLazyQuery(GetFilmDocument, {
     fetchPolicy: 'network-only',
   });
-  const [getEpisode, { data: getEpisodeData }] = useLazyQuery(
-    GetEpisodeBySeriesAndNumDocument,
-  );
+  const [getEpisode, { data: getEpisodeData }] = useLazyQuery(GetEpisodeBySeriesAndNumDocument);
   const [getCurrentPlayback] = useLazyQuery(GetRoomCurrentPlaybackDocument, {
     fetchPolicy: 'network-only',
   });
@@ -128,7 +121,7 @@ const ClientSide = ({ roomId }: Props) => {
       }
     },
   });
-  const { user } = useUser();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (roomData && roomData.getRoom.currentMovie) {
@@ -161,9 +154,9 @@ const ClientSide = ({ roomId }: Props) => {
     : undefined;
 
   return (
-    <main className="container h-without-header flex flex-col gap-2 md:gap-5">
+    <main className="flex-1 flex flex-col gap-2 md:gap-5 p-4 overflow-hidden">
       <h1 className="text-2xl font-bold">{`Room "${room.name}"`}</h1>
-      <div className="flex flex-auto items-center justify-center">
+      <div className="flex flex-col flex-auto items-center justify-center overflow-hidden">
         {watchable?.video?.dashManifestMedia ? (
           <RoomVideoPlayer
             onLoadedData={async (e) => {
@@ -202,9 +195,9 @@ const ClientSide = ({ roomId }: Props) => {
           <>No current video</>
         )}
       </div>
-      {user?.id === room.owner.id ? (
+      {session?.user?.id === room.owner.id ? (
         <Link className="w-fit" href={`/rooms/${roomId}/manage`}>
-          <Button stretch>Manage room</Button>
+          <Button>Manage room</Button>
         </Link>
       ) : (
         <div>

@@ -1,38 +1,40 @@
 'use client';
 
-import React, { startTransition } from 'react';
-import { Button } from '@shared/ui';
-import { useApolloClient, useMutation } from '@apollo/client';
+import React, { useState } from 'react';
+import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@entities/user';
-import { LogoutDocument } from '@shared/api/graphql';
+import { Button } from '@shared/ui/Button';
+import { LogOut } from 'lucide-react';
+import { useSession } from '@features/auth/session';
+import { logout } from '@features/auth';
 
 const LogoutButton = () => {
-  const { setUser } = useUser();
-  const [logout, { loading: loadingLogout }] = useMutation(LogoutDocument);
+  const session = useSession();
   const router = useRouter();
   const { cache } = useApolloClient();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setLoading(true);
+    const { errors } = await logout();
+
+    if (!errors) {
+      await cache.reset();
+      await session.update();
+      router.push('/login');
+    }
+    setLoading(false);
+  };
 
   return (
     <Button
-      variant="secondary"
+      className="w-full flex items-center gap-1"
+      variant="destructive"
       size="sm"
-      disabled={loadingLogout}
-      onClick={async () => {
-        const { data, errors } = await logout();
-
-        if (data && !errors) {
-          await cache.reset();
-
-          startTransition(() => {
-            router.push('/');
-
-            localStorage.removeItem('access-token');
-            setUser(null);
-          });
-        }
-      }}
+      isLoading={loading}
+      onClick={handleLogout}
     >
+      {!loading && <LogOut className="w-4 h-4" />}
       Logout
     </Button>
   );

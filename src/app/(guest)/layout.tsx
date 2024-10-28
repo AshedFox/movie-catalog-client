@@ -1,11 +1,16 @@
-import React, { ReactNode } from 'react';
-import { AuthChecker } from 'features/auth-checker';
+import { AuthChecker } from '@features/auth-checker';
+import { Header } from '@widgets/header';
+import { ReactNode } from 'react';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <AuthChecker redirect="/" shouldBeAuthorized={false}>
-      {children}
-    </AuthChecker>
+    <>
+      {/* @ts-expect-error Async Server Component */}
+      <AuthChecker redirectPath="/" shouldBeAuthorized={false}>
+        <Header isMini />
+        <div className="container pt-header h-screen flex flex-col">{children}</div>
+      </AuthChecker>
+    </>
   );
 };
 

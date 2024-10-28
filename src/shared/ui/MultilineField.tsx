@@ -9,10 +9,7 @@ type Props = {
 } & ComponentPropsWithoutRef<'textarea'>;
 
 const MultilineField = forwardRef<HTMLTextAreaElement, Props>(
-  (
-    { id, label, name, error, required, onChange, ...otherProps }: Props,
-    ref,
-  ) => (
+  ({ id, label, name, error, required, onChange, ...otherProps }: Props, ref) => (
     <div>
       <label className="text-sm font-medium mb-2" htmlFor={id ?? name}>
         {label}

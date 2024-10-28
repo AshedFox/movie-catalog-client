@@ -1,10 +1,7 @@
-import { SeriesSort } from '@shared/api/graphql';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 
-export const getParamsWithArgs = (
-  searchParams: URLSearchParams,
-  sortParam: keyof SeriesSort,
-) => {
-  const params = new URLSearchParams(searchParams);
+export const getParamsWithArgs = (searchParams: ReadonlyURLSearchParams, sortParam: string) => {
+  const params = new URLSearchParams(searchParams.toString());
 
   params.delete('page');
 

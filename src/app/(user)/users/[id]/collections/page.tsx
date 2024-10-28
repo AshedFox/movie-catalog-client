@@ -1,7 +1,6 @@
-import React from 'react';
-import { getClient } from '@shared/api/graphql/client';
+import { QueryPageNavigation } from '@features/page-navigation';
 import { GetCollectionsDocument, SortDirectionEnum } from '@shared/api/graphql';
-import { PageNavigation } from '@features/page-navigation';
+import { getClient } from '@shared/api/graphql/client';
 import CollectionsGrid from '@widgets/collections-grid/ui/CollectionsGrid';
 
 type Props = {
@@ -16,9 +15,7 @@ type Props = {
 export const generateMetadata = async ({ searchParams }: Props) => {
   return {
     title: `User collections${
-      searchParams?.page && Number(searchParams.page) > 1
-        ? ` - ${searchParams.page}`
-        : ''
+      searchParams?.page && Number(searchParams.page) > 1 ? ` - ${searchParams.page}` : ''
     }`,
   };
 };
@@ -48,7 +45,7 @@ const Page = async ({ searchParams, params }: Props) => {
     <main className="flex flex-col py-4 container flex-auto gap-2">
       <h1 className="font-semibold text-3xl leading-tight">User collections</h1>
       <CollectionsGrid items={data.getCollections.nodes} />
-      <PageNavigation
+      <QueryPageNavigation
         currentPage={page}
         amountPerPage={amountPerPage}
         totalCount={data.getCollections.pageInfo.totalCount}

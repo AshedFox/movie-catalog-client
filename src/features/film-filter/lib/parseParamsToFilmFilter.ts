@@ -11,15 +11,8 @@ type Params = {
 };
 
 export const parseParamsToFilmFilter = (searchParams: Params): FilmFilter => {
-  const {
-    title,
-    ageRestriction,
-    genre,
-    country,
-    studio,
-    releaseDateLTE,
-    releaseDateGTE,
-  } = searchParams;
+  const { title, ageRestriction, genre, country, studio, releaseDateLTE, releaseDateGTE } =
+    searchParams;
   const filter: FilmFilter = {};
 
   if (title) {

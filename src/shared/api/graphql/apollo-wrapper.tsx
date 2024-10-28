@@ -1,29 +1,27 @@
 'use client';
 
-import { ApolloClient, ApolloLink, SuspenseCache } from '@apollo/client';
+import { ApolloLink } from '@apollo/client';
+import { relayStylePagination } from '@apollo/client/utilities';
 import {
   ApolloNextAppProvider,
+  NextSSRApolloClient,
   NextSSRInMemoryCache,
   SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
 import { PropsWithChildren } from 'react';
 import { authLink, errorLink, retryLink, splitLink } from './links';
-import { relayStylePagination } from '@apollo/client/utilities';
 
-const makeClient = () => {
+export const makeClient = () => {
   const links = [authLink, errorLink, retryLink, splitLink];
 
-  return new ApolloClient({
+  return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache({
       typePolicies: {
         Query: {
           fields: {
             getMoviesReviewsRelay: relayStylePagination(['filter', 'sort']),
             getMoviesRelay: relayStylePagination(['filter', 'sort']),
-            getCollectionsReviewsRelay: relayStylePagination([
-              'filter',
-              'sort',
-            ]),
+            getCollectionsReviewsRelay: relayStylePagination(['filter', 'sort']),
           },
         },
       },
@@ -40,13 +38,6 @@ const makeClient = () => {
   });
 };
 
-const makeSuspenseCache = () => new SuspenseCache();
-
 export const ApolloWrapper = ({ children }: PropsWithChildren) => (
-  <ApolloNextAppProvider
-    makeClient={makeClient}
-    makeSuspenseCache={makeSuspenseCache}
-  >
-    {children}
-  </ApolloNextAppProvider>
+  <ApolloNextAppProvider makeClient={makeClient}>{children}</ApolloNextAppProvider>
 );

@@ -12,21 +12,18 @@ type Props = {
 };
 
 const CollectionMoviesBlock = ({ collectionId, moviesCount = 2 }: Props) => {
-  const { data, loading, error, refetch, fetchMore } = useQuery(
-    GetMoviesRelayDocument,
-    {
-      variables: {
-        filter: {
-          collectionsConnection: {
-            collectionId: {
-              eq: collectionId.toString(),
-            },
+  const { data, loading, error, refetch, fetchMore } = useQuery(GetMoviesRelayDocument, {
+    variables: {
+      filter: {
+        collectionsConnection: {
+          collectionId: {
+            eq: collectionId.toString(),
           },
         },
-        first: moviesCount,
       },
+      first: moviesCount,
     },
-  );
+  });
 
   if (loading) {
     return (

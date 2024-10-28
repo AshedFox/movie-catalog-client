@@ -32,12 +32,7 @@ query GetMoviesProtectedOffset(
   $sort: MovieSort
   $filter: MovieFilter
 ) {
-  getMoviesProtectedOffset(
-    limit: $limit
-    offset: $offset
-    sort: $sort
-    filter: $filter
-  ) {
+  getMoviesProtectedOffset(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...FilmCard_Film
       ...SeriesCard_Series
@@ -48,18 +43,8 @@ query GetMoviesProtectedOffset(
   }
 }
 
-query GetMoviesOffset(
-  $limit: Int!
-  $offset: Int!
-  $sort: MovieSort
-  $filter: MovieFilter
-) {
-  getMoviesOffset(
-    limit: $limit
-    offset: $offset
-    sort: $sort
-    filter: $filter
-  ) {
+query GetMoviesOffset($limit: Int!, $offset: Int!, $sort: MovieSort, $filter: MovieFilter) {
+  getMoviesOffset(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {
     nodes {
       ...FilmCard_Film
       ...SeriesCard_Series

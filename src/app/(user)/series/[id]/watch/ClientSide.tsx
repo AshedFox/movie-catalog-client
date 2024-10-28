@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSuspenseQuery_experimental } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import {
   EpisodeFragment,
   HasActiveSubscriptionDocument,
@@ -15,23 +15,17 @@ type Props = {
 };
 
 const ClientSide = ({ episode, seriesId }: Props) => {
-  const { data: hasPurchaseData } = useSuspenseQuery_experimental(
-    HasPurchaseDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-      variables: {
-        movieId: seriesId,
-      },
+  const { data: hasPurchaseData } = useSuspenseQuery(HasPurchaseDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+    variables: {
+      movieId: seriesId,
     },
-  );
-  const { data: hasSubscriptionData } = useSuspenseQuery_experimental(
-    HasActiveSubscriptionDocument,
-    {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-    },
-  );
+  });
+  const { data: hasSubscriptionData } = useSuspenseQuery(HasActiveSubscriptionDocument, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
 
   const canWatch =
     !!episode.video &&

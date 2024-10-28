@@ -1,11 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import {
-  useLazyQuery,
-  useMutation,
-  useSuspenseQuery_experimental,
-} from '@apollo/client';
+import { useLazyQuery, useMutation, useSuspenseQuery } from '@apollo/client';
+import { FilmRow } from '@entities/film';
+import { SeriesRow } from '@entities/series';
+import { useSession } from '@features/auth/session';
 import {
   CreateRoomMovieDocument,
   DeleteRoomDocument,
@@ -17,19 +15,17 @@ import {
   SortDirectionEnum,
   StartRoomPlaybackDocument,
 } from '@shared/api/graphql';
-import { useUser } from '@entities/user';
-import { Button, Field, List } from '@shared/ui';
-import { FilmRow } from '@entities/film';
-import { SeriesRow } from '@entities/series';
+import { Button, Field, List, buttonVariants } from '@shared/ui';
 import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 type Props = {
   roomId: string;
 };
 
 const ClientSide = ({ roomId }: Props) => {
-  const { data: roomData } = useSuspenseQuery_experimental(GetRoomDocument, {
+  const { data: roomData } = useSuspenseQuery(GetRoomDocument, {
     variables: {
       id: roomId,
     },
@@ -55,10 +51,7 @@ const ClientSide = ({ roomId }: Props) => {
           ...existing,
           getRoom: {
             ...existing?.getRoom,
-            movies: [
-              ...(existing?.getRoom.movies ?? []),
-              data?.createRoomMovie,
-            ],
+            movies: [...(existing?.getRoom.movies ?? []), data?.createRoomMovie],
           },
         },
       });
@@ -116,9 +109,7 @@ const ClientSide = ({ roomId }: Props) => {
           ...existing,
           getRoom: {
             ...existing?.getRoom!,
-            currentMovie: existing?.getRoom.movies.find(
-              (item) => item.order === 1,
-            ),
+            currentMovie: existing?.getRoom.movies.find((item) => item.order === 1),
           },
         },
       });
@@ -157,7 +148,8 @@ const ClientSide = ({ roomId }: Props) => {
   const [deleteRoom] = useMutation(DeleteRoomDocument);
   const [generateInvite] = useMutation(GenerateRoomInviteDocument);
 
-  const { user } = useUser();
+  const session = useSession();
+  const user = session.data?.user;
   const router = useRouter();
 
   const [search, setSearch] = useState<string>('');
@@ -214,35 +206,28 @@ const ClientSide = ({ roomId }: Props) => {
           <h2 className="text-xl font-semibold">Found films</h2>
           <div className="flex p-2 flex-auto overflow-auto">
             <List
-              items={searchMovies.map((item) => {
-                return {
-                  key: item.id,
-                  content: (
-                    <div className="flex flex-col flex-auto">
-                      <FilmRow key={item.id} film={item} />
-                      <Button
-                        size="sm"
-                        stretch
-                        variant="success"
-                        onClick={async () => {
-                          if (item.__typename === 'Film') {
-                            await createRoomMovie({
-                              variables: {
-                                input: {
-                                  roomId: room.id,
-                                  movieId: item.id,
-                                },
-                              },
-                            });
-                          }
-                        }}
-                      >
-                        Add
-                      </Button>
-                    </div>
-                  ),
-                };
-              })}
+              items={searchMovies.map((item) => (
+                <div className="flex flex-col flex-auto" key={item.id}>
+                  <FilmRow key={item.id} film={item} />
+                  <Button
+                    size="sm"
+                    onClick={async () => {
+                      if (item.__typename === 'Film') {
+                        await createRoomMovie({
+                          variables: {
+                            input: {
+                              roomId: room.id,
+                              movieId: item.id,
+                            },
+                          },
+                        });
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
+                </div>
+              ))}
             />
           </div>
         </div>
@@ -250,64 +235,51 @@ const ClientSide = ({ roomId }: Props) => {
           <h2 className="text-xl font-semibold">Current room movies</h2>
           <div className="flex p-2 flex-auto overflow-auto">
             <List
-              items={room.movies.map((roomMovie) => {
-                const item = roomMovie.movie;
-                return {
-                  key: item.id,
-                  content: (
-                    <div className="flex flex-col flex-auto">
-                      <div className="flex flex-auto gap-2">
-                        <div className="flex flex-col">
-                          <h4 className="shrink-0 w-12 font-semibold text-lg">
-                            #{roomMovie.order}
-                          </h4>
-                          {roomMovie.order ===
-                            (room?.currentMovie?.order ?? -1) && (
-                            <div className="flex items-center gap-0.5">
-                              <div className="rounded-full w-4 h-4 bg-red-500" />
-                              <div className="font-semibold text-sm">live</div>
-                            </div>
-                          )}
+              items={room.movies.map((roomMovie) => (
+                <div key={roomMovie.movie.id} className="flex flex-col flex-auto">
+                  <div className="flex flex-auto gap-2">
+                    <div className="flex flex-col">
+                      <h4 className="shrink-0 w-12 font-semibold text-lg">#{roomMovie.order}</h4>
+                      {roomMovie.order === (room?.currentMovie?.order ?? -1) && (
+                        <div className="flex items-center gap-0.5">
+                          <div className="rounded-full w-4 h-4 bg-red-500" />
+                          <div className="font-semibold text-sm">live</div>
                         </div>
-                        {item.__typename === 'Film' ? (
-                          <FilmRow key={item.id} film={item} />
-                        ) : (
-                          item.__typename === 'Series' && (
-                            <SeriesRow key={item.id} series={item} />
-                          )
-                        )}
-                      </div>
-                      {roomMovie.order !==
-                        (room?.currentMovie?.order ?? -1) && (
-                        <Button
-                          size="sm"
-                          stretch
-                          variant="danger"
-                          onClick={() =>
-                            deleteRoomMovie({
-                              variables: {
-                                roomId: room.id,
-                                movieId: item.id,
-                              },
-                            })
-                          }
-                        >
-                          Remove
-                        </Button>
                       )}
                     </div>
-                  ),
-                };
-              })}
+                    {roomMovie.movie.__typename === 'Film' ? (
+                      <FilmRow key={roomMovie.movie.id} film={roomMovie.movie} />
+                    ) : (
+                      roomMovie.movie.__typename === 'Series' && (
+                        <SeriesRow key={roomMovie.movie.id} series={roomMovie.movie} />
+                      )
+                    )}
+                  </div>
+                  {roomMovie.order !== (room?.currentMovie?.order ?? -1) && (
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() =>
+                        deleteRoomMovie({
+                          variables: {
+                            roomId: room.id,
+                            movieId: roomMovie.movie.id,
+                          },
+                        })
+                      }
+                    >
+                      Remove
+                    </Button>
+                  )}
+                </div>
+              ))}
             />
           </div>
         </div>
       </div>
       <div className="flex gap-2">
-        <Link href={`/rooms/${roomId}`}>
-          <Button size="sm" variant="success">
-            Go to room
-          </Button>
+        <Link className={buttonVariants({ size: 'sm' })} href={`/rooms/${roomId}`}>
+          Go to room
         </Link>
         <Button
           size="sm"
@@ -358,7 +330,7 @@ const ClientSide = ({ roomId }: Props) => {
         )}
         <Button
           size="sm"
-          variant="danger"
+          variant="destructive"
           onClick={async () => {
             if (window.confirm('Are you sure?')) {
               const { data } = await deleteRoom({

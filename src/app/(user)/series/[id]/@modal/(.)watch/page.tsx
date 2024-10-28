@@ -1,30 +1,28 @@
 import React from 'react';
-import { GetEpisodeBySeriesAndNumDocument } from '@shared/api/graphql';
+import {
+  GetEpisodeBySeriesAndNumDocument,
+  GetOneSeriesDocument,
+  GetSeasonsDocument,
+  SortDirectionEnum,
+} from '@shared/api/graphql';
 import { getClient } from '@shared/api/graphql/client';
 import { notFound } from 'next/navigation';
 import ClientSide from './ClientSide';
+import { Metadata } from 'next';
 
 type Props = {
   params: {
     id: string;
   };
-  searchParams: {
-    e?: string;
-  };
 };
 
 const client = getClient();
 
-const Page = async ({ params, searchParams }: Props) => {
-  if (!searchParams.e) {
-    notFound();
-  }
-
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { data } = await client.query({
-    query: GetEpisodeBySeriesAndNumDocument,
+    query: GetOneSeriesDocument,
     variables: {
-      seriesId: params.id,
-      numberInSeries: Number(searchParams.e),
+      id: params.id,
     },
   });
 
@@ -32,9 +30,43 @@ const Page = async ({ params, searchParams }: Props) => {
     notFound();
   }
 
-  return (
-    <ClientSide seriesId={params.id} episode={data.getEpisodeBySeriesAndNum} />
-  );
+  return {
+    title: `Watch "${data.getOneSeries.title}"`,
+    description: data.getOneSeries.description,
+  };
+};
+
+const Page = async ({ params }: Props) => {
+  const { data: seriesData } = await client.query({
+    query: GetOneSeriesDocument,
+    variables: {
+      id: params.id,
+    },
+  });
+
+  const { data: seasonsData } = await client.query({
+    query: GetSeasonsDocument,
+    variables: {
+      limit: 9999,
+      offset: 0,
+      filter: {
+        seriesId: {
+          eq: params.id,
+        },
+      },
+      sort: {
+        numberInSeries: {
+          direction: SortDirectionEnum.ASC,
+        },
+      },
+    },
+  });
+
+  if (!seriesData || !seasonsData) {
+    notFound();
+  }
+
+  return <ClientSide series={seriesData.getOneSeries} seasons={seasonsData.getSeasons.nodes} />;
 };
 
 export default Page;

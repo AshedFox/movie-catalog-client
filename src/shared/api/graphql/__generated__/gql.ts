@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  'mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: RegisterInput!) {\n  register(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n  }\n}\n\nmutation Logout {\n  logout\n}':
+  'mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: SignUpInput!) {\n  signUp(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Logout {\n  logout\n}':
     types.LoginDocument,
   'mutation AddCollectionMovie($movieId: String!, $collectionId: Int!) {\n  createCollectionMovie(movieId: $movieId, collectionId: $collectionId) {\n    collectionId\n    movie {\n      ...FilmCard_Film\n      ...SeriesCard_Series\n    }\n  }\n}\n\nmutation RemoveCollectionMovie($movieId: String!, $collectionId: Int!) {\n  deleteCollectionMovie(movieId: $movieId, collectionId: $collectionId) {\n    collectionId\n    movieId\n  }\n}':
     types.AddCollectionMovieDocument,
@@ -43,7 +43,7 @@ const documents = {
     types.ConfirmEmailDocument,
   'fragment Episode on Episode {\n  id\n  title\n  description\n  releaseDate\n  ageRestriction\n  numberInSeries\n  numberInSeason\n  cover {\n    url\n  }\n  video {\n    ...Video\n  }\n}':
     types.EpisodeFragmentDoc,
-  'query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}':
+  'query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}\n\nquery GetEpisodes($limit: Int!, $offset: Int!, $sort: EpisodeSort, $filter: EpisodeFilter) {\n  getEpisodes(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {\n    nodes {\n      ...Episode\n    }\n    pageInfo {\n      totalCount\n    }\n  }\n}':
     types.GetEpisodeBySeriesAndNumDocument,
   'fragment FilmBase on Film {\n  id\n  title\n  description\n  releaseDate\n  ageRestriction\n  rating\n}\n\nfragment FilmCard_Film on Film {\n  ...FilmBase\n  studios {\n    name\n  }\n  countries {\n    name\n  }\n  genres {\n    name\n  }\n  cover {\n    url\n  }\n}\n\nfragment FilmItem_Film on Film {\n  ...FilmBase\n  studios {\n    name\n  }\n  countries {\n    name\n  }\n  genres {\n    name\n  }\n  cover {\n    url\n  }\n  productId\n  video {\n    ...Video\n  }\n}':
     types.FilmBaseFragmentDoc,
@@ -51,7 +51,7 @@ const documents = {
     types.GetFilmsDocument,
   'query GetAllGenres($sort: GenreSort, $movieType: MovieTypeEnum) {\n  getAllGenres(sort: $sort) {\n    id\n    name\n    moviesCount(type: $movieType)\n  }\n}\n\nquery GetGenres($limit: Int!, $offset: Int!, $filter: GenreFilter, $sort: GenreSort) {\n  getGenres(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {\n    nodes {\n      id\n      name\n    }\n  }\n}':
     types.GetAllGenresDocument,
-  'mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}':
+  'mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}\n\nmutation CreateUpload($type: MediaTypeEnum!) {\n  createUpload(type: $type) {\n    mediaId\n    uploadUrl\n  }\n}':
     types.UploadImageDocument,
   'fragment MovieImageCard_MovieImage on MovieImage {\n  id\n  type {\n    id\n    name\n  }\n  image {\n    url\n  }\n}':
     types.MovieImageCard_MovieImageFragmentDoc,
@@ -67,7 +67,7 @@ const documents = {
     types.CreateMovieReviewDocument,
   'query GetMovieReview($id: Int!) {\n  getMovieReview(id: $id) {\n    ...MovieReview\n  }\n}\n\nquery HasMovieReview($movieId: String!) {\n  hasMovieReview(movieId: $movieId)\n}\n\nquery GetMoviesReviewsOffset($filter: MovieReviewFilter, $sort: MovieReviewSort, $offset: Int!, $limit: Int!, $withMovie: Boolean = false) {\n  getMoviesReviewsOffset(\n    filter: $filter\n    sort: $sort\n    offset: $offset\n    limit: $limit\n  ) {\n    nodes {\n      ...BaseMovieReview\n      movie @include(if: $withMovie) {\n        id\n        title\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nquery GetMoviesReviewsRelay($filter: MovieReviewFilter, $sort: MovieReviewSort, $before: String, $last: Int, $after: String, $first: Int, $withMovie: Boolean = false) {\n  getMoviesReviewsRelay(\n    filter: $filter\n    sort: $sort\n    before: $before\n    last: $last\n    first: $first\n    after: $after\n  ) {\n    edges {\n      node {\n        ...BaseMovieReview\n        movie @include(if: $withMovie) {\n          id\n          title\n        }\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n      hasNextPage\n    }\n  }\n}':
     types.GetMovieReviewDocument,
-  'fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  movieId\n  userId\n}':
+  'fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  isFavorite\n  movieId\n  userId\n}':
     types.MovieUserFragmentDoc,
   'mutation CreateMovieUser($input: CreateMovieUserInput!) {\n  createMovieUser(input: $input) {\n    ...MovieUser\n  }\n}\n\nmutation UpdateMovieUser($userId: String!, $movieId: String!, $input: UpdateMovieUserInput!) {\n  updateMovieUser(userId: $userId, movieId: $movieId, input: $input) {\n    ...MovieUser\n  }\n}':
     types.CreateMovieUserDocument,
@@ -120,8 +120,7 @@ const documents = {
     types.GetAllStudiosDocument,
   'mutation Subscribe($priceId: String!) {\n  subscribe(priceId: $priceId)\n}\n\nmutation CancelSubscription($id: String!) {\n  cancelSubscription(id: $id)\n}\n\nmutation CreateSubscriptionsManageLink {\n  createSubscriptionsManageLink\n}':
     types.SubscribeDocument,
-  'query HasActiveSubscription {\n  hasActiveSubscription\n}':
-    types.HasActiveSubscriptionDocument,
+  'query HasActiveSubscription {\n  hasActiveSubscription\n}': types.HasActiveSubscriptionDocument,
   'fragment BaseUser on User {\n  id\n  name\n  avatar {\n    url\n  }\n}\n\nfragment User on User {\n  ...BaseUser\n  email\n  createdAt\n  country {\n    id\n    name\n  }\n  role\n  isEmailConfirmed\n}':
     types.BaseUserFragmentDoc,
   'mutation UpdatePassword($oldPassword: String!, $newPassword: String!) {\n  updatePassword(oldPassword: $oldPassword, newPassword: $newPassword) {\n    ...User\n  }\n}\n\nmutation UpdateMe($input: UpdateUserInput!) {\n  updateMe(input: $input) {\n    ...User\n  }\n}\n\nmutation UpdateAvatar($file: Upload!) {\n  updateAvatar(file: $file) {\n    ...User\n  }\n}':
@@ -130,6 +129,8 @@ const documents = {
     types.GetMeDocument,
   'fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}':
     types.VideoFragmentDoc,
+  'query GetVideo($id: Int!) {\n  getVideo(id: $id) {\n    ...Video\n  }\n}':
+    types.GetVideoDocument,
 };
 
 /**
@@ -150,8 +151,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: RegisterInput!) {\n  register(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n  }\n}\n\nmutation Logout {\n  logout\n}',
-): (typeof documents)['mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: RegisterInput!) {\n  register(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n  }\n}\n\nmutation Logout {\n  logout\n}'];
+  source: 'mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: SignUpInput!) {\n  signUp(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Logout {\n  logout\n}',
+): (typeof documents)['mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation SignUp($input: SignUpInput!) {\n  signUp(input: $input) {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Refresh {\n  refresh {\n    accessToken\n    refreshToken\n    user {\n      ...User\n    }\n  }\n}\n\nmutation Logout {\n  logout\n}'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -240,8 +241,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}',
-): (typeof documents)['query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}'];
+  source: 'query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}\n\nquery GetEpisodes($limit: Int!, $offset: Int!, $sort: EpisodeSort, $filter: EpisodeFilter) {\n  getEpisodes(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {\n    nodes {\n      ...Episode\n    }\n    pageInfo {\n      totalCount\n    }\n  }\n}',
+): (typeof documents)['query GetEpisodeBySeriesAndNum($seriesId: String!, $numberInSeries: Int!) {\n  getEpisodeBySeriesAndNum(seriesId: $seriesId, numInSeries: $numberInSeries) {\n    ...Episode\n  }\n}\n\nquery GetEpisodes($limit: Int!, $offset: Int!, $sort: EpisodeSort, $filter: EpisodeFilter) {\n  getEpisodes(limit: $limit, offset: $offset, sort: $sort, filter: $filter) {\n    nodes {\n      ...Episode\n    }\n    pageInfo {\n      totalCount\n    }\n  }\n}'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -264,8 +265,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}',
-): (typeof documents)['mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}'];
+  source: 'mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}\n\nmutation CreateUpload($type: MediaTypeEnum!) {\n  createUpload(type: $type) {\n    mediaId\n    uploadUrl\n  }\n}',
+): (typeof documents)['mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file) {\n    id\n    url\n    type\n  }\n}\n\nmutation CreateUpload($type: MediaTypeEnum!) {\n  createUpload(type: $type) {\n    mediaId\n    uploadUrl\n  }\n}'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -312,8 +313,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  movieId\n  userId\n}',
-): (typeof documents)['fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  movieId\n  userId\n}'];
+  source: 'fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  isFavorite\n  movieId\n  userId\n}',
+): (typeof documents)['fragment MovieUser on MovieUser {\n  isBookmarked\n  isWatched\n  isFavorite\n  movieId\n  userId\n}'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -500,6 +501,12 @@ export function graphql(
 export function graphql(
   source: 'fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}',
 ): (typeof documents)['fragment Video on Video {\n  dashManifestMedia {\n    url\n  }\n  hlsManifestMedia {\n    url\n  }\n  subtitles {\n    languageId\n    file {\n      url\n    }\n  }\n}'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: 'query GetVideo($id: Int!) {\n  getVideo(id: $id) {\n    ...Video\n  }\n}',
+): (typeof documents)['query GetVideo($id: Int!) {\n  getVideo(id: $id) {\n    ...Video\n  }\n}'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

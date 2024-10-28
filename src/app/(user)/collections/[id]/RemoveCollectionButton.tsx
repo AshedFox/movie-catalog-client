@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Button } from '@shared/ui';
-import { useUser } from '@entities/user';
 import { useMutation } from '@apollo/client';
 import { DeleteCollectionDocument } from '@shared/api/graphql';
 import { useRouter } from 'next/navigation';
+import { useSession } from '@features/auth/session';
 
 type Props = {
   collectionId: string;
@@ -13,19 +13,19 @@ type Props = {
 };
 
 const RemoveCollectionButton = ({ collectionId, collectionOwnerId }: Props) => {
-  const { user } = useUser();
+  const session = useSession();
   const router = useRouter();
   const [removeCollection, { loading }] = useMutation(DeleteCollectionDocument);
 
-  if (user?.id !== collectionOwnerId) {
-    return <></>;
+  if (session.data?.user.id !== collectionOwnerId) {
+    return null;
   }
 
   return (
     <Button
-      disabled={loading}
+      isLoading={loading}
       size="sm"
-      variant="danger"
+      variant="destructive"
       onClick={async () => {
         if (window.confirm('Are you sure you want to remove collection?')) {
           const { data } = await removeCollection({
