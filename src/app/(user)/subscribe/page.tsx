@@ -14,6 +14,7 @@ const Page = async () => {
   const { data: subscriptionData } = await client.query({
     query: HasActiveSubscriptionDocument,
     fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore'
   });
 
   if (!subscriptionData || subscriptionData.hasActiveSubscription) {
