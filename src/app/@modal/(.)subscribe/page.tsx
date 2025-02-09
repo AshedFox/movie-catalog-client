@@ -5,6 +5,8 @@ import ClientSide from './ClientSide';
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = { title: 'Subscribe' };
 
 const Page = async () => {
@@ -12,6 +14,7 @@ const Page = async () => {
   const { data: subscriptionData } = await client.query({
     query: HasActiveSubscriptionDocument,
     fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
   });
 
   if (!subscriptionData || subscriptionData.hasActiveSubscription) {
