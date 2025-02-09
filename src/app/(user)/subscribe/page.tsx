@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import { SubscribeForm } from '@features/subscribe';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = { title: 'Subscribe' };
 
 const Page = async () => {
