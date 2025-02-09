@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { Session } from '../types';
-import { AUTH_SESSION_COOKIE_KEY } from '../constants';
+import { AUTH_BASE_URL, AUTH_SESSION_COOKIE_KEY } from '../constants';
 import { decodeJwt } from 'jose';
 import { refresh } from '../api';
 
 export const getSession = async (): Promise<Session | null> => {
   try {
     const res = await axios.get<Session | null>(
-      `${process.env.AUTH_URL ?? 'http://localhost:3001'}/api/auth/session`,
+      `${AUTH_BASE_URL}/api/auth/session`,
       { withCredentials: true },
     );
 

@@ -6,6 +6,7 @@ import {
   SignUpMutation,
 } from '@shared/api/graphql';
 import { GraphQLError } from 'graphql';
+import { AUTH_BASE_URL } from './constants';
 
 export const login = async (
   input: LoginInput,
@@ -13,7 +14,7 @@ export const login = async (
   data?: LoginMutation['login'];
   errors?: readonly GraphQLError[];
 }> => {
-  const res = await fetch(`${process.env.AUTH_URL ?? 'http://localhost:3001'}/api/auth/login`, {
+  const res = await fetch(`${AUTH_BASE_URL}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
@@ -33,7 +34,7 @@ export const signUp = async (
   data?: SignUpMutation['signUp'];
   errors?: readonly GraphQLError[];
 }> => {
-  const res = await fetch(`${process.env.AUTH_URL ?? 'http://localhost:3001'}/api/auth/sign-up`, {
+  const res = await fetch(`${AUTH_BASE_URL}/api/auth/sign-up`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
@@ -51,7 +52,7 @@ export const refresh = async (): Promise<{
   data?: RefreshMutation['refresh'];
   errors?: readonly GraphQLError[];
 }> => {
-  const res = await fetch(`${process.env.AUTH_URL ?? 'http://localhost:3001'}/api/auth/refresh`, {
+  const res = await fetch(`${AUTH_BASE_URL}/api/auth/refresh`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -68,7 +69,7 @@ export const refresh = async (): Promise<{
 export const logout = async (): Promise<{
   errors?: readonly GraphQLError[];
 }> => {
-  const res = await fetch(`${process.env.AUTH_URL ?? 'http://localhost:3001'}/api/auth/logout`, {
+  const res = await fetch(`${AUTH_BASE_URL}/api/auth/logout`, {
     method: 'POST',
     credentials: 'include',
   });
